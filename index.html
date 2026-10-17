@@ -187,6 +187,13 @@
       </nav>
 
       <div class="header-actions">
+        <!-- Dark / Light Theme Mode Toggle Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Switch to Dark Mode" title="Toggle Dark/Light Mode" type="button">
+          <span class="theme-toggle-icon theme-icon-moon" aria-hidden="true">🌙</span>
+          <span class="theme-toggle-icon theme-icon-sun" aria-hidden="true">☀️</span>
+          <span class="theme-toggle-label">Dark</span>
+        </button>
+
         <a href="#contact" class="btn btn-gold btn-sm">
           <span>Get a Free Quote</span>
           <span class="btn-arrow" aria-hidden="true">→</span>
@@ -247,6 +254,11 @@
     </ul>
 
     <div class="mobile-nav-footer">
+      <button id="mobile-theme-toggle-btn" class="theme-toggle-btn mobile-theme-btn" aria-label="Switch to Dark Mode" type="button">
+        <span class="theme-toggle-icon theme-icon-moon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle-icon theme-icon-sun" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-label">Switch to Dark Mode</span>
+      </button>
       <a href="#contact" class="btn btn-gold">
         <span>Start Your Project</span>
         <span class="btn-arrow" aria-hidden="true">→</span>
@@ -1393,6 +1405,29 @@
       </div>
     </div>
   </div>
+
+  <!-- ========================================================================
+       FLOATING QUICK CONNECT & THEME DOCK
+       ======================================================================== -->
+  <aside class="floating-contact-widget" aria-label="Quick Actions Dock">
+    <button id="dock-theme-toggle-btn" class="floating-contact-btn btn-theme-dock" aria-label="Toggle dark mode" data-tooltip="Toggle Dark Mode" type="button">
+      <span class="theme-toggle-icon theme-icon-moon" aria-hidden="true">🌙</span>
+      <span class="theme-toggle-icon theme-icon-sun" aria-hidden="true">☀️</span>
+    </button>
+    <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="floating-contact-btn btn-wa" aria-label="Chat on WhatsApp" data-tooltip="WhatsApp">
+      <span class="contact-btn-icon" aria-hidden="true">💬</span>
+      <span class="contact-btn-pulse" aria-hidden="true"></span>
+    </a>
+    <a href="tel:+918088381775" class="floating-contact-btn btn-call" aria-label="Call DBAH Quad" data-tooltip="Call Us">
+      <span class="contact-btn-icon" aria-hidden="true">📞</span>
+    </a>
+    <a href="mailto:hdeepak.ise.rymec@gmail.com" class="floating-contact-btn btn-email" aria-label="Email DBAH Quad" data-tooltip="Email Us">
+      <span class="contact-btn-icon" aria-hidden="true">✉</span>
+    </a>
+    <button id="back-to-top" class="floating-contact-btn btn-top" aria-label="Back to Top" data-tooltip="Back to Top" type="button">
+      <span class="contact-btn-icon" aria-hidden="true">↑</span>
+    </button>
+  </aside>
 
   <script>
     // Simple listener for legal modal

@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 9. Back to Top Button
   initBackToTop();
 
-  // 10. Dynamic Current Year
+  // 10. Dark / Light Mode Theme Toggle
+  initThemeToggle();
+
+  // 11. Dynamic Current Year
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -862,3 +865,73 @@ function initBackToTop() {
     });
   });
 }
+
+/* ==========================================================================
+   10. DARK / LIGHT THEME TOGGLE CONTROLLER
+   Turns all white/cream surfaces into sleek dark obsidian & updates typography
+   ========================================================================== */
+function initThemeToggle() {
+  const toggleBtns = document.querySelectorAll('#theme-toggle-btn, #mobile-theme-toggle-btn, #dock-theme-toggle-btn');
+  if (!toggleBtns.length) return;
+
+  const THEME_KEY = 'dbah_theme_mode';
+
+  function applyTheme(isDark) {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    // Update all toggle buttons text and aria-label
+    toggleBtns.forEach((btn) => {
+      const labelSpan = btn.querySelector('.theme-toggle-label');
+      if (isDark) {
+        btn.setAttribute('aria-label', 'Switch to Light Mode');
+        btn.setAttribute('title', 'Switch to Light Mode');
+        if (labelSpan) {
+          labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Light Mode' : 'Light';
+        }
+        if (btn.hasAttribute('data-tooltip')) {
+          btn.setAttribute('data-tooltip', 'Light Mode');
+        }
+      } else {
+        btn.setAttribute('aria-label', 'Switch to Dark Mode');
+        btn.setAttribute('title', 'Switch to Dark Mode');
+        if (labelSpan) {
+          labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Dark Mode' : 'Dark';
+        }
+        if (btn.hasAttribute('data-tooltip')) {
+          btn.setAttribute('data-tooltip', 'Dark Mode');
+        }
+      }
+    });
+  }
+
+  // Check saved preference or system preference
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme === 'dark') {
+    applyTheme(true);
+  } else {
+    applyTheme(false);
+  }
+
+  // Toggle handler
+  function handleToggleClick() {
+    const willBeDark = !document.body.classList.contains('dark-mode');
+    applyTheme(willBeDark);
+    localStorage.setItem(THEME_KEY, willBeDark ? 'dark' : 'light');
+
+    // Subtle haptic vibration if supported
+    if ('vibrate' in navigator) {
+      try { navigator.vibrate(25); } catch (_) {}
+    }
+  }
+
+  toggleBtns.forEach((btn) => {
+    btn.addEventListener('click', handleToggleClick);
+  });
+}
+
