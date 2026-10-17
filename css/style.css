@@ -953,7 +953,7 @@ img {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.25fr 0.75fr;
   align-items: center;
   gap: clamp(32px, 5vw, 64px);
 }
@@ -1024,52 +1024,53 @@ img {
   margin-top: 4px;
 }
 
-/* Hero Visual Showcase — Official Emblem Container */
+/* Hero Visual Showcase — Official Emblem Container (Zoomed Out & Balanced) */
 .hero-visual {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px;
 }
 
 .emblem-card {
   position: relative;
-  width: min(100%, 420px);
+  width: min(100%, 335px);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(13, 21, 42, 0.9) 0%, rgba(4, 6, 10, 0.95) 75%);
+  background: radial-gradient(circle, rgba(13, 21, 42, 0.92) 0%, rgba(4, 6, 10, 0.96) 75%);
   border: 1px solid var(--gold-border);
   box-shadow: 
-    0 0 60px rgba(212, 175, 55, 0.2),
-    0 20px 50px rgba(0, 0, 0, 0.8);
+    0 0 50px rgba(212, 175, 55, 0.22),
+    0 16px 45px rgba(0, 0, 0, 0.85);
   animation: emblemGentleFloat 6s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 @keyframes emblemGentleFloat {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-12px); }
+  100% { transform: translateY(-10px); }
 }
 
 .emblem-card::before {
   content: '';
   position: absolute;
-  inset: -15px;
+  inset: -16px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, transparent 70%);
   z-index: 0;
   pointer-events: none;
 }
 
 .emblem-glow-orbit {
   position: absolute;
-  inset: -2px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1px dashed rgba(212, 175, 55, 0.4);
+  border: 1px dashed rgba(212, 175, 55, 0.35);
   animation: ringRotate 30s linear infinite;
   pointer-events: none;
 }
@@ -1086,33 +1087,35 @@ img {
 }
 
 .emblem-card:hover .emblem-image {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
-/* Floating Technology / Quad Badges */
+/* Floating Technology / Quad Badges — Framed Outside the Rim */
 .floating-badge {
   position: absolute;
-  padding: 10px 18px;
-  background: rgba(13, 21, 42, 0.85);
-  border: 1px solid var(--gold-border);
+  padding: 8px 16px;
+  background: rgba(13, 21, 42, 0.92);
+  border: 1px solid var(--gold-border-bright);
   border-radius: var(--radius-full);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: var(--shadow-md);
-  z-index: 3;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.2);
+  z-index: 4;
   animation: floatBadge 4.5s ease-in-out infinite alternate;
+  white-space: nowrap;
 }
 
 .floating-badge-top {
-  top: 10%;
-  left: -20px;
+  top: -14px;
+  left: -28px;
 }
 
 .floating-badge-bottom {
-  bottom: 8%;
-  right: -20px;
+  bottom: -14px;
+  right: -28px;
   animation-delay: -2.25s;
 }
 
