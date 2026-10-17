@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Intro Logo Reveal Animation & "Why Choose Us?" Badge
   initIntroOverlay();
   initWhyChooseUsTickers();
+  initNavDisclaimerRotator();
 
   // 2. Ambient Gold Particle Canvas & Parallax
   initParticlesCanvas();
@@ -156,6 +157,80 @@ function initWhyChooseUsTickers() {
       });
     }
   });
+}
+
+/**
+ * Rotating Disclaimer & Terms Ticker (Directly Below Navigation Bar)
+ * Smoothly cycles through project disclaimer messages every 3.5 seconds
+ */
+function initNavDisclaimerRotator() {
+  const rotator = document.getElementById('nav-ticker-rotator');
+  if (!rotator) return;
+
+  const items = rotator.querySelectorAll('.nav-ticker-item');
+  const dots = document.querySelectorAll('.nav-ticker-dot');
+  if (items.length <= 1) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let currentIndex = 0;
+  let rotateInterval = null;
+
+  function showDisclaimer(index) {
+    items.forEach((item, i) => {
+      if (i === index) {
+        item.classList.add('active');
+        item.setAttribute('aria-hidden', 'false');
+      } else {
+        item.classList.remove('active');
+        item.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    if (dots.length) {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    currentIndex = index;
+  }
+
+  function nextDisclaimer() {
+    const next = (currentIndex + 1) % items.length;
+    showDisclaimer(next);
+  }
+
+  if (!prefersReducedMotion) {
+    function start() {
+      if (rotateInterval) clearInterval(rotateInterval);
+      rotateInterval = setInterval(nextDisclaimer, 3500);
+    }
+
+    function stop() {
+      if (rotateInterval) clearInterval(rotateInterval);
+    }
+
+    start();
+
+    // Pause on hover so the user can read the disclaimer without hurry
+    const tickerContainer = rotator.closest('.nav-disclaimer-ticker');
+    if (tickerContainer) {
+      tickerContainer.addEventListener('mouseenter', stop);
+      tickerContainer.addEventListener('mouseleave', start);
+      tickerContainer.addEventListener('focusin', stop);
+      tickerContainer.addEventListener('focusout', start);
+    }
+  }
+
+  // Clickable indicator dots
+  if (dots.length) {
+    dots.forEach((dot, idx) => {
+      dot.style.cursor = 'pointer';
+      dot.addEventListener('click', () => {
+        showDisclaimer(idx);
+      });
+    });
+  }
 }
 
 /* ==========================================================================
