@@ -4,8 +4,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Intro Logo Reveal Animation
+  // 1. Intro Logo Reveal Animation & "Why Choose Us?" Badge
   initIntroOverlay();
+  initWhyChooseUsTickers();
 
   // 2. Ambient Gold Particle Canvas & Parallax
   initParticlesCanvas();
@@ -40,40 +41,121 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. INTRO LOGO REVEAL
+   1. INTRO LOGO REVEAL & "WHY CHOOSE US?" ROTATING BADGE
    ========================================================================== */
 function initIntroOverlay() {
   const overlay = document.getElementById('intro-overlay');
   const skipBtn = document.getElementById('intro-skip-btn');
-  const progressFill = document.querySelector('.intro-progress-fill');
+  const enterBtn = document.getElementById('intro-enter-btn');
 
   if (!overlay) return;
-
-  const hasSeenIntro = sessionStorage.getItem('dbah_intro_seen');
-
-  if (hasSeenIntro === 'true') {
-    overlay.classList.add('hidden');
-    return;
-  }
-
-  // Trigger progress bar fill
-  if (progressFill) {
-    setTimeout(() => {
-      progressFill.style.width = '100%';
-    }, 100);
-  }
 
   function hideIntro() {
     overlay.classList.add('hidden');
     sessionStorage.setItem('dbah_intro_seen', 'true');
+    // Ensure body is unlocked
+    document.body.style.overflow = '';
   }
 
   if (skipBtn) {
     skipBtn.addEventListener('click', hideIntro);
   }
 
-  // Auto hide after 1.8 seconds for crisp premium feel
-  setTimeout(hideIntro, 1800);
+  if (enterBtn) {
+    enterBtn.addEventListener('click', hideIntro);
+  }
+
+  // Dismiss on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+      hideIntro();
+    }
+  });
+
+  // Ample time to watch feature ticker & read disclaimer (8.5s auto-hide)
+  setTimeout(() => {
+    if (!overlay.classList.contains('hidden')) {
+      hideIntro();
+    }
+  }, 8500);
+}
+
+/**
+ * Animated "Why Choose Us?" feature ticker controller
+ * Rotates through short feature messages every 2.4s with smooth transitions
+ */
+function initWhyChooseUsTickers() {
+  const tickerContainers = document.querySelectorAll('.why-ticker-container');
+  if (!tickerContainers.length) return;
+
+  // Check reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  tickerContainers.forEach((container) => {
+    const items = container.querySelectorAll('.why-ticker-item');
+    if (items.length <= 1) return;
+
+    // Find parent badge for dots
+    const parentBadge = container.closest('.intro-why-badge');
+    const dots = parentBadge ? parentBadge.querySelectorAll('.why-dot') : [];
+
+    let currentIndex = 0;
+    let timer = null;
+
+    function showItem(index) {
+      items.forEach((item, i) => {
+        if (i === index) {
+          item.classList.add('active');
+          item.setAttribute('aria-hidden', 'false');
+        } else {
+          item.classList.remove('active');
+          item.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      if (dots.length) {
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      }
+
+      currentIndex = index;
+    }
+
+    function nextItem() {
+      const next = (currentIndex + 1) % items.length;
+      showItem(next);
+    }
+
+    if (!prefersReducedMotion) {
+      function startRotation() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(nextItem, 2400);
+      }
+
+      function stopRotation() {
+        if (timer) clearInterval(timer);
+      }
+
+      startRotation();
+
+      // Pause rotation on hover or keyboard focus so user can read comfortably
+      container.addEventListener('mouseenter', stopRotation);
+      container.addEventListener('mouseleave', startRotation);
+      container.addEventListener('focusin', stopRotation);
+      container.addEventListener('focusout', startRotation);
+    }
+
+    // Dot click interaction
+    if (dots.length) {
+      dots.forEach((dot, idx) => {
+        dot.style.cursor = 'pointer';
+        dot.addEventListener('click', () => {
+          showItem(idx);
+        });
+      });
+    }
+  });
 }
 
 /* ==========================================================================
