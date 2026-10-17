@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Primary Meta Tags -->
+  <title>DBAH Quad Digital Labs — Four Minds. One Vision. Infinite Innovation.</title>
+  <meta name="title" content="DBAH Quad Digital Labs — Four Minds. One Vision. Infinite Innovation.">
+  <meta name="description" content="DBAH Quad Digital Labs helps businesses establish a strong digital presence through modern websites, thoughtful design, and practical digital solutions. Based in Hosapete / Hampi, Karnataka.">
+  <meta name="keywords" content="DBAH Quad, Digital Labs, Web Development, Hosapete Website Design, Hampi Web Developer, Resort Websites, Business Websites, E-commerce, Python Django, Karnataka Web Agency">
+  <meta name="author" content="DBAH Quad Digital Labs">
+  <meta name="theme-color" content="#04060A">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dbahquad.com/">
+  <meta property="og:title" content="DBAH Quad Digital Labs — Four Minds. One Vision. Infinite Innovation.">
+  <meta property="og:description" content="We build bespoke digital experiences that move businesses forward. Custom websites, hospitality portals, web applications, and digital solutions.">
+  <meta property="og:image" content="assets/images/dbah-quad-logo.png">
+
+  <!-- Twitter Meta -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="DBAH Quad Digital Labs">
+  <meta property="twitter:description" content="Four Minds. One Vision. Infinite Innovation. Premium Web Development & Digital Solutions.">
+  <meta property="twitter:image" content="assets/images/dbah-quad-logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JSON-LD Structured Data for Local Agency -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "DBAH Quad Digital Labs",
+    "image": "assets/images/dbah-quad-logo.png",
+    "description": "DBAH Quad Digital Labs helps businesses establish a strong digital presence through modern websites, thoughtful design, and practical digital solutions.",
+    "telephone": "+91-8088381775",
+    "email": "hdeepak.ise.rymec@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kondanayakana Halli, Hosapete / Hampi",
+      "addressRegion": "Karnataka",
+      "addressCountry": "IN"
+    },
+    "founder": [
+      { "@type": "Person", "name": "Deepak" },
+      { "@type": "Person", "name": "Bharath" },
+      { "@type": "Person", "name": "Adarsh" },
+      { "@type": "Person", "name": "Hari" }
+    ],
+    "slogan": "Four Minds. One Vision. Infinite Innovation."
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       INTRO LOGO REVEAL OVERLAY (1-2s Premium Experience)
+       ======================================================================== -->
+  <div id="intro-overlay" role="dialog" aria-modal="true" aria-label="Welcome to DBAH Quad Digital Labs">
+    <div class="intro-content">
+      <div class="intro-logo-wrapper">
+        <div class="intro-logo-aura"></div>
+        <div class="intro-logo-ring"></div>
+        <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Digital Labs Official Emblem" class="intro-logo-img">
+      </div>
+      <h2 class="intro-title text-gold">DBAH QUAD DIGITAL LABS</h2>
+      <p class="intro-tagline">Four Minds. One Vision. Infinite Innovation.</p>
+      <div class="intro-progress-bar">
+        <div class="intro-progress-fill"></div>
+      </div>
+    </div>
+    <button id="intro-skip-btn" class="intro-skip-btn" aria-label="Skip Introduction">Skip Intro ➔</button>
+  </div>
+
+  <!-- Background Ambient Particles Canvas -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- ========================================================================
+       HEADER & NAVIGATION
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand-link" aria-label="DBAH Quad Digital Labs Home">
+        <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-title">DBAH QUAD</span>
+          <span class="brand-subtitle">DIGITAL LABS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#process" class="nav-link">Process</a></li>
+          <li><a href="#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-gold btn-sm">
+          <span>Get a Free Quote</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <button class="menu-toggle" aria-label="Toggle Mobile Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-backdrop"></div>
+  <aside class="mobile-nav" aria-label="Mobile Navigation Drawer">
+    <ul class="mobile-menu-list">
+      <li><a href="#home" class="mobile-menu-link">Home <span>➔</span></a></li>
+      <li><a href="#services" class="mobile-menu-link">Our Services <span>➔</span></a></li>
+      <li><a href="#portfolio" class="mobile-menu-link">Portfolio & Projects <span>➔</span></a></li>
+      <li><a href="#about" class="mobile-menu-link">About DBAH Quad <span>➔</span></a></li>
+      <li><a href="#process" class="mobile-menu-link">Our Process <span>➔</span></a></li>
+      <li><a href="#pricing" class="mobile-menu-link">Pricing Packages <span>➔</span></a></li>
+      <li><a href="#contact" class="mobile-menu-link">Contact Us <span>➔</span></a></li>
+    </ul>
+
+    <div class="mobile-nav-footer">
+      <a href="#contact" class="btn btn-gold">
+        <span>Start Your Project</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline">
+        <span>WhatsApp Us</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Landmark -->
+  <main>
+
+    <!-- ======================================================================
+         SECTION 1: HERO
+         ====================================================================== -->
+    <section id="home" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="hero-badge-wrap">
+            <span class="eyebrow-badge">Kondanayakana Halli • Hosapete & Hampi • Karnataka</span>
+          </div>
+
+          <h1 class="hero-title">
+            We Build Digital Experiences
+            <span class="highlight-line text-gold">That Move Businesses Forward.</span>
+          </h1>
+
+          <p class="hero-description">
+            DBAH Quad Digital Labs helps businesses establish a strong digital presence through modern websites, thoughtful design, and practical digital solutions.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-gold btn-lg">
+              <span>Start Your Project</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#portfolio" class="btn btn-gold-outline btn-lg">
+              <span>Explore Our Work</span>
+            </a>
+          </div>
+
+          <!-- Hero Trust Metrics -->
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Bespoke Clean Code</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="stat-number">4 Minds</span>
+              <span class="stat-label">One Focused Vision</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="stat-number">Direct</span>
+              <span class="stat-label">Founder Collaboration</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase with Official Emblem -->
+        <div class="hero-visual reveal reveal-delay-2">
+          <div class="emblem-card">
+            <div class="emblem-glow-orbit"></div>
+            <img src="assets/images/dbah-quad-logo.png" alt="Official DBAH Quad Digital Labs Emblem with Kondanayakana Halli Map" class="emblem-image">
+
+            <!-- Floating Highlights -->
+            <div class="floating-badge floating-badge-top">
+              <div class="badge-icon">★</div>
+              <div>
+                <div class="badge-text-primary">Four Minds. One Vision.</div>
+                <div class="badge-text-secondary">Infinite Innovation</div>
+              </div>
+            </div>
+
+            <div class="floating-badge floating-badge-bottom">
+              <div class="badge-icon">📍</div>
+              <div>
+                <div class="badge-text-primary">KN Halli Heritage</div>
+                <div class="badge-text-secondary">Hosapete / Hampi Region</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: SERVICES
+         ====================================================================== -->
+    <section id="services" class="services-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">What We Do</span>
+          <h2>Crafted Web & Digital <span class="text-gold">Services</span></h2>
+          <p>We deliver clean, high-performance, and practical digital solutions tailored specifically to help local and regional businesses thrive online.</p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service 1: Business Website Development -->
+          <article class="service-card reveal">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <h3 class="service-title">Business Website Development</h3>
+            <p class="service-desc">Tailored multi-page corporate and commercial websites showcasing your services, brand identity, and customer credibility.</p>
+            <div class="service-tags">
+              <span class="service-tag">Corporate</span>
+              <span class="service-tag">Brand Identity</span>
+              <span class="service-tag">Lead Generation</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 2: Hotel, Resort & Restaurant Websites -->
+          <article class="service-card reveal reveal-delay-1">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <h3 class="service-title">Hotel, Resort & Restaurant Websites</h3>
+            <p class="service-desc">Atmospheric hospitality portals for resorts, guest houses, and restaurants featuring room galleries, menus, and direct WhatsApp booking.</p>
+            <div class="service-tags">
+              <span class="service-tag">Hampi Tourism</span>
+              <span class="service-tag">Resorts</span>
+              <span class="service-tag">Direct Bookings</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 3: E-commerce Websites -->
+          <article class="service-card reveal reveal-delay-2">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            </div>
+            <h3 class="service-title">E-commerce Websites</h3>
+            <p class="service-desc">Product catalogs, intuitive shopping carts, payment gateway integrations, and order enquiry workflows to sell products online.</p>
+            <div class="service-tags">
+              <span class="service-tag">Product Catalog</span>
+              <span class="service-tag">Cart & Checkout</span>
+              <span class="service-tag">Secure Pay</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 4: Landing Pages & Portfolios -->
+          <article class="service-card reveal reveal-delay-3">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <h3 class="service-title">Landing Pages & Portfolio Websites</h3>
+            <p class="service-desc">High-conversion single-page sites and personal developer/creator portfolios built with laser-focused visual appeal and fast loading speeds.</p>
+            <div class="service-tags">
+              <span class="service-tag">High Conversion</span>
+              <span class="service-tag">Portfolio</span>
+              <span class="service-tag">Fast Load</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 5: Redesign & Responsiveness -->
+          <article class="service-card reveal">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            </div>
+            <h3 class="service-title">Website Redesign & Mobile Responsiveness</h3>
+            <p class="service-desc">Transforming outdated, slow, or broken layouts into modern, mobile-first designs that look exceptional on every smartphone screen.</p>
+            <div class="service-tags">
+              <span class="service-tag">Modernization</span>
+              <span class="service-tag">Mobile First</span>
+              <span class="service-tag">Fluid UX</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 6: Maintenance & Support -->
+          <article class="service-card reveal reveal-delay-1">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+            </div>
+            <h3 class="service-title">Website Maintenance & Support</h3>
+            <p class="service-desc">Regular content updates, uptime checks, security hygiene, performance monitoring, and rapid bug resolution for peace of mind.</p>
+            <div class="service-tags">
+              <span class="service-tag">Uptime Monitoring</span>
+              <span class="service-tag">Backups</span>
+              <span class="service-tag">Bug Fixes</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 7: UI/UX Design -->
+          <article class="service-card reveal reveal-delay-2">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
+            <h3 class="service-title">UI/UX Design</h3>
+            <p class="service-desc">Intuitive interface design, structured design systems, polished micro-interactions, and accessible typography that visitors enjoy navigating.</p>
+            <div class="service-tags">
+              <span class="service-tag">Wireframing</span>
+              <span class="service-tag">Design Systems</span>
+              <span class="service-tag">Accessibility</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+
+          <!-- Service 8: Basic SEO & Digital Presence Setup -->
+          <article class="service-card reveal reveal-delay-3">
+            <div class="service-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <h3 class="service-title">Basic SEO & Digital Presence Setup</h3>
+            <p class="service-desc">Search engine optimization fundamentals, Google Business profile setup, OpenGraph metadata, and sitemaps so customers find you on Google.</p>
+            <div class="service-tags">
+              <span class="service-tag">On-Page SEO</span>
+              <span class="service-tag">Google Business</span>
+              <span class="service-tag">Open Graph</span>
+            </div>
+            <a href="#contact" class="service-cta-link">Request Quote <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 3: PORTFOLIO & PROJECTS
+         ====================================================================== -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">Verified Work</span>
+          <h2>Featured <span class="text-gold">Portfolio Projects</span></h2>
+          <p>Inspect our genuine client websites and full-stack engineering work. Every project is backed by authentic codebases and verified live deployments.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="portfolio-filters reveal">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="hospitality">Commercial & Hospitality</button>
+          <button class="filter-btn" data-filter="webapp">Full-Stack Web Apps</button>
+          <button class="filter-btn" data-filter="education">Education</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+
+          <!-- Project 1: Sri Sai Blossom Kids -->
+          <article class="project-card reveal" data-category="education">
+            <div class="project-media">
+              <img src="assets/images/projects/sri-sai-blossom.png" alt="Sri Sai Blossom Kids School Exterior" class="project-img" loading="lazy">
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Education & Institution</span>
+              <h3 class="project-title">Sri Sai Blossom Kids</h3>
+              <p class="project-desc">Official website for Sri Sai Blossom Kids kindergarten and educational institution. Features event galleries, curriculum overviews, admission forms, and responsive design.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">HTML5</span>
+                <span class="tech-pill">CSS3</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">Vercel</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://sri-sai-blossom-kids.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="sri-sai-blossom">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Maya Valley Resort Hampi -->
+          <article class="project-card reveal reveal-delay-1" data-category="hospitality">
+            <div class="project-media">
+              <img src="assets/images/projects/maya-valley-resort.webp" alt="Maya Valley Resort Hampi Scenic View" class="project-img" loading="lazy">
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Hotel & Hospitality</span>
+              <h3 class="project-title">Maya Valley Resort Hampi</h3>
+              <p class="project-desc">A responsive luxury resort and hospitality website in Hampi, Karnataka. Showcases accommodation suites, on-site dining, nature activities, and direct booking enquiries.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">HTML5</span>
+                <span class="tech-pill">CSS3</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">Vercel</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://maya-valley-resort-hampi-sxdc.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="maya-valley">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: Sri Manjunatha Tours & Travels -->
+          <article class="project-card reveal reveal-delay-2" data-category="hospitality">
+            <div class="project-media">
+              <img src="assets/images/projects/sri-manjunatha-travels.png" alt="Sri Manjunatha Tours Vehicle Fleet" class="project-img" loading="lazy">
+              <span class="project-status-badge badge-repo">GitHub Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Travel & Fleet Booking</span>
+              <h3 class="project-title">Sri Manjunatha Tours & Travels</h3>
+              <p class="project-desc">Official website for Sri Manjunatha Tours & Travels, Hosapete & Hampi. Cinematic travel portal with fleet showcase (buses, tempo travelers, cabs), and online WhatsApp booking.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">React</span>
+                <span class="tech-pill">Vite</span>
+                <span class="tech-pill">TypeScript</span>
+                <span class="tech-pill">WhatsApp API</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/hdeepak06/sri-manjunatha-travels" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>View Code</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="sri-manjunatha">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Anil Bike Rental Hampi -->
+          <article class="project-card reveal reveal-delay-3" data-category="hospitality">
+            <div class="project-media">
+              <img src="assets/images/projects/anil-bike-rental.png" alt="Anil Bike Rental Vehicle" class="project-img" loading="lazy">
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Vehicle Rental & Tourism</span>
+              <h3 class="project-title">Anil Bike Rental Hampi</h3>
+              <p class="project-desc">Responsive two-wheeler rental website for tourists visiting Hampi, Karnataka. Includes hourly/daily pricing cards, rental inventory, customer requirements, and instant booking.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">HTML5</span>
+                <span class="tech-pill">CSS3</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">Vercel</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://anil-bike-rental-hampi.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="anil-bike">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5: FinalMealmate -->
+          <article class="project-card reveal" data-category="webapp">
+            <div class="project-media" style="display:flex;align-items:center;justify-content:center;background:radial-gradient(circle, #101c38 0%, #060913 100%);">
+              <div style="text-align:center;padding:20px;">
+                <span style="font-size:2.8rem;">🍲</span>
+                <div style="font-family:var(--font-heading);font-weight:700;color:#FFFFFF;margin-top:8px;">FinalMealmate</div>
+              </div>
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Full-Stack Web App</span>
+              <h3 class="project-title">FinalMealmate Food Delivery</h3>
+              <p class="project-desc">Django-powered food ordering platform with a dedicated surplus food donation module for community kitchens to prevent food waste.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://finalmealmate-food-delivery-app.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="finalmealmate">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6: Medico Healthcare Management -->
+          <article class="project-card reveal reveal-delay-1" data-category="webapp">
+            <div class="project-media" style="display:flex;align-items:center;justify-content:center;background:radial-gradient(circle, #0e1e3b 0%, #040812 100%);">
+              <div style="text-align:center;padding:20px;">
+                <span style="font-size:2.8rem;">🏥</span>
+                <div style="font-family:var(--font-heading);font-weight:700;color:#FFFFFF;margin-top:8px;">Medico</div>
+              </div>
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Healthcare System</span>
+              <h3 class="project-title">Medico Clinic & Pharmacy</h3>
+              <p class="project-desc">Comprehensive medical management system for clinics and pharmacies handling appointments, digital patient records, prescriptions, and billing.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Bootstrap</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://medico-six-sigma.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="medico">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 7: BallotBridge -->
+          <article class="project-card reveal reveal-delay-2" data-category="webapp">
+            <div class="project-media" style="display:flex;align-items:center;justify-content:center;background:radial-gradient(circle, #152244 0%, #060913 100%);">
+              <div style="text-align:center;padding:20px;">
+                <span style="font-size:2.8rem;">🗳️</span>
+                <div style="font-family:var(--font-heading);font-weight:700;color:#FFFFFF;margin-top:8px;">BallotBridge</div>
+              </div>
+              <span class="project-status-badge badge-live">Live Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Security & E-Voting</span>
+              <h3 class="project-title">BallotBridge E-Voting Platform</h3>
+              <p class="project-desc">Secure electronic voting platform with voter authentication, encrypted ballot transmission, real-time result aggregation, and tamper-resistant audit logs.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Crypto</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://ballot-bridge-lovat.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Visit Live</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="ballotbridge">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 8: Academic Course Registration -->
+          <article class="project-card reveal reveal-delay-3" data-category="education">
+            <div class="project-media" style="display:flex;align-items:center;justify-content:center;background:radial-gradient(circle, #1a2542 0%, #05070e 100%);">
+              <div style="text-align:center;padding:20px;">
+                <span style="font-size:2.8rem;">📚</span>
+                <div style="font-family:var(--font-heading);font-weight:700;color:#FFFFFF;margin-top:8px;">CoursePortal</div>
+              </div>
+              <span class="project-status-badge badge-repo">GitHub Verified</span>
+            </div>
+            <div class="project-body">
+              <span class="project-category">Academic Web App</span>
+              <h3 class="project-title">Course Registration Portal</h3>
+              <p class="project-desc">Student course registration and faculty administration portal built with Django and relational database modeling for automated course scheduling.</p>
+              <div class="project-tech-stack">
+                <span class="tech-pill">Python</span>
+                <span class="tech-pill">Django</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">JavaScript</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/hdeepak06/course-registration" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>View Code</span> <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn btn-gold-outline btn-sm" data-project-key="course-registration">View Details</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 4: ABOUT US
+         ====================================================================== -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="about-intro-grid">
+          <div class="about-text reveal">
+            <span class="eyebrow-badge">About DBAH Quad</span>
+            <h2>Four Minds. One Vision. <span class="text-gold">Infinite Innovation.</span></h2>
+            <p>
+              <strong>DBAH Quad Digital Labs</strong> is a growing digital solutions team focused on building modern, responsive websites and helping businesses improve their online presence.
+            </p>
+            <p>
+              Born from the historic soil of <strong>Kondanayakana Halli (KN Halli)</strong> in the Hosapete and Hampi region of Karnataka, our agency unites technical precision, thoughtful design, and a tireless commitment to quality.
+            </p>
+            <p>
+              Whether you are an established resort owner welcoming international tourists, a local business taking your first step onto the web, or an institution requiring custom web software, we deliver reliable solutions built to last.
+            </p>
+            <a href="#contact" class="btn btn-gold" style="margin-top: 12px;">
+              <span>Start Your Project With Us</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <!-- Emblem Showcase Frame in About -->
+          <div class="reveal reveal-delay-2" style="display:flex;justify-content:center;">
+            <div style="max-width:380px;text-align:center;background:var(--bg-card);border:1px solid var(--gold-border);border-radius:var(--radius-lg);padding:32px;backdrop-filter:blur(16px);">
+              <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" style="width:200px;height:200px;margin:0 auto 20px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 20px rgba(212,175,55,0.4));">
+              <h4 style="font-size:1.25rem;color:#FFFFFF;margin-bottom:8px;">Rooted in KN Halli</h4>
+              <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
+                The golden emblem represents the four innovators, our collective infinity loop, and the geographic map of Kondanayakana Halli by the Tungabhadra river.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four Founders Breakdown (D - B - A - H) -->
+        <div class="reveal">
+          <div style="text-align:center;margin-bottom:24px;">
+            <span class="eyebrow-badge">The Quad Architecture</span>
+            <h3>What "DBAH" Stands For</h3>
+          </div>
+
+          <div class="quad-grid">
+            <div class="founder-letter-card">
+              <div class="founder-letter">D</div>
+              <div class="founder-name">Deepak</div>
+              <div class="founder-role">Full-Stack Lead</div>
+            </div>
+            <div class="founder-letter-card">
+              <div class="founder-letter">B</div>
+              <div class="founder-name">Bharath</div>
+              <div class="founder-role">Frontend & Design</div>
+            </div>
+            <div class="founder-letter-card">
+              <div class="founder-letter">A</div>
+              <div class="founder-name">Adarsh</div>
+              <div class="founder-role">Systems & Architecture</div>
+            </div>
+            <div class="founder-letter-card">
+              <div class="founder-letter">H</div>
+              <div class="founder-name">Hari</div>
+              <div class="founder-role">QA & Deployment</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four Pillars of Innovation -->
+        <div class="pillars-grid reveal reveal-delay-1" style="margin-top: 48px;">
+          <div class="pillar-card">
+            <div class="pillar-number">PILLAR 01</div>
+            <h4 class="pillar-title">Bespoke Craftsmanship</h4>
+            <p class="pillar-desc">We never rely on bloated templates. Every layout, typography selection, and color palette is intentionally crafted.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-number">PILLAR 02</div>
+            <h4 class="pillar-title">Precision Engineering</h4>
+            <p class="pillar-desc">Clean, lightweight semantic HTML5, modern CSS3, and vanilla JavaScript ensure lightning-fast Core Web Vitals.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-number">PILLAR 03</div>
+            <h4 class="pillar-title">Absolute Transparency</h4>
+            <p class="pillar-desc">Clear scopes, honest pricing, verified GitHub codebases, and direct communication with the founders.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-number">PILLAR 04</div>
+            <h4 class="pillar-title">Long-Term Partnership</h4>
+            <p class="pillar-desc">We do not disappear after launch. We provide ongoing support, routine backups, and maintenance packages.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 5: OUR PROCESS
+         ====================================================================== -->
+    <section id="process" class="process-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">How We Work</span>
+          <h2>A Streamlined <span class="text-gold">Four-Step Process</span></h2>
+          <p>From initial discovery to post-launch maintenance, we follow a disciplined, transparent roadmap to ensure your project exceeds expectations.</p>
+        </div>
+
+        <div class="process-timeline">
+          <!-- Step 1: Discover -->
+          <div class="process-step-card reveal">
+            <div class="step-header">
+              <div class="step-badge">01</div>
+              <div class="step-icon">🔍</div>
+            </div>
+            <h3 class="step-name">Discover</h3>
+            <p class="step-desc">We listen closely to understand your business objectives, target audience, local market competition, and specific functional requirements.</p>
+          </div>
+
+          <!-- Step 2: Design -->
+          <div class="process-step-card reveal reveal-delay-1">
+            <div class="step-header">
+              <div class="step-badge">02</div>
+              <div class="step-icon">🎨</div>
+            </div>
+            <h3 class="step-name">Design</h3>
+            <p class="step-desc">We plan the information architecture, wireframe intuitive user journeys, and establish an aesthetic visual identity with cohesive typography and palettes.</p>
+          </div>
+
+          <!-- Step 3: Develop -->
+          <div class="process-step-card reveal reveal-delay-2">
+            <div class="step-header">
+              <div class="step-badge">03</div>
+              <div class="step-icon">⚡</div>
+            </div>
+            <h3 class="step-name">Develop</h3>
+            <p class="step-desc">We write clean, modular, semantic code. We rigorously test across mobile devices (320px to 1440px), validate forms, and optimize performance.</p>
+          </div>
+
+          <!-- Step 4: Launch & Support -->
+          <div class="process-step-card reveal reveal-delay-3">
+            <div class="step-header">
+              <div class="step-badge">04</div>
+              <div class="step-icon">🚀</div>
+            </div>
+            <h3 class="step-name">Launch & Support</h3>
+            <p class="step-desc">We deploy your website to high-speed CDN hosting (Vercel/Cloud), connect your custom domain, configure SEO, and provide agreed maintenance support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 6: PRICING PACKAGES
+         ====================================================================== -->
+    <section id="pricing" class="pricing-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">Transparent Pricing</span>
+          <h2>Predictable <span class="text-gold">Website Packages</span></h2>
+          <p>Transparent starting prices clearly marked as indicative and subject to scope. No hidden surprises.</p>
+        </div>
+
+        <div class="pricing-disclaimer reveal">
+          ℹ️ <strong>Note on Scope:</strong> Prices listed are starting estimates for standard deliverables. Domain registration, cloud hosting, paid third-party APIs, and custom database integrations are quoted according to client preferences.
+        </div>
+
+        <div class="pricing-grid">
+
+          <!-- Package 1: Starter Website -->
+          <div class="pricing-card reveal">
+            <div class="pricing-header">
+              <h3 class="package-name">Starter Website</h3>
+              <p class="package-target">Perfect for personal portfolios, single landing pages, or small local shops.</p>
+              <div class="price-box">
+                <span class="price-currency">₹</span>
+                <span class="price-amount">3,999</span>
+                <span class="price-term">/ starting</span>
+              </div>
+            </div>
+            <ul class="features-list">
+              <li class="feature-item"><span class="feature-check">✔</span> Custom single-page responsive layout</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Mobile-friendly (320px to 1440px)</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Contact details & WhatsApp click-to-chat</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Basic Google meta tags setup</li>
+              <li class="feature-item"><span class="feature-check">✔</span> High-speed Vercel/CDN deployment</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold-outline" data-plan-name="Starter Website" data-plan-budget="3k-8k">
+              <span>Request a Quote</span> <span class="btn-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- Package 2: Business Website (Featured) -->
+          <div class="pricing-card featured reveal reveal-delay-1">
+            <div class="featured-ribbon">Most Popular</div>
+            <div class="pricing-header">
+              <h3 class="package-name">Business Website</h3>
+              <p class="package-target">Ideal for resorts, hotels, clinics, schools, and established regional businesses.</p>
+              <div class="price-box">
+                <span class="price-currency">₹</span>
+                <span class="price-amount">7,999</span>
+                <span class="price-term">/ starting</span>
+              </div>
+            </div>
+            <ul class="features-list">
+              <li class="feature-item"><span class="feature-check">✔</span> Up to 5 custom-designed multi-sections/pages</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Interactive photo gallery & service cards</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Validated lead enquiry form with WhatsApp</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Full On-Page SEO & OpenGraph cards</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Google Maps integration & custom domain link</li>
+              <li class="feature-item"><span class="feature-check">✔</span> 14 days complimentary post-launch support</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" data-plan-name="Business Website" data-plan-budget="8k-15k">
+              <span>Request a Quote</span> <span class="btn-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- Package 3: Professional Website -->
+          <div class="pricing-card reveal reveal-delay-2">
+            <div class="pricing-header">
+              <h3 class="package-name">Professional Website</h3>
+              <p class="package-target">For complex web apps, e-commerce catalogs, and dynamic database portals.</p>
+              <div class="price-box">
+                <span class="price-currency">₹</span>
+                <span class="price-amount">14,999</span>
+                <span class="price-term">/ starting</span>
+              </div>
+            </div>
+            <ul class="features-list">
+              <li class="feature-item"><span class="feature-check">✔</span> Custom full-stack web application (Django/React)</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Database modeling & user authentication</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Advanced motion design & micro-interactions</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Product catalogs or custom admin portal</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Speed & Core Web Vitals optimization</li>
+              <li class="feature-item"><span class="feature-check">✔</span> 30 days post-launch support</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold-outline" data-plan-name="Professional Website" data-plan-budget="15k-30k">
+              <span>Request a Quote</span> <span class="btn-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- Package 4: Website Maintenance -->
+          <div class="pricing-card reveal reveal-delay-3">
+            <div class="pricing-header">
+              <h3 class="package-name">Website Maintenance</h3>
+              <p class="package-target">Keep your existing website secure, fresh, updated, and error-free.</p>
+              <div class="price-box">
+                <span class="price-currency">₹</span>
+                <span class="price-amount">799</span>
+                <span class="price-term">/ month</span>
+              </div>
+            </div>
+            <ul class="features-list">
+              <li class="feature-item"><span class="feature-check">✔</span> Regular content updates & text/image revisions</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Monthly uptime and link integrity checks</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Scheduled codebase and asset backups</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Priority WhatsApp bug fixes & troubleshooting</li>
+              <li class="feature-item"><span class="feature-check">✔</span> Cancel or adjust anytime</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold-outline" data-plan-name="Website Maintenance" data-plan-budget="maintenance">
+              <span>Request a Quote</span> <span class="btn-arrow">→</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 7: FAQ ACCORDION
+         ====================================================================== -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">Frequently Asked Questions</span>
+          <h2>Everything You Need <span class="text-gold">To Know</span></h2>
+          <p>Clear answers to common questions about timelines, domains, hosting, and our client workflow.</p>
+        </div>
+
+        <div class="faq-accordion reveal">
+          <div class="faq-item active">
+            <button class="faq-question">
+              <span>How long does it take to design and launch our website?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>For a Starter single-page website, typical turnaround is 3 to 5 business days. A comprehensive multi-page Business Website typically takes 7 to 14 business days depending on content availability (photos, text, logos). Complex full-stack applications are planned with milestone deliverables.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Do I own my website and domain name completely?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, 100%. We believe in absolute transparency. You retain complete ownership of your domain, hosting accounts, and website code. We can either deploy to your own accounts or help you configure them so you always maintain administrative control.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Will my website look great on mobile phones and tablets?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely. Every website we build is thoroughly tested across multiple viewport widths: 320px, 360px, 390px, 430px, 768px, 1024px, and 1440px desktop displays. We adhere strictly to responsive CSS standards to eliminate horizontal scrolling and ensure snappy touch interactions.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do customer enquiries reach me from the website?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>We integrate direct WhatsApp click-to-chat workflows, click-to-call phone buttons, and validated contact forms that instantly draft formatted WhatsApp messages or emails directly to your business inbox without relying on unreliable third-party email intermediaries.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can you help update an existing website that was built elsewhere?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Our Website Redesign and Website Maintenance services are designed specifically for businesses with slow, outdated, or unresponsive legacy websites that need a modern visual overhaul and performance speed-up.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 8: CONTACT & ENQUIRY
+         ====================================================================== -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow-badge">Connect With Founders</span>
+          <h2>Start Your <span class="text-gold">Project Today</span></h2>
+          <p>Tell us about your business goals. We will analyze your needs, provide an honest estimate, and outline the ideal roadmap.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Contact Direct Info Column -->
+          <div class="contact-info-col reveal">
+            <div class="contact-info-card">
+              <h3 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 8px;">Direct Communication</h3>
+              <p style="font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6;">
+                Reach the core founding team directly. We are located in the historic Hosapete & Hampi region of Karnataka and serve clients globally.
+              </p>
+
+              <div class="contact-method-list">
+                <!-- Phone -->
+                <div class="contact-method-item">
+                  <div class="contact-icon-box">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </div>
+                  <div>
+                    <div class="contact-label">Call Us Directly</div>
+                    <a href="tel:+918088381775" class="contact-val">+91 8088381775</a>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-method-item">
+                  <div class="contact-icon-box">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div>
+                    <div class="contact-label">Email Our Team</div>
+                    <a href="mailto:hdeepak.ise.rymec@gmail.com" class="contact-val" style="word-break: break-all;">hdeepak.ise.rymec@gmail.com</a>
+                  </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-method-item">
+                  <div class="contact-icon-box" style="color:#25D366;border-color:rgba(37,211,102,0.3);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.495 2 2 6.495 2 12.031a10.01 10.01 0 0 0 1.608 5.438L2 22l4.673-1.573a10.034 10.034 0 0 0 5.358 1.604c5.536 0 10.031-4.495 10.031-10.031 0-5.536-4.495-10-10.031-10zm5.836 14.199c-.244.688-1.42 1.32-1.954 1.378-.49.052-1.129.075-1.821-.148-.421-.136-.963-.314-1.662-.619-2.929-1.278-4.838-4.269-4.985-4.464-.147-.196-1.189-1.583-1.189-3.02 0-1.436.75-2.143 1.018-2.436.268-.293.585-.366.78-.366.195 0 .39.002.56.01.181.009.424-.069.664.507.244.586.83 2.025.903 2.171.073.146.122.317.024.512-.097.195-.146.317-.292.488-.146.17-.308.38-.44.51-.146.145-.298.304-.128.597.17.293.759 1.253 1.628 2.027 1.119.997 2.062 1.306 2.355 1.452.292.146.463.122.634-.073.17-.195.731-.854.926-1.147.195-.293.39-.244.658-.146.268.098 1.707.805 2.001.951.293.146.488.22.56.342.074.122.074.707-.17 1.395z"/></svg>
+                  </div>
+                  <div>
+                    <div class="contact-label">WhatsApp Quick Connect</div>
+                    <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="contact-val">+91 8088381775 (Chat Now)</a>
+                  </div>
+                </div>
+
+                <!-- Location -->
+                <div class="contact-method-item">
+                  <div class="contact-icon-box">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </div>
+                  <div>
+                    <div class="contact-label">Physical Base</div>
+                    <div class="contact-val" style="font-size: 0.95rem;">Kondanayakana Halli (KN Halli), Hosapete / Hampi region, Karnataka, India</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Direct Click Actions -->
+              <div class="direct-actions">
+                <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+                  <span>Chat on WhatsApp</span>
+                  <span class="btn-arrow">↗</span>
+                </a>
+                <a href="tel:+918088381775" class="btn btn-gold-outline btn-sm">
+                  <span>Call Us Now</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Validated Enquiry Form Card -->
+          <div class="contact-form-card reveal reveal-delay-2">
+            <h3 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 8px;">Submit Project Enquiry</h3>
+            <p style="font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
+              Fill in your details below. We validate each field and let you choose between launching an instant WhatsApp message or sending an email draft.
+            </p>
+
+            <form id="project-enquiry-form" class="enquiry-form" novalidate>
+              <!-- Name -->
+              <div class="form-group">
+                <label for="enquiry-name" class="form-label">Full Name *</label>
+                <input type="text" id="enquiry-name" class="form-input" placeholder="e.g. Anand Sharma" required>
+                <span id="err-name" class="field-error">Please enter your name (min 2 characters).</span>
+              </div>
+
+              <!-- Business Name -->
+              <div class="form-group">
+                <label for="enquiry-business" class="form-label">Business / Brand Name</label>
+                <input type="text" id="enquiry-business" class="form-input" placeholder="e.g. Hampi Riverview Stays">
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="enquiry-email" class="form-label">Email Address *</label>
+                <input type="email" id="enquiry-email" class="form-input" placeholder="e.g. anand@example.com" required>
+                <span id="err-email" class="field-error">Please enter a valid email address.</span>
+              </div>
+
+              <!-- Phone -->
+              <div class="form-group">
+                <label for="enquiry-phone" class="form-label">Phone / WhatsApp Number *</label>
+                <input type="tel" id="enquiry-phone" class="form-input" placeholder="e.g. +91 9876543210" required>
+                <span id="err-phone" class="field-error">Please enter a valid phone number.</span>
+              </div>
+
+              <!-- Required Service -->
+              <div class="form-group">
+                <label for="enquiry-service" class="form-label">Required Service *</label>
+                <select id="enquiry-service" class="form-select" required>
+                  <option value="">Select a service...</option>
+                  <option value="business">Business Website Development</option>
+                  <option value="hospitality">Hotel, Resort & Restaurant Websites</option>
+                  <option value="ecommerce">E-commerce Websites</option>
+                  <option value="landing">Landing Pages & Portfolio Websites</option>
+                  <option value="redesign">Website Redesign & Responsiveness</option>
+                  <option value="maintenance">Website Maintenance & Support</option>
+                  <option value="uiux">UI/UX Design</option>
+                  <option value="seo">Basic SEO & Digital Presence</option>
+                </select>
+                <span id="err-service" class="field-error">Please select a service.</span>
+              </div>
+
+              <!-- Estimated Budget -->
+              <div class="form-group">
+                <label for="enquiry-budget" class="form-label">Estimated Budget</label>
+                <select id="enquiry-budget" class="form-select">
+                  <option value="undecided">Flexible / Discuss with founders</option>
+                  <option value="3k-8k">₹3,999 – ₹7,999 (Starter)</option>
+                  <option value="8k-15k">₹7,999 – ₹14,999 (Business)</option>
+                  <option value="15k-30k">₹14,999 – ₹30,000+ (Professional)</option>
+                  <option value="maintenance">₹799/month (Maintenance)</option>
+                </select>
+              </div>
+
+              <!-- Project Details -->
+              <div class="form-group full-width">
+                <label for="enquiry-details" class="form-label">Project Details & Goals *</label>
+                <textarea id="enquiry-details" class="form-textarea" placeholder="Describe what you want to achieve, features required, timeline, or links to references..." required></textarea>
+                <span id="err-details" class="field-error">Please provide a brief description (min 10 characters).</span>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-group full-width">
+                <button type="submit" class="btn btn-gold btn-lg" style="width: 100%;">
+                  <span>Submit Enquiry</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </button>
+                <p class="form-dispatch-notice">
+                  🔒 We respect your privacy. No spam. You will have full confirmation before messages are dispatched.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" class="footer-logo-img">
+            <div>
+              <span class="footer-brand-title">DBAH QUAD</span>
+              <div class="footer-tagline">DIGITAL LABS</div>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Four Minds. One Vision. Infinite Innovation.<br>
+            Building high-end, responsive digital experiences that empower local & global enterprises.
+          </p>
+          <div style="font-size:0.8125rem;color:var(--gold-400);">
+            📍 Kondanayakana Halli, Hosapete / Hampi, Karnataka, India
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="#home" class="footer-link">Home</a></li>
+            <li><a href="#services" class="footer-link">Our Services</a></li>
+            <li><a href="#portfolio" class="footer-link">Portfolio & Projects</a></li>
+            <li><a href="#about" class="footer-link">About DBAH Quad</a></li>
+            <li><a href="#process" class="footer-link">Four-Step Process</a></li>
+            <li><a href="#pricing" class="footer-link">Pricing Packages</a></li>
+            <li><a href="#contact" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-links-col">
+          <h4>Services</h4>
+          <ul class="footer-links-list">
+            <li><a href="#services" class="footer-link">Business Websites</a></li>
+            <li><a href="#services" class="footer-link">Hotel & Resort Websites</a></li>
+            <li><a href="#services" class="footer-link">E-commerce Solutions</a></li>
+            <li><a href="#services" class="footer-link">Landing Pages</a></li>
+            <li><a href="#services" class="footer-link">Website Redesign</a></li>
+            <li><a href="#services" class="footer-link">Maintenance Plans</a></li>
+          </ul>
+        </div>
+
+        <!-- Connect -->
+        <div class="footer-links-col">
+          <h4>Connect</h4>
+          <ul class="footer-links-list">
+            <li><a href="tel:+918088381775" class="footer-link">+91 8088381775</a></li>
+            <li><a href="mailto:hdeepak.ise.rymec@gmail.com" class="footer-link" style="word-break: break-all;">hdeepak.ise.rymec@gmail.com</a></li>
+            <li><a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="footer-link">WhatsApp Business</a></li>
+            <li><a href="https://github.com/hdeepak06" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profile ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <div>
+          © <span id="current-year">2026</span> DBAH Quad Digital Labs. All rights reserved.
+        </div>
+        <div class="footer-legal-links">
+          <a href="#" class="footer-link" id="open-privacy">Privacy Policy</a>
+          <a href="#" class="footer-link" id="open-terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       FLOATING CONTROLS: WHATSAPP QUICK CHAT & BACK TO TOP
+       ======================================================================== -->
+  <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat on WhatsApp">
+    <div class="whatsapp-pulse-ring"></div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.495 2 2 6.495 2 12.031a10.01 10.01 0 0 0 1.608 5.438L2 22l4.673-1.573a10.034 10.034 0 0 0 5.358 1.604c5.536 0 10.031-4.495 10.031-10.031 0-5.536-4.495-10-10.031-10zm5.836 14.199c-.244.688-1.42 1.32-1.954 1.378-.49.052-1.129.075-1.821-.148-.421-.136-.963-.314-1.662-.619-2.929-1.278-4.838-4.269-4.985-4.464-.147-.196-1.189-1.583-1.189-3.02 0-1.436.75-2.143 1.018-2.436.268-.293.585-.366.78-.366.195 0 .39.002.56.01.181.009.424-.069.664.507.244.586.83 2.025.903 2.171.073.146.122.317.024.512-.097.195-.146.317-.292.488-.146.17-.308.38-.44.51-.146.145-.298.304-.128.597.17.293.759 1.253 1.628 2.027 1.119.997 2.062 1.306 2.355 1.452.292.146.463.122.634-.073.17-.195.731-.854.926-1.147.195-.293.39-.244.658-.146.268.098 1.707.805 2.001.951.293.146.488.22.56.342.074.122.074.707-.17 1.395z"/></svg>
+  </a>
+
+  <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </button>
+
+  <!-- ========================================================================
+       MODAL 1: PROJECT DETAILS
+       ======================================================================== -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <button id="modal-close-btn" class="modal-close-btn" aria-label="Close dialog">✕</button>
+      <span id="modal-category" class="project-category">Category</span>
+      <h3 id="modal-title" style="font-size: 1.65rem; color: #FFFFFF; margin: 8px 0 16px;">Project Title</h3>
+      <p id="modal-desc" style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px;">Project Description</p>
+      
+      <div style="margin-bottom: 24px;">
+        <h4 style="font-size: 0.875rem; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Technologies & Architecture</h4>
+        <div id="modal-tech" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+      </div>
+
+      <div id="modal-actions" style="display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border-subtle); padding-top: 20px;"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: FORM DISPATCH CONFIRMATION (WhatsApp vs Email)
+       ======================================================================== -->
+  <div id="dispatch-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="dispatch-title">
+    <div class="modal-dialog" style="max-width: 520px; text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 12px;">✨</div>
+      <h3 id="dispatch-title" style="font-size: 1.45rem; color: #FFFFFF; margin-bottom: 8px;">Enquiry Ready to Dispatch</h3>
+      <p style="font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+        Thank you, <strong id="confirm-name" style="color: #FFFFFF;">Client</strong>. Your enquiry for <strong id="confirm-service" style="color: var(--gold-400);">Service</strong> is validated. How would you prefer to connect with us?
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <button id="dispatch-whatsapp" class="btn btn-gold btn-lg" style="width: 100%;">
+          <span>Chat Instantly via WhatsApp</span>
+          <span class="btn-arrow">↗</span>
+        </button>
+        <button id="dispatch-email" class="btn btn-gold-outline" style="width: 100%;">
+          <span>Open Email Client (Mailto)</span>
+          <span class="btn-arrow">↗</span>
+        </button>
+      </div>
+
+      <button id="dispatch-cancel" class="btn" style="background: transparent; color: var(--text-subtle); font-size: 0.85rem; padding: 6px;">
+        Cancel / Edit Details
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: PRIVACY & TERMS
+       ======================================================================== -->
+  <div id="legal-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+    <div class="modal-dialog">
+      <button id="legal-close-btn" class="modal-close-btn" aria-label="Close dialog">✕</button>
+      <h3 id="legal-title" style="font-size: 1.5rem; color: #FFFFFF; margin-bottom: 16px;">Privacy Policy & Transparency Notice</h3>
+      <div id="legal-content" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+        <p><strong>Effective Date:</strong> October 2026</p>
+        <br>
+        <p><strong>1. Information Collection:</strong> DBAH Quad Digital Labs collects client contact details (name, email, phone number, and project descriptions) solely for the purpose of communicating project scope and providing web engineering proposals.</p>
+        <br>
+        <p><strong>2. No Data Sharing:</strong> We do not sell, rent, or share personal information with third-party advertisers. All client conversations and intellectual property remain strictly confidential.</p>
+        <br>
+        <p><strong>3. Project Delivery:</strong> All project deliverables, timelines, and payment stages are clearly agreed upon prior to initiating development work. Hosting, domain ownership, and credentials belong entirely to the client.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple listener for legal modal
+    document.getElementById('open-privacy')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('legal-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('open-terms')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('legal-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('legal-close-btn')?.addEventListener('click', () => {
+      document.getElementById('legal-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  </script>
+
+  <!-- Main JavaScript File -->
+  <script src="js/main.js"></script>
+</body>
+</html>
