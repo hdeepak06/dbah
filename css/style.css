@@ -13,7 +13,7 @@
   --bg-secondary: #080D1A;
   --bg-tertiary: #0D152A;
   --bg-card: rgba(13, 21, 42, 0.72);
-  --bg-card-hover: rgba(18, 30, 58, 0.82);
+  --bg-card-hover: rgba(18, 30, 58, 0.85);
   --bg-glass: rgba(8, 13, 26, 0.85);
   --bg-elevated: #111A33;
   --bg-surface: #152244;
@@ -112,6 +112,185 @@ body::before {
   z-index: 0;
 }
 
+/* ==========================================================================
+   AMBIENT GLOWING LIGHT ORBS & FLOATING GEOMETRIC SHAPES
+   ========================================================================== */
+.ambient-glow-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orb-1 {
+  width: 520px;
+  height: 520px;
+  top: -100px;
+  right: -50px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, rgba(212, 175, 55, 0.02) 65%, transparent 75%);
+  animation: orbDrift1 22s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  width: 480px;
+  height: 480px;
+  top: 40%;
+  left: -120px;
+  background: radial-gradient(circle, rgba(14, 30, 68, 0.45) 0%, rgba(212, 175, 55, 0.08) 55%, transparent 75%);
+  animation: orbDrift2 26s ease-in-out infinite alternate;
+}
+
+.orb-3 {
+  width: 560px;
+  height: 560px;
+  bottom: -150px;
+  right: 15%;
+  background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, rgba(13, 21, 42, 0.3) 60%, transparent 75%);
+  animation: orbDrift3 28s ease-in-out infinite alternate;
+}
+
+@keyframes orbDrift1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 50px) scale(1.08); }
+  100% { transform: translate(-30px, 90px) scale(0.95); }
+}
+
+@keyframes orbDrift2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, -40px) scale(1.12); }
+  100% { transform: translate(40px, 60px) scale(0.98); }
+}
+
+@keyframes orbDrift3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -60px) scale(1.05); }
+  100% { transform: translate(60px, -30px) scale(0.94); }
+}
+
+/* Floating Decorative Geometric Shapes */
+.floating-geo-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.geo-shape {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.35;
+  transition: opacity var(--transition-normal);
+  will-change: transform;
+}
+
+.shape-diamond {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--gold-border-bright);
+  transform: rotate(45deg);
+  top: 18%;
+  left: 8%;
+  background: rgba(212, 175, 55, 0.03);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  animation: geoFloatSlow 18s ease-in-out infinite alternate, geoRotate 40s linear infinite;
+}
+
+.shape-ring {
+  width: 48px;
+  height: 48px;
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-radius: 50%;
+  top: 28%;
+  right: 10%;
+  animation: geoFloatMedium 14s ease-in-out infinite alternate, geoRotate 30s linear infinite reverse;
+}
+
+.shape-cube {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(243, 222, 138, 0.3);
+  border-radius: 4px;
+  top: 68%;
+  left: 6%;
+  animation: geoFloatFast 10s ease-in-out infinite alternate;
+}
+
+.shape-cross {
+  width: 20px;
+  height: 20px;
+  top: 75%;
+  right: 8%;
+  position: absolute;
+  animation: geoFloatSlow 16s ease-in-out infinite alternate;
+}
+
+.shape-cross::before,
+.shape-cross::after {
+  content: '';
+  position: absolute;
+  background: var(--gold-border-bright);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.shape-cross::before {
+  top: 9px;
+  left: 0;
+  width: 20px;
+  height: 2px;
+}
+
+.shape-cross::after {
+  top: 0;
+  left: 9px;
+  width: 2px;
+  height: 20px;
+}
+
+.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 24px solid rgba(212, 175, 55, 0.15);
+  top: 50%;
+  right: 22%;
+  animation: geoFloatMedium 15s ease-in-out infinite alternate;
+}
+
+@keyframes geoFloatSlow {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-30px) translateX(15px); }
+  100% { transform: translateY(20px) translateX(-20px); }
+}
+
+@keyframes geoFloatMedium {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-24px) translateX(-18px); }
+  100% { transform: translateY(18px) translateX(12px); }
+}
+
+@keyframes geoFloatFast {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-16px) translateX(14px) rotate(45deg); }
+  100% { transform: translateY(14px) translateX(-10px) rotate(90deg); }
+}
+
+@keyframes geoRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Gold Canvas Particle Background */
 #particles-canvas {
   position: fixed;
@@ -119,8 +298,8 @@ body::before {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
-  opacity: 0.65;
+  z-index: 2;
+  opacity: 0.75;
 }
 
 /* Container Utility */
@@ -132,7 +311,7 @@ body::before {
   padding-left: clamp(16px, 4vw, 32px);
   padding-right: clamp(16px, 4vw, 32px);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Typography Utilities */
@@ -253,6 +432,32 @@ img {
   box-shadow: var(--shadow-gold-sm);
 }
 
+/* Subtle Periodic Shimmer / Light Sweep */
+.btn-gold::before,
+.btn-email-us::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: buttonLightSweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes buttonLightSweep {
+  0%, 65% { left: -120%; opacity: 0; }
+  70% { opacity: 1; }
+  85%, 100% { left: 220%; opacity: 0; }
+}
+
 .btn-gold::after {
   content: '';
   position: absolute;
@@ -263,7 +468,7 @@ img {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.5),
     transparent
   );
   transform: rotate(25deg);
@@ -286,6 +491,29 @@ img {
 .btn-gold:active {
   transform: translateY(0);
   box-shadow: var(--shadow-gold-sm);
+}
+
+/* Dedicated Email Us Button (Gold Gradient + Micro-interactions) */
+.btn-email-us {
+  background: var(--grad-gold);
+  color: #04060A;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.btn-email-us:hover {
+  background: var(--grad-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.55);
+  color: #000000;
+}
+
+.btn-email-us:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
 /* Secondary Outline Gold Button */
@@ -330,6 +558,22 @@ img {
   transform: translateX(4px);
 }
 
+/* Footer Email Us Link */
+.footer-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-400) !important;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.footer-email-btn:hover {
+  color: #FFFFFF !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  transform: translateX(3px);
+}
+
 /* ==========================================================================
    LOGO REVEAL INTRO OVERLAY
    ========================================================================== */
@@ -370,7 +614,6 @@ img {
   justify-content: center;
 }
 
-/* Glowing golden aura ring around intro logo */
 .intro-logo-aura {
   position: absolute;
   inset: -12px;
@@ -465,6 +708,25 @@ img {
   100% { transform: scale(1); opacity: 1; filter: brightness(1); }
 }
 
+/* Restrained Golden Glow on Logos */
+.brand-logo-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 50%;
+  animation: logoRestrainedGlow 5s ease-in-out infinite alternate;
+  transition: transform var(--transition-fast);
+}
+
+.brand-link:hover .brand-logo-img {
+  transform: scale(1.08);
+}
+
+@keyframes logoRestrainedGlow {
+  0% { filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.3)); }
+  100% { filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.65)); }
+}
+
 /* ==========================================================================
    HEADER & NAVIGATION
    ========================================================================== */
@@ -497,25 +759,11 @@ img {
   width: 100%;
 }
 
-/* Brand Logo in Header */
 .brand-link {
   display: flex;
   align-items: center;
   gap: 12px;
   text-decoration: none;
-}
-
-.brand-logo-img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  border-radius: 50%;
-  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
-  transition: transform var(--transition-fast);
-}
-
-.brand-link:hover .brand-logo-img {
-  transform: scale(1.05);
 }
 
 .brand-text {
@@ -560,7 +808,8 @@ img {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0%;
   height: 2px;
   background: var(--grad-gold);
@@ -686,7 +935,7 @@ img {
 .mobile-nav-footer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 /* ==========================================================================
@@ -797,6 +1046,13 @@ img {
   box-shadow: 
     0 0 60px rgba(212, 175, 55, 0.2),
     0 20px 50px rgba(0, 0, 0, 0.8);
+  animation: emblemGentleFloat 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes emblemGentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
 }
 
 .emblem-card::before {
@@ -825,12 +1081,12 @@ img {
   border-radius: 50%;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.35));
+  animation: logoRestrainedGlow 4s ease-in-out infinite alternate;
   transition: transform var(--transition-normal);
 }
 
 .emblem-card:hover .emblem-image {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 /* Floating Technology / Quad Badges */
@@ -846,7 +1102,7 @@ img {
   gap: 10px;
   box-shadow: var(--shadow-md);
   z-index: 3;
-  animation: floatBadge 4s ease-in-out infinite alternate;
+  animation: floatBadge 4.5s ease-in-out infinite alternate;
 }
 
 .floating-badge-top {
@@ -857,7 +1113,7 @@ img {
 .floating-badge-bottom {
   bottom: 8%;
   right: -20px;
-  animation-delay: -2s;
+  animation-delay: -2.25s;
 }
 
 .badge-icon {
@@ -885,7 +1141,7 @@ img {
 
 @keyframes floatBadge {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-12px); }
+  100% { transform: translateY(-14px); }
 }
 
 /* ==========================================================================
@@ -930,11 +1186,11 @@ img {
 }
 
 .service-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.01);
   border-color: var(--gold-border-bright);
   box-shadow: 
-    0 12px 35px rgba(0, 0, 0, 0.7),
-    0 0 25px rgba(212, 175, 55, 0.15);
+    0 16px 40px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(212, 175, 55, 0.22);
   background: var(--bg-card-hover);
 }
 
@@ -960,6 +1216,7 @@ img {
   background: var(--grad-gold);
   color: #04060A;
   transform: scale(1.08);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .service-title {
@@ -1021,7 +1278,6 @@ img {
   background: linear-gradient(180deg, transparent 0%, rgba(8, 13, 26, 0.5) 50%, transparent 100%);
 }
 
-/* Portfolio Filter Tabs */
 .portfolio-filters {
   display: flex;
   flex-wrap: wrap;
@@ -1056,7 +1312,6 @@ img {
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
-/* Portfolio Projects Grid */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -1083,7 +1338,6 @@ img {
     0 0 30px rgba(212, 175, 55, 0.2);
 }
 
-/* Project Thumbnail Frame */
 .project-media {
   position: relative;
   width: 100%;
@@ -1103,7 +1357,6 @@ img {
   transform: scale(1.06);
 }
 
-/* Project Status Overlay Badge */
 .project-status-badge {
   position: absolute;
   top: 14px;
@@ -1150,7 +1403,6 @@ img {
   background: var(--gold-400);
 }
 
-/* Project Card Body */
 .project-body {
   padding: 24px;
   display: flex;
@@ -1235,7 +1487,6 @@ img {
   margin-bottom: 20px;
 }
 
-/* Four Founders DBAH Acronym Showcase */
 .quad-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1289,7 +1540,6 @@ img {
   letter-spacing: 0.05em;
 }
 
-/* Four Pillars of Innovation */
 .pillars-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1307,6 +1557,7 @@ img {
 
 .pillar-card:hover {
   border-color: var(--gold-border);
+  transform: translateY(-4px);
 }
 
 .pillar-number {
@@ -1344,7 +1595,6 @@ img {
   margin-top: 48px;
 }
 
-/* Connecting Line Behind Process Cards */
 .process-timeline::before {
   content: '';
   position: absolute;
@@ -1472,7 +1722,6 @@ img {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.2);
 }
 
-/* Featured / Most Popular Package */
 .pricing-card.featured {
   border-color: var(--gold-400);
   background: linear-gradient(180deg, rgba(21, 34, 68, 0.9) 0%, rgba(13, 21, 42, 0.85) 100%);
@@ -1667,7 +1916,6 @@ img {
   align-items: flex-start;
 }
 
-/* Contact Info Column */
 .contact-info-col {
   display: flex;
   flex-direction: column;
@@ -1726,14 +1974,12 @@ img {
   color: var(--gold-400);
 }
 
-/* Direct Action Buttons in Contact Card */
 .direct-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
 }
 
-/* Contact Form Card */
 .contact-form-card {
   background: var(--bg-card);
   border: 1px solid var(--gold-border);
@@ -1814,7 +2060,6 @@ img {
   resize: vertical;
 }
 
-/* Form Submission Dispatch Option Modal / Notice */
 .form-dispatch-notice {
   font-size: 0.8125rem;
   color: var(--text-muted);
@@ -1921,81 +2166,169 @@ img {
 }
 
 /* ==========================================================================
-   FLOATING INTERACTIVE CONTROLS
+   FLOATING CONTACT WIDGET & QUICK CONNECT DOCK
+   (WhatsApp, Call Us, Email Us, Back to Top)
    ========================================================================== */
-/* Floating WhatsApp Quick Connect Button */
-.floating-whatsapp {
+.floating-contact-widget {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 56px;
-  height: 56px;
+  bottom: 26px;
+  right: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 950;
+  pointer-events: auto;
+  animation: dockGentleFloat 5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes dockGentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.floating-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: rgba(8, 13, 26, 0.88);
+  border: 1px solid var(--gold-border);
+  color: var(--text-primary);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.15);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.floating-contact-btn:focus-visible {
+  outline: 2px solid var(--gold-400);
+  outline-offset: 2px;
+}
+
+.floating-contact-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: var(--gold-400);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(212, 175, 55, 0.4);
+  color: #FFFFFF;
+}
+
+.floating-contact-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* WhatsApp Floating Button */
+.floating-contact-btn.btn-wa {
+  border-color: rgba(37, 211, 102, 0.45);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.15) 0%, rgba(8, 13, 26, 0.9) 100%);
+  color: #E2E8F0;
+}
+
+.floating-contact-btn.btn-wa .contact-btn-icon {
+  color: #25D366;
+}
+
+.floating-contact-btn.btn-wa:hover {
+  border-color: #25D366;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(37, 211, 102, 0.5);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.28) 0%, rgba(8, 13, 26, 0.95) 100%);
+}
+
+.contact-btn-pulse {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #25D366;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
-  z-index: 900;
-  transition: all var(--transition-normal);
-  cursor: pointer;
-  text-decoration: none;
+  box-shadow: 0 0 8px #25D366;
+  animation: waSmallPulse 2s infinite ease-in-out;
 }
 
-.floating-whatsapp:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+@keyframes waSmallPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
 }
 
-.whatsapp-pulse-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2px solid rgba(37, 211, 102, 0.6);
-  animation: waPulse 2s infinite;
-}
-
-@keyframes waPulse {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  100% { transform: scale(1.4); opacity: 0; }
-}
-
-/* Back-to-Top Button */
-.back-to-top {
-  position: fixed;
-  bottom: 96px;
-  right: 30px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(13, 21, 42, 0.9);
-  border: 1px solid var(--gold-border);
+/* Call Us Floating Button */
+.floating-contact-btn.btn-call {
+  border-color: var(--gold-border);
   color: var(--gold-400);
-  display: flex;
-  align-items: center;
+}
+
+.floating-contact-btn.btn-call:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #FFFFFF;
+}
+
+/* Email Us Floating Button (Gold Highlighted) */
+.floating-contact-btn.btn-email {
+  background: var(--grad-gold);
+  color: #04060A;
+  font-weight: 700;
+  border-color: transparent;
+  box-shadow: var(--shadow-gold-sm);
+}
+
+.floating-contact-btn.btn-email::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: buttonLightSweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.floating-contact-btn.btn-email:hover {
+  background: var(--grad-gold-hover);
+  color: #000000;
+  box-shadow: var(--shadow-gold-lg);
+}
+
+/* Back to Top Floating Button */
+.floating-contact-btn.btn-top {
+  width: 42px;
+  height: 42px;
+  padding: 0;
   justify-content: center;
-  cursor: pointer;
-  z-index: 899;
+  border-radius: 50%;
+  color: var(--gold-400);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px);
+  transform: translateY(10px);
   transition: all var(--transition-normal);
-  backdrop-filter: blur(10px);
 }
 
-.back-to-top.visible {
+.floating-contact-btn.btn-top.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.back-to-top:hover {
+.floating-contact-btn.btn-top:hover {
   background: var(--grad-gold);
   color: #04060A;
   border-color: transparent;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
 /* ==========================================================================
@@ -2066,7 +2399,7 @@ img {
    ========================================================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(28px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
@@ -2083,10 +2416,7 @@ img {
 
 /* ==========================================================================
    RESPONSIVE DESIGN SYSTEM
-   Checked viewports: 320px, 360px, 390px, 430px, 768px, 1024px, 1440px
    ========================================================================== */
-
-/* Tablet & Smaller Desktops (< 1024px) */
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -2135,7 +2465,6 @@ img {
   }
 }
 
-/* Mobile Devices (< 768px) */
 @media (max-width: 768px) {
   .site-header .nav-menu,
   .site-header .header-actions .btn {
@@ -2179,20 +2508,28 @@ img {
     display: none;
   }
 
-  .floating-whatsapp {
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
+  /* Compact Floating Contact Dock on Mobile */
+  .floating-contact-widget {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    right: 16px;
+    gap: 8px;
   }
 
-  .back-to-top {
-    bottom: 80px;
-    right: 20px;
+  .floating-contact-btn {
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+  }
+
+  .contact-btn-text {
+    font-size: 0.75rem;
+  }
+
+  .floating-contact-btn.btn-top {
+    width: 36px;
+    height: 36px;
   }
 }
 
-/* Small Smart Phones (< 430px down to 320px) */
 @media (max-width: 430px) {
   .hero-actions .btn {
     width: 100%;
@@ -2227,6 +2564,15 @@ img {
   .direct-actions .btn {
     width: 100%;
   }
+
+  .floating-contact-widget {
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    right: 12px;
+  }
+
+  .floating-contact-btn {
+    padding: 7px 11px;
+  }
 }
 
 /* ==========================================================================
@@ -2240,8 +2586,17 @@ img {
     scroll-behavior: auto !important;
   }
 
-  #particles-canvas {
+  #particles-canvas,
+  .ambient-glow-orbs,
+  .floating-geo-shapes {
     display: none !important;
+  }
+
+  .emblem-card,
+  .emblem-image,
+  .brand-logo-img,
+  .floating-contact-widget {
+    animation: none !important;
   }
 
   .reveal {

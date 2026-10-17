@@ -83,6 +83,22 @@
   <!-- Background Ambient Particles Canvas -->
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
+  <!-- Ambient Glowing Light Orbs -->
+  <div class="ambient-glow-orbs" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- Decorative Floating Geometric Shapes -->
+  <div class="floating-geo-shapes" aria-hidden="true">
+    <div class="geo-shape shape-diamond"></div>
+    <div class="geo-shape shape-ring"></div>
+    <div class="geo-shape shape-cube"></div>
+    <div class="geo-shape shape-cross"></div>
+    <div class="geo-shape shape-triangle"></div>
+  </div>
+
   <!-- ========================================================================
        HEADER & NAVIGATION
        ======================================================================== -->
@@ -143,6 +159,10 @@
       </a>
       <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline">
         <span>WhatsApp Us</span>
+      </a>
+      <a href="mailto:hdeepak.ise.rymec@gmail.com" class="btn btn-gold btn-email-us" aria-label="Email DBAH Quad">
+        <span>✉ Email Us</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
       </a>
     </div>
   </aside>
@@ -958,14 +978,17 @@
                   </div>
                 </div>
 
-                <!-- Email -->
+                <!-- Email Button -->
                 <div class="contact-method-item">
                   <div class="contact-icon-box">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   </div>
                   <div>
-                    <div class="contact-label">Email Our Team</div>
-                    <a href="mailto:hdeepak.ise.rymec@gmail.com" class="contact-val" style="word-break: break-all;">hdeepak.ise.rymec@gmail.com</a>
+                    <div class="contact-label">Electronic Mail</div>
+                    <a href="mailto:hdeepak.ise.rymec@gmail.com" class="btn btn-gold btn-sm btn-email-us" aria-label="Email DBAH Quad Digital Labs">
+                      <span>✉ Email Us</span>
+                      <span class="btn-arrow" aria-hidden="true">→</span>
+                    </a>
                   </div>
                 </div>
 
@@ -1000,6 +1023,10 @@
                 </a>
                 <a href="tel:+918088381775" class="btn btn-gold-outline btn-sm">
                   <span>Call Us Now</span>
+                </a>
+                <a href="mailto:hdeepak.ise.rymec@gmail.com" class="btn btn-gold btn-sm btn-email-us" aria-label="Email DBAH Quad Digital Labs">
+                  <span>✉ Email Us</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
                 </a>
               </div>
             </div>
@@ -1150,7 +1177,7 @@
           <h4>Connect</h4>
           <ul class="footer-links-list">
             <li><a href="tel:+918088381775" class="footer-link">+91 8088381775</a></li>
-            <li><a href="mailto:hdeepak.ise.rymec@gmail.com" class="footer-link" style="word-break: break-all;">hdeepak.ise.rymec@gmail.com</a></li>
+            <li><a href="mailto:hdeepak.ise.rymec@gmail.com" class="footer-link footer-email-btn" aria-label="Email DBAH Quad"><span>✉ Email Us</span></a></li>
             <li><a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="footer-link">WhatsApp Business</a></li>
             <li><a href="https://github.com/hdeepak06" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profile ↗</a></li>
           </ul>
@@ -1171,16 +1198,33 @@
   </footer>
 
   <!-- ========================================================================
-       FLOATING CONTROLS: WHATSAPP QUICK CHAT & BACK TO TOP
+       FLOATING CONTROLS: UNIFIED QUICK-CONNECT DOCK (WhatsApp, Call, Email, Top)
        ======================================================================== -->
-  <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat on WhatsApp">
-    <div class="whatsapp-pulse-ring"></div>
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.495 2 2 6.495 2 12.031a10.01 10.01 0 0 0 1.608 5.438L2 22l4.673-1.573a10.034 10.034 0 0 0 5.358 1.604c5.536 0 10.031-4.495 10.031-10.031 0-5.536-4.495-10-10.031-10zm5.836 14.199c-.244.688-1.42 1.32-1.954 1.378-.49.052-1.129.075-1.821-.148-.421-.136-.963-.314-1.662-.619-2.929-1.278-4.838-4.269-4.985-4.464-.147-.196-1.189-1.583-1.189-3.02 0-1.436.75-2.143 1.018-2.436.268-.293.585-.366.78-.366.195 0 .39.002.56.01.181.009.424-.069.664.507.244.586.83 2.025.903 2.171.073.146.122.317.024.512-.097.195-.146.317-.292.488-.146.17-.308.38-.44.51-.146.145-.298.304-.128.597.17.293.759 1.253 1.628 2.027 1.119.997 2.062 1.306 2.355 1.452.292.146.463.122.634-.073.17-.195.731-.854.926-1.147.195-.293.39-.244.658-.146.268.098 1.707.805 2.001.951.293.146.488.22.56.342.074.122.074.707-.17 1.395z"/></svg>
-  </a>
+  <aside class="floating-contact-widget" aria-label="Quick Contact Options">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/918088381775" target="_blank" rel="noopener noreferrer" class="floating-contact-btn btn-wa" aria-label="Chat on WhatsApp">
+      <span class="contact-btn-pulse"></span>
+      <svg class="contact-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2C6.495 2 2 6.495 2 12.031a10.01 10.01 0 0 0 1.608 5.438L2 22l4.673-1.573a10.034 10.034 0 0 0 5.358 1.604c5.536 0 10.031-4.495 10.031-10.031 0-5.536-4.495-10-10.031-10zm5.836 14.199c-.244.688-1.42 1.32-1.954 1.378-.49.052-1.129.075-1.821-.148-.421-.136-.963-.314-1.662-.619-2.929-1.278-4.838-4.269-4.985-4.464-.147-.196-1.189-1.583-1.189-3.02 0-1.436.75-2.143 1.018-2.436.268-.293.585-.366.78-.366.195 0 .39.002.56.01.181.009.424-.069.664.507.244.586.83 2.025.903 2.171.073.146.122.317.024.512-.097.195-.146.317-.292.488-.146.17-.308.38-.44.51-.146.145-.298.304-.128.597.17.293.759 1.253 1.628 2.027 1.119.997 2.062 1.306 2.355 1.452.292.146.463.122.634-.073.17-.195.731-.854.926-1.147.195-.293.39-.244.658-.146.268.098 1.707.805 2.001.951.293.146.488.22.56.342.074.122.074.707-.17 1.395z"/></svg>
+      <span class="contact-btn-text">WhatsApp</span>
+    </a>
 
-  <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-  </button>
+    <!-- Call Us -->
+    <a href="tel:+918088381775" class="floating-contact-btn btn-call" aria-label="Call +91 8088381775">
+      <svg class="contact-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      <span class="contact-btn-text">Call Us</span>
+    </a>
+
+    <!-- Email Us -->
+    <a href="mailto:hdeepak.ise.rymec@gmail.com" class="floating-contact-btn btn-email" aria-label="Email DBAH Quad">
+      <svg class="contact-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      <span class="contact-btn-text">✉ Email Us</span>
+    </a>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="floating-contact-btn btn-top" aria-label="Back to Top">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+  </aside>
 
   <!-- ========================================================================
        MODAL 1: PROJECT DETAILS

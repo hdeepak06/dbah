@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Intro Logo Reveal Animation
   initIntroOverlay();
 
-  // 2. Ambient Gold Particle Canvas
+  // 2. Ambient Gold Particle Canvas & Parallax
   initParticlesCanvas();
+  initParallaxEffects();
 
   // 3. Navigation & Header Controller
   initNavigation();
@@ -97,25 +98,25 @@ function initParticlesCanvas() {
     height = canvas.height = window.innerHeight;
   });
 
-  const particleCount = Math.min(window.innerWidth < 768 ? 25 : 55, 60);
+  const particleCount = Math.min(window.innerWidth < 768 ? 24 : 50, 55);
   const particles = [];
 
   const goldColors = [
-    'rgba(245, 222, 140, 0.65)',
-    'rgba(212, 175, 55, 0.55)',
-    'rgba(184, 134, 11, 0.45)',
-    'rgba(255, 255, 255, 0.35)'
+    'rgba(245, 222, 140, 0.75)',
+    'rgba(212, 175, 55, 0.65)',
+    'rgba(184, 134, 11, 0.55)',
+    'rgba(255, 255, 255, 0.45)'
   ];
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2 + 0.6,
+      radius: Math.random() * 2 + 0.8,
       color: goldColors[Math.floor(Math.random() * goldColors.length)],
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4 - 0.1,
-      alpha: Math.random() * 0.7 + 0.2
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35 - 0.08,
+      alpha: Math.random() * 0.7 + 0.3
     });
   }
 
@@ -132,18 +133,76 @@ function initParticlesCanvas() {
       if (p.y < 0) p.y = height;
       if (p.y > height) p.y = 0;
 
+      // Draw particle dot
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = 'rgba(212, 175, 55, 0.5)';
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(212, 175, 55, 0.6)';
       ctx.fill();
+
+      // Draw subtle golden connection lines to nearby particles
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(212, 175, 55, ${(1 - dist / 80) * 0.16})`;
+          ctx.lineWidth = 0.6;
+          ctx.shadowBlur = 0;
+          ctx.stroke();
+        }
+      }
     }
 
     requestAnimationFrame(animate);
   }
 
   animate();
+}
+
+/* ==========================================================================
+   2B. GENTLE BACKGROUND PARALLAX (MOUSE TRACKING)
+   ========================================================================== */
+function initParallaxEffects() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 1024) {
+    return;
+  }
+
+  const orbs = document.querySelectorAll('.glow-orb');
+  const shapes = document.querySelectorAll('.geo-shape');
+
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  function updateParallax() {
+    currentX += (mouseX - currentX) * 0.04;
+    currentY += (mouseY - currentY) * 0.04;
+
+    orbs.forEach((orb, idx) => {
+      const factor = (idx + 1) * 10;
+      orb.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
+    });
+
+    shapes.forEach((shape, idx) => {
+      const factor = (idx % 3 + 1) * 8;
+      shape.style.transform = `translate(${currentX * -factor}px, ${currentY * -factor}px)`;
+    });
+
+    requestAnimationFrame(updateParallax);
+  }
+
+  updateParallax();
 }
 
 /* ==========================================================================
