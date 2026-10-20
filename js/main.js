@@ -967,12 +967,14 @@ function initThemeToggle() {
       if (isDark) {
         btn.setAttribute('aria-label', 'Switch to Light Mode');
         btn.setAttribute('title', 'Switch to Light Mode');
+        btn.setAttribute('data-tooltip', 'Switch to Light Mode');
         if (labelSpan) {
           labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Light Mode' : 'Light';
         }
       } else {
         btn.setAttribute('aria-label', 'Switch to Dark Mode');
         btn.setAttribute('title', 'Switch to Dark Mode');
+        btn.setAttribute('data-tooltip', 'Switch to Dark Mode');
         if (labelSpan) {
           labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Dark Mode' : 'Dark';
         }
