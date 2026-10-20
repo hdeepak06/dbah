@@ -45,10 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 12. Cinematic Hero Background Video
   initHeroVideo();
 
-  // 13. Cinematic Showcase Video (Autoplay GIF-like Loop)
-  initShowcaseVideo();
-
-  // 14. Dynamic Current Year
+  // 13. Dynamic Current Year
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -1052,113 +1049,5 @@ function initHeroVideo() {
   });
 }
 
-/* ==========================================================================
-   13. CINEMATIC SHOWCASE VIDEO CONTROLLER (AUTOPLAY GIF-LIKE LOOP)
-   Plays 326407_medium.mp4 continuously in a smooth loop like an animated GIF.
-   - Autoplay, muted, infinite loop
-   - Pauses when scrolled out of viewport or when tab is inactive to preserve battery
-   - Auto-rotates through the 3 inspiring text pillars
-   ========================================================================== */
-function initShowcaseVideo() {
-  const section = document.querySelector('.showcase-video-section');
-  const video = document.getElementById('showcase-loop-video');
-  const textPhases = document.querySelectorAll('.showcase-text-phase');
-  const dots = document.querySelectorAll('.showcase-dot');
 
-  if (!video) return;
-
-  // Video properties for GIF-like autoplay
-  video.muted = true;
-  video.defaultMuted = true;
-  video.loop = true;
-  video.playsInline = true;
-
-  // Ensure autoplay starts reliably
-  function playVideo() {
-    const promise = video.play();
-    if (promise !== undefined) {
-      promise.catch(() => {
-        video.muted = true;
-        video.play().catch(() => {});
-      });
-    }
-  }
-
-  playVideo();
-
-  // IntersectionObserver to pause when scrolled out of view (battery/performance optimization)
-  if ('IntersectionObserver' in window && section) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          playVideo();
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.1 });
-    observer.observe(section);
-  }
-
-  // Visibility change: pause when tab hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      video.pause();
-    } else {
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          playVideo();
-        }
-      }
-    }
-  });
-
-  // Smooth rotating text pillars (cycles every 3.8s)
-  if (textPhases.length > 1) {
-    let currentIdx = 0;
-    let rotateInterval = null;
-
-    function showPhase(index) {
-      textPhases.forEach((phase, i) => {
-        phase.classList.toggle('active', i === index);
-      });
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-      currentIdx = index;
-    }
-
-    function nextPhase() {
-      const next = (currentIdx + 1) % textPhases.length;
-      showPhase(next);
-    }
-
-    function startRotation() {
-      if (rotateInterval) clearInterval(rotateInterval);
-      rotateInterval = setInterval(nextPhase, 3800);
-    }
-
-    function stopRotation() {
-      if (rotateInterval) clearInterval(rotateInterval);
-    }
-
-    startRotation();
-
-    // Pause rotation on hover
-    const textContainer = document.querySelector('.showcase-video-text-container');
-    if (textContainer) {
-      textContainer.addEventListener('mouseenter', stopRotation);
-      textContainer.addEventListener('mouseleave', startRotation);
-    }
-
-    // Dot click
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => {
-        showPhase(idx);
-        startRotation();
-      });
-    });
-  }
-}
 

@@ -939,24 +939,23 @@ body:not([data-theme="dark"]) .theme-icon-sun { display: none; }
    ========================================================================== */
 .hero-section {
   position: relative;
-  background: var(--hero-bg);
+  background-color: #05070A;
   color: var(--hero-text);
   padding: calc(var(--header-height) + 64px) 0 88px;
   overflow: hidden;
   isolation: isolate;
 }
 
-/* Atmospheric Sun-Kissed Blue Sky */
+/* Ambient Warm Gold Backlight */
 .hero-section::before {
   content: '';
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 65% 12%, rgba(255, 246, 220, 0.22) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(30, 61, 88, 0.4) 0%, transparent 60%),
-    linear-gradient(180deg, transparent 65%, rgba(20, 36, 58, 0.45) 100%);
+    radial-gradient(circle at 65% 20%, rgba(223, 183, 90, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 /* Architectural Framing Hairline */
@@ -968,10 +967,10 @@ body:not([data-theme="dark"]) .theme-icon-sun { display: none; }
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(248, 246, 237, 0.3) 20%, rgba(243, 211, 130, 0.8) 50%, rgba(248, 246, 237, 0.3) 80%, transparent);
-  z-index: 1;
+  z-index: 2;
 }
 
-/* Cinematic Editorial Background Video & Fallback Poster */
+/* Cinematic Background Video Container */
 .hero-video-bg {
   position: absolute;
   inset: 0;
@@ -980,10 +979,7 @@ body:not([data-theme="dark"]) .theme-icon-sun { display: none; }
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
-  background-image: url('../assets/images/hero-poster.webp');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  background-color: #000000;
 }
 
 .hero-video-el {
@@ -996,24 +992,24 @@ body:not([data-theme="dark"]) .theme-icon-sun { display: none; }
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  opacity: 0.38;
-  filter: contrast(1.1) saturate(1.2) brightness(0.92);
+  opacity: 0.72;
+  filter: contrast(1.15) brightness(0.95);
   transition: opacity 1.2s ease;
   pointer-events: none;
 }
 
-/* Editorial Sky & Architectural Light Overlay Gradient */
+/* Dark Vignette & Atmospheric Contrast Overlay */
 .hero-video-overlay {
   position: absolute;
   inset: 0;
   background: 
     linear-gradient(180deg, 
-      rgba(68, 113, 152, 0.72) 0%, 
-      rgba(82, 127, 165, 0.62) 35%, 
-      rgba(59, 102, 139, 0.76) 70%, 
-      rgba(20, 36, 58, 0.94) 100%
+      rgba(5, 7, 10, 0.70) 0%, 
+      rgba(5, 7, 10, 0.42) 40%, 
+      rgba(5, 7, 10, 0.75) 80%, 
+      rgba(5, 7, 10, 0.98) 100%
     ),
-    radial-gradient(circle at 75% 20%, rgba(255, 246, 220, 0.16) 0%, transparent 60%);
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.78) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -1506,229 +1502,7 @@ section {
   line-height: 1.75;
 }
 
-/* ==========================================================================
-/* ==========================================================================
-   CINEMATIC SHOWCASE VIDEO SECTION (AUTOPLAY LOOP / GIF-LIKE MOTION)
-   "Four Minds. One Vision. Infinite Innovation in Motion"
-   ========================================================================== */
-.showcase-video-section {
-  position: relative;
-  width: 100%;
-  height: 85vh;
-  min-height: 560px;
-  max-height: 780px;
-  background-color: #05070A;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  z-index: 10;
-}
 
-.showcase-video-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Ambient Orange-Gold Backlight Glow */
-.showcase-video-ambient-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 70vh;
-  background: radial-gradient(circle, rgba(223, 183, 90, 0.16) 0%, rgba(197, 160, 82, 0.08) 45%, rgba(0, 0, 0, 0) 75%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Centered Cinematic Video Container */
-.showcase-video-wrapper {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.showcase-video-element {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  display: block;
-  background-color: #000000;
-  pointer-events: none;
-}
-
-/* Subtle Dark Cinematic Vignette */
-.showcase-video-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.12) 35%, rgba(0, 0, 0, 0.5) 75%, rgba(0, 0, 0, 0.9) 100%);
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Edge Fades for Seamless Top & Bottom Inset Transitions */
-.showcase-video-edge-fade-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(180deg, #05070A 0%, rgba(5, 7, 10, 0) 100%);
-  pointer-events: none;
-  z-index: 4;
-}
-
-.showcase-video-edge-fade-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(0deg, #05070A 0%, rgba(5, 7, 10, 0) 100%);
-  pointer-events: none;
-  z-index: 4;
-}
-
-/* Subtle Golden Frame Border Accent */
-.showcase-video-border-accent {
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(223, 183, 90, 0.24);
-  border-radius: var(--radius-lg);
-  pointer-events: none;
-  z-index: 4;
-  box-shadow: inset 0 0 35px rgba(197, 160, 82, 0.06), 0 0 25px rgba(0, 0, 0, 0.6);
-}
-
-/* Cinematic Floating Text Container */
-.showcase-video-text-container {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  width: 100%;
-  max-width: 860px;
-  min-height: 280px;
-}
-
-.showcase-text-phase {
-  position: absolute;
-  text-align: center;
-  width: calc(100% - 4rem);
-  max-width: 820px;
-  padding: 2.2rem 2.75rem;
-  background: rgba(10, 16, 26, 0.74);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(223, 183, 90, 0.35);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65), 0 0 32px rgba(197, 160, 82, 0.14);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.98);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.5s;
-  pointer-events: auto;
-}
-
-.showcase-text-phase.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-}
-
-.showcase-phase-eyebrow {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--champagne-gold-light);
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-}
-
-.showcase-phase-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 3.8vw, 2.75rem);
-  color: #FFFFFF;
-  font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 0.75rem;
-}
-
-.showcase-phase-desc {
-  font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-  color: rgba(248, 246, 237, 0.84);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Subtle Carousel Indicator Dots */
-.showcase-phase-dots {
-  position: absolute;
-  bottom: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  z-index: 6;
-}
-
-.showcase-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(223, 183, 90, 0.3);
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.showcase-dot.active {
-  width: 24px;
-  border-radius: 12px;
-  background: var(--champagne-gold);
-  box-shadow: 0 0 10px rgba(223, 183, 90, 0.6);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .showcase-video-section {
-    height: 75vh;
-    min-height: 480px;
-  }
-
-  .showcase-video-border-accent {
-    inset: 8px;
-  }
-
-  .showcase-text-phase {
-    padding: 1.4rem 1.3rem;
-    width: calc(100% - 1.5rem);
-  }
-}
 
 /* ==========================================================================
    SERVICES SECTION — CRISP ARCHITECTURAL CARDS
