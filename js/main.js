@@ -1007,25 +1007,38 @@ function initHeroVideo() {
   const video = document.getElementById('hero-bg-video');
   if (!video) return;
 
-  // Respect reduced motion and low-bandwidth data saving preferences
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDataSaver = navigator.connection && (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+  // Video properties for GIF-like continuous loop
+  video.muted = true;
+  video.defaultMuted = true;
+  video.loop = true;
+  video.playsInline = true;
 
-  if (prefersReduced || isDataSaver) {
-    video.pause();
-    video.removeAttribute('autoplay');
-    video.style.display = 'none';
-    return;
+  function playVideo() {
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
   }
 
-  // IntersectionObserver to pause video playback when scrolled out of view
+  playVideo();
+
+  // Continuous seamless loop continuation
+  video.addEventListener('ended', () => {
+    video.currentTime = 0;
+    playVideo();
+  });
+
+  // IntersectionObserver to pause video playback when scrolled out of view and resume when in view
   if ('IntersectionObserver' in window) {
     const heroSection = document.getElementById('home');
     if (heroSection) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            playVideo();
           } else {
             video.pause();
           }
@@ -1035,7 +1048,7 @@ function initHeroVideo() {
     }
   }
 
-  // Pause playback when browser tab is inactive / hidden
+  // Pause playback when browser tab is inactive / hidden and resume immediately when active
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       video.pause();
@@ -1044,7 +1057,7 @@ function initHeroVideo() {
       if (heroSection) {
         const rect = heroSection.getBoundingClientRect();
         if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          video.play().catch(() => {});
+          playVideo();
         }
       }
     }
