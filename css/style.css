@@ -1507,37 +1507,36 @@ section {
 }
 
 /* ==========================================================================
-   CINEMATIC SCROLL-CONTROLLED VIDEO ANIMATION SECTION
+/* ==========================================================================
+   CINEMATIC SHOWCASE VIDEO SECTION (AUTOPLAY LOOP / GIF-LIKE MOTION)
    "Four Minds. One Vision. Infinite Innovation in Motion"
    ========================================================================== */
-.scroll-video-section {
+.showcase-video-section {
   position: relative;
   width: 100%;
-  height: 320vh; /* Smooth, luxurious scroll scrub distance */
+  height: 85vh;
+  min-height: 560px;
+  max-height: 780px;
   background-color: #05070A;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   z-index: 10;
 }
 
-.scroll-video-sticky {
-  position: sticky;
-  top: 0;
-  left: 0;
+.showcase-video-container {
+  position: relative;
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  height: 100%;
   overflow: hidden;
   background-color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
-  will-change: transform;
-  z-index: 10;
 }
 
 /* Ambient Orange-Gold Backlight Glow */
-.scroll-video-ambient-glow {
+.showcase-video-ambient-glow {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1551,8 +1550,9 @@ section {
 }
 
 /* Centered Cinematic Video Container */
-.scroll-video-wrapper {
-  position: relative;
+.showcase-video-wrapper {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -1562,53 +1562,50 @@ section {
   z-index: 2;
 }
 
-.scroll-video-element {
+.showcase-video-element {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Centered, cinematic, properly cropped without distortion */
+  object-fit: cover;
   object-position: center center;
   display: block;
   background-color: #000000;
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
+  pointer-events: none;
 }
 
 /* Subtle Dark Cinematic Vignette */
-.scroll-video-vignette {
+.showcase-video-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.08) 35%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.88) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.12) 35%, rgba(0, 0, 0, 0.5) 75%, rgba(0, 0, 0, 0.9) 100%);
   pointer-events: none;
   z-index: 3;
 }
 
 /* Edge Fades for Seamless Top & Bottom Inset Transitions */
-.scroll-video-edge-fade-top {
+.showcase-video-edge-fade-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 90px;
+  height: 100px;
   background: linear-gradient(180deg, #05070A 0%, rgba(5, 7, 10, 0) 100%);
   pointer-events: none;
   z-index: 4;
 }
 
-.scroll-video-edge-fade-bottom {
+.showcase-video-edge-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 90px;
+  height: 100px;
   background: linear-gradient(0deg, #05070A 0%, rgba(5, 7, 10, 0) 100%);
   pointer-events: none;
   z-index: 4;
 }
 
 /* Subtle Golden Frame Border Accent */
-.scroll-video-border-accent {
+.showcase-video-border-accent {
   position: absolute;
   inset: 16px;
   border: 1px solid rgba(223, 183, 90, 0.24);
@@ -1618,23 +1615,26 @@ section {
   box-shadow: inset 0 0 35px rgba(197, 160, 82, 0.06), 0 0 25px rgba(0, 0, 0, 0.6);
 }
 
-/* Synchronized Cinematic Text Phases */
-.scroll-video-text-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* Cinematic Floating Text Container */
+.showcase-video-text-container {
+  position: relative;
   z-index: 5;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  width: 100%;
+  max-width: 860px;
+  min-height: 280px;
 }
 
-.scroll-text-phase {
+.showcase-text-phase {
   position: absolute;
   text-align: center;
+  width: calc(100% - 4rem);
   max-width: 820px;
-  padding: 2rem 2.75rem;
+  padding: 2.2rem 2.75rem;
   background: rgba(10, 16, 26, 0.74);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -1643,20 +1643,20 @@ section {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65), 0 0 32px rgba(197, 160, 82, 0.14);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(28px) scale(0.97);
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.45s;
-  will-change: opacity, transform;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s;
+  pointer-events: auto;
 }
 
-.scroll-text-phase.active {
+.showcase-text-phase.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
 }
 
-.scroll-phase-eyebrow {
+.showcase-phase-eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
   font-size: 0.8rem;
@@ -1667,7 +1667,7 @@ section {
   text-transform: uppercase;
 }
 
-.scroll-phase-title {
+.showcase-phase-title {
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3.8vw, 2.75rem);
   color: #FFFFFF;
@@ -1676,7 +1676,7 @@ section {
   margin-bottom: 0.75rem;
 }
 
-.scroll-phase-desc {
+.showcase-phase-desc {
   font-family: var(--font-sans);
   font-size: clamp(0.95rem, 1.4vw, 1.1rem);
   color: rgba(248, 246, 237, 0.84);
@@ -1684,100 +1684,49 @@ section {
   margin: 0;
 }
 
-/* Minimalist Luxury Scrubber Progress Bar */
-.scroll-video-indicator {
+/* Subtle Carousel Indicator Dots */
+.showcase-phase-dots {
   position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 6;
+  bottom: 0px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  pointer-events: none;
-  width: 280px;
-  max-width: 85vw;
+  justify-content: center;
+  gap: 10px;
+  z-index: 6;
 }
 
-.scroll-indicator-track {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+.showcase-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(223, 183, 90, 0.3);
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.scroll-indicator-bar {
-  width: 0%;
-  height: 100%;
-  background: var(--grad-gold-btn);
-  box-shadow: 0 0 12px rgba(223, 183, 90, 0.85);
-  border-radius: var(--radius-full);
-  transition: width 0.08s linear;
+.showcase-dot.active {
+  width: 24px;
+  border-radius: 12px;
+  background: var(--champagne-gold);
+  box-shadow: 0 0 10px rgba(223, 183, 90, 0.6);
 }
 
-.scroll-indicator-labels {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--champagne-gold-light);
-  opacity: 0.9;
-}
-
-/* Mobile Responsiveness & Refinements */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .scroll-video-section {
-    height: 220vh; /* Smooth, quick-scrub distance for mobile touch thumb */
+  .showcase-video-section {
+    height: 75vh;
+    min-height: 480px;
   }
 
-  .scroll-video-border-accent {
+  .showcase-video-border-accent {
     inset: 8px;
   }
 
-  .scroll-text-phase {
-    padding: 1.35rem 1.4rem;
-    width: 90vw;
-  }
-
-  .scroll-video-indicator {
-    bottom: 16px;
-    width: 220px;
-  }
-}
-
-/* Lightweight Fallback for Reduced Motion Preferences */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-video-section {
-    height: auto;
-    min-height: 80vh;
-    padding: 60px 0;
-  }
-
-  .scroll-video-sticky {
-    position: relative;
-    height: 70vh;
-  }
-
-  .scroll-text-phase {
-    position: relative;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-  }
-
-  .scroll-text-phase:not(.phase-2) {
-    display: none;
-  }
-
-  .scroll-video-indicator {
-    display: none;
+  .showcase-text-phase {
+    padding: 1.4rem 1.3rem;
+    width: calc(100% - 1.5rem);
   }
 }
 

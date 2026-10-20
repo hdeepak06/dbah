@@ -389,65 +389,63 @@
     </section>
 
     <!-- ======================================================================
-         CINEMATIC SCROLL-CONTROLLED VIDEO ANIMATION
+         CINEMATIC SHOWCASE VIDEO (AUTOPLAY LOOP / GIF-LIKE MOTION)
          "Four Minds. One Vision. Infinite Innovation in Motion"
          ====================================================================== -->
-    <section id="experience" class="scroll-video-section" aria-label="DBAH Quad Digital Innovation Showcase">
-      <div class="scroll-video-sticky">
+    <section id="experience" class="showcase-video-section" aria-label="DBAH Quad Digital Innovation Showcase">
+      <div class="showcase-video-container">
         <!-- Ambient Cinematic Glows & Dark Vignette -->
-        <div class="scroll-video-ambient-glow" aria-hidden="true"></div>
-        <div class="scroll-video-vignette" aria-hidden="true"></div>
-        <div class="scroll-video-edge-fade-top" aria-hidden="true"></div>
-        <div class="scroll-video-edge-fade-bottom" aria-hidden="true"></div>
+        <div class="showcase-video-ambient-glow" aria-hidden="true"></div>
+        <div class="showcase-video-vignette" aria-hidden="true"></div>
+        <div class="showcase-video-edge-fade-top" aria-hidden="true"></div>
+        <div class="showcase-video-edge-fade-bottom" aria-hidden="true"></div>
 
-        <!-- Centered Cinematic Video Container -->
-        <div class="scroll-video-wrapper">
+        <!-- Centered Cinematic Video Background (Autoplay Loop like a GIF) -->
+        <div class="showcase-video-wrapper">
           <video
-            id="scroll-video"
-            class="scroll-video-element"
+            id="showcase-loop-video"
+            class="showcase-video-element"
             src="./326407_medium.mp4"
+            autoplay
             muted
+            loop
             playsinline
             webkit-playsinline
             preload="auto"
             aria-hidden="true"
           ></video>
           <!-- Subtle Golden Frame Border Accent -->
-          <div class="scroll-video-border-accent" aria-hidden="true"></div>
+          <div class="showcase-video-border-accent" aria-hidden="true"></div>
         </div>
 
-        <!-- Synchronized Cinematic Text Phases (Revealed smoothly based on scroll progress) -->
-        <div class="scroll-video-text-container" aria-live="polite">
-          <!-- Phase 1: 5% - 30% -->
-          <div class="scroll-text-phase phase-1" data-phase="1">
-            <span class="scroll-phase-eyebrow">✦ DIGITAL ARCHITECTURE ✦</span>
-            <h2 class="scroll-phase-title">Precision Engineered. <span class="text-gold">Visually Captivating.</span></h2>
-            <p class="scroll-phase-desc">Where algorithmic precision harmonizes with bespoke digital aesthetics.</p>
+        <!-- Elegant Floating Cinematic Text Card (Smoothly cycles through brand pillars) -->
+        <div class="showcase-video-text-container" aria-live="polite">
+          <!-- Phase 1 -->
+          <div class="showcase-text-phase active" data-phase="0">
+            <span class="showcase-phase-eyebrow">✦ DIGITAL ARCHITECTURE ✦</span>
+            <h2 class="showcase-phase-title">Precision Engineered. <span class="text-gold">Visually Captivating.</span></h2>
+            <p class="showcase-phase-desc">Where algorithmic precision harmonizes with bespoke digital aesthetics.</p>
           </div>
 
-          <!-- Phase 2: 36% - 66% -->
-          <div class="scroll-text-phase phase-2" data-phase="2">
-            <span class="scroll-phase-eyebrow">✦ FOUR MINDS • ONE VISION ✦</span>
-            <h2 class="scroll-phase-title">Every Frame <span class="text-gold">Crafted With Intent.</span></h2>
-            <p class="scroll-phase-desc">Transforming business vision into immersive, high-converting digital realities.</p>
+          <!-- Phase 2 -->
+          <div class="showcase-text-phase" data-phase="1">
+            <span class="showcase-phase-eyebrow">✦ FOUR MINDS • ONE VISION ✦</span>
+            <h2 class="showcase-phase-title">Every Frame <span class="text-gold">Crafted With Intent.</span></h2>
+            <p class="showcase-phase-desc">Transforming business vision into immersive, high-converting digital realities.</p>
           </div>
 
-          <!-- Phase 3: 72% - 94% -->
-          <div class="scroll-text-phase phase-3" data-phase="3">
-            <span class="scroll-phase-eyebrow">✦ INFINITE INNOVATION ✦</span>
-            <h2 class="scroll-phase-title">Ready to Elevate <span class="text-gold">Your Online Presence.</span></h2>
-            <p class="scroll-phase-desc">Explore our crafted web &amp; digital services below.</p>
+          <!-- Phase 3 -->
+          <div class="showcase-text-phase" data-phase="2">
+            <span class="showcase-phase-eyebrow">✦ INFINITE INNOVATION ✦</span>
+            <h2 class="showcase-phase-title">Ready to Elevate <span class="text-gold">Your Online Presence.</span></h2>
+            <p class="showcase-phase-desc">Explore our crafted web &amp; digital services below.</p>
           </div>
-        </div>
 
-        <!-- Minimalist Luxury Scroll Scrubber Progress Indicator -->
-        <div class="scroll-video-indicator" aria-hidden="true">
-          <div class="scroll-indicator-track">
-            <div class="scroll-indicator-bar" id="scroll-video-bar"></div>
-          </div>
-          <div class="scroll-indicator-labels">
-            <span class="scroll-indicator-tag">SCROLL TO CONTROL TIMELINE</span>
-            <span class="scroll-indicator-pct" id="scroll-video-pct">0%</span>
+          <!-- Subtle Indicator Dots -->
+          <div class="showcase-phase-dots" aria-hidden="true">
+            <button class="showcase-dot active" aria-label="Slide 1" type="button"></button>
+            <button class="showcase-dot" aria-label="Slide 2" type="button"></button>
+            <button class="showcase-dot" aria-label="Slide 3" type="button"></button>
           </div>
         </div>
       </div>

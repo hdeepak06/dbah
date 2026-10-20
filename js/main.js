@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 12. Cinematic Hero Background Video
   initHeroVideo();
 
-  // 13. Cinematic Scroll-Controlled Video Animation
-  initScrollVideoAnimation();
+  // 13. Cinematic Showcase Video (Autoplay GIF-like Loop)
+  initShowcaseVideo();
 
   // 14. Dynamic Current Year
   const yearEl = document.getElementById('current-year');
@@ -1053,187 +1053,112 @@ function initHeroVideo() {
 }
 
 /* ==========================================================================
-   13. CINEMATIC SCROLL-CONTROLLED VIDEO ANIMATION CONTROLLER
-   Maps user scrolling position directly to the video timeline (326407_medium.mp4).
-   - Scroll down: advances video frames forward
-   - Scroll up: reverses video frames backwards
-   - Scroll stop: pauses video at the exact current frame
-   - Uses requestAnimationFrame with seek queue to eliminate dropped frames/flicker
-   - Synchronizes text phases and sleek golden progress indicator
-   - Smoothly reveals next section upon reaching final frame
-   - Respects reduced-motion preferences & mobile responsiveness
+   13. CINEMATIC SHOWCASE VIDEO CONTROLLER (AUTOPLAY GIF-LIKE LOOP)
+   Plays 326407_medium.mp4 continuously in a smooth loop like an animated GIF.
+   - Autoplay, muted, infinite loop
+   - Pauses when scrolled out of viewport or when tab is inactive to preserve battery
+   - Auto-rotates through the 3 inspiring text pillars
    ========================================================================== */
-function initScrollVideoAnimation() {
-  const section = document.querySelector('.scroll-video-section');
-  const video = document.getElementById('scroll-video');
-  const progressBar = document.getElementById('scroll-video-bar');
-  const progressPct = document.getElementById('scroll-video-pct');
-  const textPhases = document.querySelectorAll('.scroll-text-phase');
+function initShowcaseVideo() {
+  const section = document.querySelector('.showcase-video-section');
+  const video = document.getElementById('showcase-loop-video');
+  const textPhases = document.querySelectorAll('.showcase-text-phase');
+  const dots = document.querySelectorAll('.showcase-dot');
 
-  if (!section || !video) return;
+  if (!video) return;
 
-  // Reduced motion preference fallback
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    video.pause();
-    video.muted = true;
-    video.currentTime = 1.0;
-    return;
-  }
-
-  // Configure video element for programmatic scrubbing
-  video.pause();
+  // Video properties for GIF-like autoplay
   video.muted = true;
   video.defaultMuted = true;
+  video.loop = true;
   video.playsInline = true;
-  video.preload = 'auto';
 
-  let videoDuration = 10.24; // Default fallback duration
-  let isMetadataLoaded = false;
-  let targetProgress = 0;
-  let currentProgress = 0;
-  let isSeeking = false;
-  let pendingTime = null;
-  let seekTimeout = null;
-  let rafId = null;
-
-  function onMetadataReady() {
-    if (video.duration && !isNaN(video.duration) && video.duration > 0) {
-      videoDuration = video.duration;
+  // Ensure autoplay starts reliably
+  function playVideo() {
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+      });
     }
-    isMetadataLoaded = true;
-
-    // Decode initial frame cleanly so there's no initial blank screen
-    if (video.currentTime === 0) {
-      try {
-        video.currentTime = 0.001;
-      } catch (e) {}
-    }
-
-    updateScrollProgress();
   }
 
-  if (video.readyState >= 1) {
-    onMetadataReady();
-  } else {
-    video.addEventListener('loadedmetadata', onMetadataReady, { once: true });
-    video.addEventListener('canplay', onMetadataReady, { once: true });
-    // Trigger load if not initiated
-    video.load();
+  playVideo();
+
+  // IntersectionObserver to pause when scrolled out of view (battery/performance optimization)
+  if ('IntersectionObserver' in window && section) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          playVideo();
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(section);
   }
 
-  // Handle seek completion to prevent decoding queue backlog and flickering
-  video.addEventListener('seeked', () => {
-    clearTimeout(seekTimeout);
-    isSeeking = false;
-    if (pendingTime !== null) {
-      const next = pendingTime;
-      pendingTime = null;
-      seekVideoTo(next);
+  // Visibility change: pause when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      video.pause();
+    } else {
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          playVideo();
+        }
+      }
     }
   });
 
-  function seekVideoTo(timeInSec) {
-    if (!video || !isMetadataLoaded) return;
-    const clampedTime = Math.max(0, Math.min(videoDuration - 0.04, timeInSec));
+  // Smooth rotating text pillars (cycles every 3.8s)
+  if (textPhases.length > 1) {
+    let currentIdx = 0;
+    let rotateInterval = null;
 
-    if (isSeeking) {
-      pendingTime = clampedTime;
-      return;
+    function showPhase(index) {
+      textPhases.forEach((phase, i) => {
+        phase.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentIdx = index;
     }
 
-    // Only seek if change is greater than ~1 frame (40ms) to ensure optimal GPU throughput
-    if (Math.abs(video.currentTime - clampedTime) > 0.025) {
-      isSeeking = true;
-      try {
-        video.currentTime = clampedTime;
-      } catch (e) {
-        isSeeking = false;
-      }
-
-      // Safety timeout to prevent isSeeking deadlock in case browser drops seeked event
-      clearTimeout(seekTimeout);
-      seekTimeout = setTimeout(() => {
-        isSeeking = false;
-        if (pendingTime !== null) {
-          const next = pendingTime;
-          pendingTime = null;
-          seekVideoTo(next);
-        }
-      }, 100);
+    function nextPhase() {
+      const next = (currentIdx + 1) % textPhases.length;
+      showPhase(next);
     }
-  }
 
-  function calculateProgress() {
-    const rect = section.getBoundingClientRect();
-    const scrollDistance = section.offsetHeight - window.innerHeight;
-    if (scrollDistance <= 0) return 0;
+    function startRotation() {
+      if (rotateInterval) clearInterval(rotateInterval);
+      rotateInterval = setInterval(nextPhase, 3800);
+    }
 
-    // Progress goes from 0.0 when section top reaches viewport top to 1.0 when sticky ends
-    const rawProgress = -rect.top / scrollDistance;
-    return Math.max(0, Math.min(1, rawProgress));
-  }
+    function stopRotation() {
+      if (rotateInterval) clearInterval(rotateInterval);
+    }
 
-  function updateVisuals(progress) {
-    // 1. Update Timeline Scrubber Bar & Percentage
-    const percentInt = Math.round(progress * 100);
-    if (progressBar) progressBar.style.width = `${percentInt}%`;
-    if (progressPct) progressPct.textContent = `${percentInt}%`;
+    startRotation();
 
-    // 2. Synchronize Text Phases (Fade in / out based on scroll progression)
-    // Phase 1: 5% to 30%
-    // Phase 2: 36% to 66%
-    // Phase 3: 72% to 94%
-    textPhases.forEach((phase) => {
-      const phaseNum = phase.getAttribute('data-phase');
-      let isActive = false;
-      if (phaseNum === '1') {
-        isActive = progress >= 0.05 && progress <= 0.30;
-      } else if (phaseNum === '2') {
-        isActive = progress >= 0.36 && progress <= 0.66;
-      } else if (phaseNum === '3') {
-        isActive = progress >= 0.72 && progress <= 0.94;
-      }
-      phase.classList.toggle('active', isActive);
+    // Pause rotation on hover
+    const textContainer = document.querySelector('.showcase-video-text-container');
+    if (textContainer) {
+      textContainer.addEventListener('mouseenter', stopRotation);
+      textContainer.addEventListener('mouseleave', startRotation);
+    }
+
+    // Dot click
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        showPhase(idx);
+        startRotation();
+      });
     });
   }
-
-  function loop() {
-    // Smooth linear interpolation (lerp) for buttery scroll feel
-    const diff = targetProgress - currentProgress;
-    if (Math.abs(diff) > 0.0005) {
-      currentProgress += diff * 0.25;
-    } else {
-      currentProgress = targetProgress;
-    }
-
-    if (isMetadataLoaded && videoDuration > 0) {
-      const targetTime = currentProgress * videoDuration;
-      seekVideoTo(targetTime);
-    }
-
-    updateVisuals(currentProgress);
-
-    // Keep RAF loop active until animation settles
-    if (Math.abs(targetProgress - currentProgress) > 0.0005) {
-      rafId = requestAnimationFrame(loop);
-    } else {
-      rafId = null;
-    }
-  }
-
-  function updateScrollProgress() {
-    targetProgress = calculateProgress();
-    if (!rafId) {
-      rafId = requestAnimationFrame(loop);
-    }
-  }
-
-  // Non-blocking, passive listeners for mouse-wheel, trackpad, and touch scrolling
-  window.addEventListener('scroll', updateScrollProgress, { passive: true });
-  window.addEventListener('resize', updateScrollProgress, { passive: true });
-
-  // Initial calculation
-  updateScrollProgress();
 }
 
