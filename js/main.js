@@ -1,5 +1,6 @@
 /**
  * DBAH QUAD DIGITAL LABS — INTERACTIVE MOTION & CLIENT CONTROLLER
+ * High-Performance Editorial Edition
  * "Four Minds. One Vision. Infinite Innovation."
  */
 
@@ -9,35 +10,45 @@ document.addEventListener('DOMContentLoaded', () => {
   initWhyChooseUsTickers();
   initNavDisclaimerRotator();
 
-  // 2. Ambient Gold Particle Canvas & Parallax
+  // 2. High-Performance Ambient Gold Particle Canvas & Parallax
   initParticlesCanvas();
   initParallaxEffects();
 
   // 3. Navigation & Header Controller
   initNavigation();
 
-  // 4. Scroll Reveal Animations (IntersectionObserver)
+  // 4. Logo Interaction (Tilt, Popover Info, Escape Dismissal)
+  initLogoInteraction();
+  initPuzzleAssembly();
+
+  // 5. Scroll Reveal Animations (IntersectionObserver)
   initScrollReveal();
 
-  // 5. Portfolio Filtering & Project Modals
+  // 6. Portfolio Filtering & Project Modals
   initPortfolio();
 
-  // 6. Pricing Plan Form Auto-fill
+  // 7. Pricing Plan Form Auto-fill
   initPricing();
 
-  // 7. FAQ Accordion
+  // 8. FAQ Accordion
   initFaqAccordion();
 
-  // 8. Contact & Enquiry Form Validation & Dispatcher
+  // 9. Contact & Enquiry Form Validation & Dispatcher
   initContactForm();
 
-  // 9. Back to Top Button
+  // 10. Back to Top Button
   initBackToTop();
 
-  // 10. Dark / Light Mode Theme Toggle
+  // 11. Dark / Light Mode Theme Toggle
   initThemeToggle();
 
-  // 11. Dynamic Current Year
+  // 12. Cinematic Hero Background Video
+  initHeroVideo();
+
+  // 13. Cinematic Scroll-Controlled Video Animation
+  initScrollVideoAnimation();
+
+  // 14. Dynamic Current Year
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -57,7 +68,6 @@ function initIntroOverlay() {
   function hideIntro() {
     overlay.classList.add('hidden');
     sessionStorage.setItem('dbah_intro_seen', 'true');
-    // Ensure body is unlocked
     document.body.style.overflow = '';
   }
 
@@ -76,30 +86,24 @@ function initIntroOverlay() {
     }
   });
 
-  // Ample time to watch feature ticker & read disclaimer (8.5s auto-hide)
+  // Auto-hide after intro period
   setTimeout(() => {
     if (!overlay.classList.contains('hidden')) {
       hideIntro();
     }
-  }, 8500);
+  }, 7500);
 }
 
-/**
- * Animated "Why Choose Us?" feature ticker controller
- * Rotates through short feature messages every 2.4s with smooth transitions
- */
 function initWhyChooseUsTickers() {
   const tickerContainers = document.querySelectorAll('.why-ticker-container');
   if (!tickerContainers.length) return;
 
-  // Check reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   tickerContainers.forEach((container) => {
     const items = container.querySelectorAll('.why-ticker-item');
     if (items.length <= 1) return;
 
-    // Find parent badge for dots
     const parentBadge = container.closest('.intro-why-badge');
     const dots = parentBadge ? parentBadge.querySelectorAll('.why-dot') : [];
 
@@ -143,14 +147,12 @@ function initWhyChooseUsTickers() {
 
       startRotation();
 
-      // Pause rotation on hover or keyboard focus so user can read comfortably
       container.addEventListener('mouseenter', stopRotation);
       container.addEventListener('mouseleave', startRotation);
       container.addEventListener('focusin', stopRotation);
       container.addEventListener('focusout', startRotation);
     }
 
-    // Dot click interaction
     if (dots.length) {
       dots.forEach((dot, idx) => {
         dot.style.cursor = 'pointer';
@@ -162,10 +164,6 @@ function initWhyChooseUsTickers() {
   });
 }
 
-/**
- * Rotating Disclaimer & Terms Ticker (Directly Below Navigation Bar)
- * Smoothly cycles through project disclaimer messages every 3.5 seconds
- */
 function initNavDisclaimerRotator() {
   const rotator = document.getElementById('nav-ticker-rotator');
   if (!rotator) return;
@@ -215,7 +213,6 @@ function initNavDisclaimerRotator() {
 
     start();
 
-    // Pause on hover so the user can read the disclaimer without hurry
     const tickerContainer = rotator.closest('.nav-disclaimer-ticker');
     if (tickerContainer) {
       tickerContainer.addEventListener('mouseenter', stop);
@@ -225,7 +222,6 @@ function initNavDisclaimerRotator() {
     }
   }
 
-  // Clickable indicator dots
   if (dots.length) {
     dots.forEach((dot, idx) => {
       dot.style.cursor = 'pointer';
@@ -237,13 +233,13 @@ function initNavDisclaimerRotator() {
 }
 
 /* ==========================================================================
-   2. AMBIENT GOLD PARTICLES CANVAS
+   2. HIGH-PERFORMANCE AMBIENT GOLD PARTICLES CANVAS
+   Optimized: Low CPU, paused when scrolled past hero or hidden tab
    ========================================================================== */
 function initParticlesCanvas() {
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
 
-  // Respect reduced motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     canvas.style.display = 'none';
     return;
@@ -253,34 +249,52 @@ function initParticlesCanvas() {
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
+  let isRunning = true;
+  let animationId = null;
+
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
+  }, { passive: true });
+
+  // Pause when tab is inactive or user scrolled past hero to save battery
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stop();
+    } else {
+      start();
+    }
   });
 
-  const particleCount = Math.min(window.innerWidth < 768 ? 24 : 50, 55);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 1.5) {
+      if (isRunning) stop();
+    } else {
+      if (!isRunning && !document.hidden) start();
+    }
+  }, { passive: true });
+
+  const particleCount = window.innerWidth < 768 ? 12 : 24;
   const particles = [];
 
   const goldColors = [
-    'rgba(245, 222, 140, 0.75)',
-    'rgba(212, 175, 55, 0.65)',
-    'rgba(184, 134, 11, 0.55)',
-    'rgba(255, 255, 255, 0.45)'
+    'rgba(223, 196, 131, 0.65)',
+    'rgba(197, 160, 82, 0.55)',
+    'rgba(248, 246, 237, 0.45)'
   ];
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2 + 0.8,
+      radius: Math.random() * 1.5 + 0.8,
       color: goldColors[Math.floor(Math.random() * goldColors.length)],
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35 - 0.08,
-      alpha: Math.random() * 0.7 + 0.3
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25 - 0.05
     });
   }
 
-  function animate() {
+  function render() {
     ctx.clearRect(0, 0, width, height);
 
     for (let i = 0; i < particles.length; i++) {
@@ -293,76 +307,69 @@ function initParticlesCanvas() {
       if (p.y < 0) p.y = height;
       if (p.y > height) p.y = 0;
 
-      // Draw particle dot
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = 'rgba(212, 175, 55, 0.6)';
       ctx.fill();
-
-      // Draw subtle golden connection lines to nearby particles
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dx = p.x - p2.x;
-        const dy = p.y - p2.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 80) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(212, 175, 55, ${(1 - dist / 80) * 0.16})`;
-          ctx.lineWidth = 0.6;
-          ctx.shadowBlur = 0;
-          ctx.stroke();
-        }
-      }
     }
 
-    requestAnimationFrame(animate);
+    if (isRunning) {
+      animationId = requestAnimationFrame(render);
+    }
   }
 
-  animate();
+  function start() {
+    if (!isRunning) {
+      isRunning = true;
+      animationId = requestAnimationFrame(render);
+    }
+  }
+
+  function stop() {
+    isRunning = false;
+    if (animationId) cancelAnimationFrame(animationId);
+  }
+
+  animationId = requestAnimationFrame(render);
 }
 
 /* ==========================================================================
-   2B. GENTLE BACKGROUND PARALLAX (MOUSE TRACKING)
+   2B. GENTLE BACKGROUND PARALLAX
    ========================================================================== */
 function initParallaxEffects() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 1024) {
     return;
   }
 
-  const orbs = document.querySelectorAll('.glow-orb');
-  const shapes = document.querySelectorAll('.geo-shape');
+  const emblem = document.querySelector('.emblem-image');
+  if (!emblem) return;
 
   let mouseX = 0, mouseY = 0;
   let currentX = 0, currentY = 0;
+  let isListening = false;
 
   window.addEventListener('mousemove', (e) => {
+    if (window.scrollY > window.innerHeight) return;
     mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
     mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    if (!isListening) {
+      isListening = true;
+      requestAnimationFrame(update);
+    }
   }, { passive: true });
 
-  function updateParallax() {
-    currentX += (mouseX - currentX) * 0.04;
-    currentY += (mouseY - currentY) * 0.04;
+  function update() {
+    currentX += (mouseX - currentX) * 0.05;
+    currentY += (mouseY - currentY) * 0.05;
 
-    orbs.forEach((orb, idx) => {
-      const factor = (idx + 1) * 10;
-      orb.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
-    });
+    emblem.style.transform = `translate(${currentX * 6}px, ${currentY * 6}px)`;
 
-    shapes.forEach((shape, idx) => {
-      const factor = (idx % 3 + 1) * 8;
-      shape.style.transform = `translate(${currentX * -factor}px, ${currentY * -factor}px)`;
-    });
-
-    requestAnimationFrame(updateParallax);
+    if (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001) {
+      requestAnimationFrame(update);
+    } else {
+      isListening = false;
+    }
   }
-
-  updateParallax();
 }
 
 /* ==========================================================================
@@ -377,17 +384,15 @@ function initNavigation() {
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
-  // Header background on scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 30) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
 
-    // Active Section Link Highlight
     let current = '';
-    const scrollPos = window.pageYOffset + 120;
+    const scrollPos = window.pageYOffset + 140;
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop;
@@ -403,9 +408,8 @@ function initNavigation() {
         link.classList.add('active');
       }
     });
-  });
+  }, { passive: true });
 
-  // Mobile drawer toggle
   function toggleMobileMenu() {
     menuToggle.classList.toggle('open');
     mobileNav.classList.toggle('open');
@@ -434,7 +438,82 @@ function initNavigation() {
 }
 
 /* ==========================================================================
-   4. SCROLL REVEAL (INTERSECTION OBSERVER)
+   4. LOGO INTERACTION (TILT, INFO POPOVER, ESCAPE DISMISSAL)
+   ========================================================================== */
+function initLogoInteraction() {
+  const brandLink = document.querySelector('.brand-link');
+  if (!brandLink) return;
+
+  // Create subtle brand information popover card dynamically
+  const popover = document.createElement('div');
+  popover.className = 'brand-info-popover';
+  popover.setAttribute('role', 'dialog');
+  popover.setAttribute('aria-label', 'Brand Details');
+  popover.innerHTML = `
+    <div class="popover-badge">✦ OFFICIAL DIGITAL LABS</div>
+    <div class="popover-heading">DBAH Quad Digital Labs</div>
+    <p class="popover-text">Four Minds. One Vision. Infinite Innovation.</p>
+    <div class="popover-meta">📍 Kondanayakana Halli (KN Halli) • Hosapete & Hampi, Karnataka</div>
+  `;
+  brandLink.appendChild(popover);
+
+  let isPopoverOpen = false;
+
+  function openPopover() {
+    popover.classList.add('open');
+    isPopoverOpen = true;
+  }
+
+  function closePopover() {
+    popover.classList.remove('open');
+    isPopoverOpen = false;
+  }
+
+  // Right-click or long-press or logo image touch triggers info popup
+  const logoImg = brandLink.querySelector('.brand-logo-img');
+  if (logoImg) {
+    logoImg.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      if (isPopoverOpen) {
+        closePopover();
+      } else {
+        openPopover();
+      }
+    });
+  }
+
+  // Dismiss on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isPopoverOpen) {
+      closePopover();
+    }
+  });
+
+  // Dismiss when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isPopoverOpen && !brandLink.contains(e.target)) {
+      closePopover();
+    }
+  });
+}
+
+/* ==========================================================================
+   4B. LOGO PUZZLE ASSEMBLY INTERACTIVE CONTROLLER
+   ========================================================================== */
+function initPuzzleAssembly() {
+  const emblemCard = document.getElementById('emblem-card');
+  const puzzleStage = document.getElementById('emblem-puzzle-stage');
+  if (!emblemCard || !puzzleStage) return;
+
+  emblemCard.addEventListener('click', () => {
+    puzzleStage.classList.remove('replay');
+    void puzzleStage.offsetWidth; // Force CSS reflow to re-trigger puzzle lock animation
+    puzzleStage.classList.add('replay');
+  });
+}
+
+/* ==========================================================================
+   5. SCROLL REVEAL (INTERSECTION OBSERVER)
    ========================================================================== */
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
@@ -450,8 +529,8 @@ function initScrollReveal() {
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
       }
     );
 
@@ -462,7 +541,7 @@ function initScrollReveal() {
 }
 
 /* ==========================================================================
-   5. PORTFOLIO FILTERING & MODAL CONTROLLER
+   6. PORTFOLIO FILTERING & MODAL CONTROLLER
    ========================================================================== */
 const projectData = {
   'sri-sai-blossom': {
@@ -473,7 +552,7 @@ const projectData = {
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Grid', 'Vercel CDN'],
     github: 'https://github.com/hdeepak06/sri-sai-blossom-kids',
     live: 'https://sri-sai-blossom-kids.vercel.app',
-    image: 'assets/images/projects/sri-sai-blossom.png'
+    image: 'assets/images/projects/sri-sai-blossom.webp'
   },
   'maya-valley': {
     title: 'Maya Valley Resort Hampi',
@@ -493,7 +572,7 @@ const projectData = {
     tech: ['React', 'Vite', 'TypeScript', 'Tailwind/CSS', 'WhatsApp API'],
     github: 'https://github.com/hdeepak06/sri-manjunatha-travels',
     live: null,
-    image: 'assets/images/projects/sri-manjunatha-travels.png'
+    image: 'assets/images/projects/sri-manjunatha-travels.webp'
   },
   'anil-bike': {
     title: 'Anil Bike Rental Hampi',
@@ -503,7 +582,7 @@ const projectData = {
     tech: ['HTML5', 'CSS3', 'JavaScript', 'WhatsApp Booking Flow'],
     github: 'https://github.com/hdeepak06/anil-bike-rental-hampi',
     live: 'https://anil-bike-rental-hampi.vercel.app',
-    image: 'assets/images/projects/anil-bike-rental.png'
+    image: 'assets/images/projects/anil-bike-rental.webp'
   },
   'finalmealmate': {
     title: 'FinalMealmate Food Delivery & Surplus Donation',
@@ -568,7 +647,6 @@ function initPortfolio() {
     });
   });
 
-  // Project Modals
   const modalOverlay = document.getElementById('project-modal');
   const modalCloseBtn = document.getElementById('modal-close-btn');
   const openModalBtns = document.querySelectorAll('[data-project-key]');
@@ -581,7 +659,6 @@ function initPortfolio() {
     document.getElementById('modal-category').textContent = data.category;
     document.getElementById('modal-desc').textContent = data.desc;
 
-    // Tech pills
     const techContainer = document.getElementById('modal-tech');
     techContainer.innerHTML = '';
     data.tech.forEach((t) => {
@@ -591,7 +668,6 @@ function initPortfolio() {
       techContainer.appendChild(pill);
     });
 
-    // Action buttons
     const actionsContainer = document.getElementById('modal-actions');
     actionsContainer.innerHTML = '';
 
@@ -650,7 +726,7 @@ function initPortfolio() {
 }
 
 /* ==========================================================================
-   6. PRICING AUTO-FILL INTO CONTACT FORM
+   7. PRICING AUTO-FILL INTO CONTACT FORM
    ========================================================================== */
 function initPricing() {
   const quoteBtns = document.querySelectorAll('[data-plan-name]');
@@ -658,12 +734,11 @@ function initPricing() {
   const detailsText = document.getElementById('enquiry-details');
 
   quoteBtns.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const plan = btn.getAttribute('data-plan-name');
       const budget = btn.getAttribute('data-plan-budget');
 
       if (serviceSelect) {
-        // match service option
         for (let i = 0; i < serviceSelect.options.length; i++) {
           if (serviceSelect.options[i].text.toLowerCase().includes(plan.toLowerCase())) {
             serviceSelect.selectedIndex = i;
@@ -685,7 +760,7 @@ function initPricing() {
 }
 
 /* ==========================================================================
-   7. FAQ ACCORDION
+   8. FAQ ACCORDION
    ========================================================================== */
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
@@ -697,10 +772,8 @@ function initFaqAccordion() {
     questionBtn.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
 
-      // Close all other items
       faqItems.forEach((other) => other.classList.remove('active'));
 
-      // Toggle current
       if (!isActive) {
         item.classList.add('active');
       }
@@ -709,7 +782,7 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   8. CONTACT FORM VALIDATION & DISPATCH
+   9. CONTACT FORM VALIDATION & DISPATCH
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('project-enquiry-form');
@@ -735,7 +808,6 @@ function initContactForm() {
     const budgetInput = document.getElementById('enquiry-budget');
     const detailsInput = document.getElementById('enquiry-details');
 
-    // Validation helper
     function checkField(input, condition, errorId) {
       const errEl = document.getElementById(errorId);
       if (!condition) {
@@ -770,7 +842,6 @@ function initContactForm() {
       details: detailsInput.value.trim()
     };
 
-    // Open dispatch choice modal
     if (dispatchModal) {
       document.getElementById('confirm-name').textContent = validatedPayload.name;
       document.getElementById('confirm-service').textContent = validatedPayload.service;
@@ -779,7 +850,6 @@ function initContactForm() {
     }
   });
 
-  // Action: Send via WhatsApp
   if (dispatchWhatsAppBtn) {
     dispatchWhatsAppBtn.addEventListener('click', () => {
       if (!validatedPayload) return;
@@ -804,7 +874,6 @@ function initContactForm() {
     });
   }
 
-  // Action: Send via Email (mailto)
   if (dispatchEmailBtn) {
     dispatchEmailBtn.addEventListener('click', () => {
       if (!validatedPayload) return;
@@ -844,31 +913,42 @@ function initContactForm() {
 }
 
 /* ==========================================================================
-   9. BACK TO TOP
+   10. BACK TO TOP
    ========================================================================== */
 function initBackToTop() {
-  const btn = document.getElementById('back-to-top');
-  if (!btn) return;
+  const btns = document.querySelectorAll('#back-to-top, .btn-top');
+  if (!btns.length) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
+  const updateVisibility = () => {
+    const scrollPos = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const isVisible = scrollPos > 250;
+    btns.forEach(btn => {
+      if (isVisible) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+  };
 
-  btn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  window.addEventListener('scroll', updateVisibility, { passive: true });
+  updateVisibility();
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 }
 
 /* ==========================================================================
-   10. DARK / LIGHT THEME TOGGLE CONTROLLER
-   Turns all white/cream surfaces into sleek dark obsidian & updates typography
+   11. DARK / LIGHT THEME TOGGLE CONTROLLER
    ========================================================================== */
 function initThemeToggle() {
   const toggleBtns = document.querySelectorAll('#theme-toggle-btn, #mobile-theme-toggle-btn, #dock-theme-toggle-btn');
@@ -878,14 +958,13 @@ function initThemeToggle() {
 
   function applyTheme(isDark) {
     if (isDark) {
-      document.body.classList.add('dark-mode');
+      document.body.classList.add('dark-theme');
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove('dark-theme');
       document.documentElement.setAttribute('data-theme', 'light');
     }
 
-    // Update all toggle buttons text and aria-label
     toggleBtns.forEach((btn) => {
       const labelSpan = btn.querySelector('.theme-toggle-label');
       if (isDark) {
@@ -894,23 +973,16 @@ function initThemeToggle() {
         if (labelSpan) {
           labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Light Mode' : 'Light';
         }
-        if (btn.hasAttribute('data-tooltip')) {
-          btn.setAttribute('data-tooltip', 'Light Mode');
-        }
       } else {
         btn.setAttribute('aria-label', 'Switch to Dark Mode');
         btn.setAttribute('title', 'Switch to Dark Mode');
         if (labelSpan) {
           labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Dark Mode' : 'Dark';
         }
-        if (btn.hasAttribute('data-tooltip')) {
-          btn.setAttribute('data-tooltip', 'Dark Mode');
-        }
       }
     });
   }
 
-  // Check saved preference or system preference
   const savedTheme = localStorage.getItem(THEME_KEY);
   if (savedTheme === 'dark') {
     applyTheme(true);
@@ -918,20 +990,250 @@ function initThemeToggle() {
     applyTheme(false);
   }
 
-  // Toggle handler
   function handleToggleClick() {
-    const willBeDark = !document.body.classList.contains('dark-mode');
+    const willBeDark = !document.body.classList.contains('dark-theme');
     applyTheme(willBeDark);
     localStorage.setItem(THEME_KEY, willBeDark ? 'dark' : 'light');
-
-    // Subtle haptic vibration if supported
-    if ('vibrate' in navigator) {
-      try { navigator.vibrate(25); } catch (_) {}
-    }
   }
 
   toggleBtns.forEach((btn) => {
     btn.addEventListener('click', handleToggleClick);
   });
+}
+
+/* ==========================================================================
+   12. CINEMATIC HERO BACKGROUND VIDEO CONTROLLER
+   ========================================================================== */
+function initHeroVideo() {
+  const video = document.getElementById('hero-bg-video');
+  if (!video) return;
+
+  // Respect reduced motion and low-bandwidth data saving preferences
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDataSaver = navigator.connection && (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+
+  if (prefersReduced || isDataSaver) {
+    video.pause();
+    video.removeAttribute('autoplay');
+    video.style.display = 'none';
+    return;
+  }
+
+  // IntersectionObserver to pause video playback when scrolled out of view
+  if ('IntersectionObserver' in window) {
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.05 });
+      observer.observe(heroSection);
+    }
+  }
+
+  // Pause playback when browser tab is inactive / hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      video.pause();
+    } else {
+      const heroSection = document.getElementById('home');
+      if (heroSection) {
+        const rect = heroSection.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          video.play().catch(() => {});
+        }
+      }
+    }
+  });
+}
+
+/* ==========================================================================
+   13. CINEMATIC SCROLL-CONTROLLED VIDEO ANIMATION CONTROLLER
+   Maps user scrolling position directly to the video timeline (326407_medium.mp4).
+   - Scroll down: advances video frames forward
+   - Scroll up: reverses video frames backwards
+   - Scroll stop: pauses video at the exact current frame
+   - Uses requestAnimationFrame with seek queue to eliminate dropped frames/flicker
+   - Synchronizes text phases and sleek golden progress indicator
+   - Smoothly reveals next section upon reaching final frame
+   - Respects reduced-motion preferences & mobile responsiveness
+   ========================================================================== */
+function initScrollVideoAnimation() {
+  const section = document.querySelector('.scroll-video-section');
+  const video = document.getElementById('scroll-video');
+  const progressBar = document.getElementById('scroll-video-bar');
+  const progressPct = document.getElementById('scroll-video-pct');
+  const textPhases = document.querySelectorAll('.scroll-text-phase');
+
+  if (!section || !video) return;
+
+  // Reduced motion preference fallback
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    video.pause();
+    video.muted = true;
+    video.currentTime = 1.0;
+    return;
+  }
+
+  // Configure video element for programmatic scrubbing
+  video.pause();
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.preload = 'auto';
+
+  let videoDuration = 10.24; // Default fallback duration
+  let isMetadataLoaded = false;
+  let targetProgress = 0;
+  let currentProgress = 0;
+  let isSeeking = false;
+  let pendingTime = null;
+  let seekTimeout = null;
+  let rafId = null;
+
+  function onMetadataReady() {
+    if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+      videoDuration = video.duration;
+    }
+    isMetadataLoaded = true;
+
+    // Decode initial frame cleanly so there's no initial blank screen
+    if (video.currentTime === 0) {
+      try {
+        video.currentTime = 0.001;
+      } catch (e) {}
+    }
+
+    updateScrollProgress();
+  }
+
+  if (video.readyState >= 1) {
+    onMetadataReady();
+  } else {
+    video.addEventListener('loadedmetadata', onMetadataReady, { once: true });
+    video.addEventListener('canplay', onMetadataReady, { once: true });
+    // Trigger load if not initiated
+    video.load();
+  }
+
+  // Handle seek completion to prevent decoding queue backlog and flickering
+  video.addEventListener('seeked', () => {
+    clearTimeout(seekTimeout);
+    isSeeking = false;
+    if (pendingTime !== null) {
+      const next = pendingTime;
+      pendingTime = null;
+      seekVideoTo(next);
+    }
+  });
+
+  function seekVideoTo(timeInSec) {
+    if (!video || !isMetadataLoaded) return;
+    const clampedTime = Math.max(0, Math.min(videoDuration - 0.04, timeInSec));
+
+    if (isSeeking) {
+      pendingTime = clampedTime;
+      return;
+    }
+
+    // Only seek if change is greater than ~1 frame (40ms) to ensure optimal GPU throughput
+    if (Math.abs(video.currentTime - clampedTime) > 0.025) {
+      isSeeking = true;
+      try {
+        video.currentTime = clampedTime;
+      } catch (e) {
+        isSeeking = false;
+      }
+
+      // Safety timeout to prevent isSeeking deadlock in case browser drops seeked event
+      clearTimeout(seekTimeout);
+      seekTimeout = setTimeout(() => {
+        isSeeking = false;
+        if (pendingTime !== null) {
+          const next = pendingTime;
+          pendingTime = null;
+          seekVideoTo(next);
+        }
+      }, 100);
+    }
+  }
+
+  function calculateProgress() {
+    const rect = section.getBoundingClientRect();
+    const scrollDistance = section.offsetHeight - window.innerHeight;
+    if (scrollDistance <= 0) return 0;
+
+    // Progress goes from 0.0 when section top reaches viewport top to 1.0 when sticky ends
+    const rawProgress = -rect.top / scrollDistance;
+    return Math.max(0, Math.min(1, rawProgress));
+  }
+
+  function updateVisuals(progress) {
+    // 1. Update Timeline Scrubber Bar & Percentage
+    const percentInt = Math.round(progress * 100);
+    if (progressBar) progressBar.style.width = `${percentInt}%`;
+    if (progressPct) progressPct.textContent = `${percentInt}%`;
+
+    // 2. Synchronize Text Phases (Fade in / out based on scroll progression)
+    // Phase 1: 5% to 30%
+    // Phase 2: 36% to 66%
+    // Phase 3: 72% to 94%
+    textPhases.forEach((phase) => {
+      const phaseNum = phase.getAttribute('data-phase');
+      let isActive = false;
+      if (phaseNum === '1') {
+        isActive = progress >= 0.05 && progress <= 0.30;
+      } else if (phaseNum === '2') {
+        isActive = progress >= 0.36 && progress <= 0.66;
+      } else if (phaseNum === '3') {
+        isActive = progress >= 0.72 && progress <= 0.94;
+      }
+      phase.classList.toggle('active', isActive);
+    });
+  }
+
+  function loop() {
+    // Smooth linear interpolation (lerp) for buttery scroll feel
+    const diff = targetProgress - currentProgress;
+    if (Math.abs(diff) > 0.0005) {
+      currentProgress += diff * 0.25;
+    } else {
+      currentProgress = targetProgress;
+    }
+
+    if (isMetadataLoaded && videoDuration > 0) {
+      const targetTime = currentProgress * videoDuration;
+      seekVideoTo(targetTime);
+    }
+
+    updateVisuals(currentProgress);
+
+    // Keep RAF loop active until animation settles
+    if (Math.abs(targetProgress - currentProgress) > 0.0005) {
+      rafId = requestAnimationFrame(loop);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function updateScrollProgress() {
+    targetProgress = calculateProgress();
+    if (!rafId) {
+      rafId = requestAnimationFrame(loop);
+    }
+  }
+
+  // Non-blocking, passive listeners for mouse-wheel, trackpad, and touch scrolling
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  window.addEventListener('resize', updateScrollProgress, { passive: true });
+
+  // Initial calculation
+  updateScrollProgress();
 }
 

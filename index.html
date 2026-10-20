@@ -11,7 +11,10 @@
   <meta name="description" content="DBAH Quad Digital Labs helps businesses establish a strong digital presence through modern websites, thoughtful design, and practical digital solutions. Based in Hosapete / Hampi, Karnataka.">
   <meta name="keywords" content="DBAH Quad, Digital Labs, Web Development, Hosapete Website Design, Hampi Web Developer, Resort Websites, Business Websites, E-commerce, Python Django, Karnataka Web Agency">
   <meta name="author" content="DBAH Quad Digital Labs">
-  <meta name="theme-color" content="#04060A">
+  <meta name="theme-color" content="#315A7D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
@@ -70,7 +73,7 @@
       <div class="intro-logo-wrapper">
         <div class="intro-logo-aura"></div>
         <div class="intro-logo-ring"></div>
-        <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Digital Labs Official Emblem" class="intro-logo-img">
+        <picture><source srcset="assets/images/dbah-quad-logo.webp" type="image/webp"><img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Digital Labs Official Emblem" class="intro-logo-img"></picture>
       </div>
       <h2 class="intro-title text-gold">DBAH QUAD DIGITAL LABS</h2>
       <p class="intro-tagline">Four Minds. One Vision. Infinite Innovation.</p>
@@ -166,7 +169,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="#home" class="brand-link" aria-label="DBAH Quad Digital Labs Home">
-        <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Logo" class="brand-logo-img">
+        <picture><source srcset="assets/images/dbah-quad-logo.webp" type="image/webp"><img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Logo" class="brand-logo-img"></picture>
         <div class="brand-text">
           <span class="brand-title">DBAH QUAD</span>
           <span class="brand-subtitle">DIGITAL LABS</span>
@@ -280,6 +283,14 @@
          SECTION 1: HERO
          ====================================================================== -->
     <section id="home" class="hero-section">
+      <!-- Premium Architectural Cinematic Background Video & Fallback Poster -->
+      <div class="hero-video-bg" aria-hidden="true">
+        <video class="hero-video-el" id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.webp">
+          <source src="assets/videos/hero-background.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
+      </div>
+
       <div class="container hero-grid">
         <div class="hero-content reveal">
           <div class="hero-badge-wrap">
@@ -333,11 +344,28 @@
           </div>
         </div>
 
-        <!-- Hero Visual Showcase with Official Emblem -->
+        <!-- Hero Visual Showcase with Official Emblem & Puzzle Assembly -->
         <div class="hero-visual reveal reveal-delay-2">
-          <div class="emblem-card">
+          <div class="emblem-card" id="emblem-card">
             <div class="emblem-glow-orbit"></div>
-            <img src="assets/images/dbah-quad-logo.png" alt="Official DBAH Quad Digital Labs Emblem with Kondanayakana Halli Map" class="emblem-image">
+            <div class="emblem-puzzle-stage" id="emblem-puzzle-stage">
+              <!-- 4 Interlocking Puzzle Quadrants (Four Minds) -->
+              <div class="puzzle-quadrant quad-tl" aria-hidden="true">
+                <img src="assets/images/dbah-quad-logo.webp" alt="" class="puzzle-shard-img">
+              </div>
+              <div class="puzzle-quadrant quad-tr" aria-hidden="true">
+                <img src="assets/images/dbah-quad-logo.webp" alt="" class="puzzle-shard-img">
+              </div>
+              <div class="puzzle-quadrant quad-bl" aria-hidden="true">
+                <img src="assets/images/dbah-quad-logo.webp" alt="" class="puzzle-shard-img">
+              </div>
+              <div class="puzzle-quadrant quad-br" aria-hidden="true">
+                <img src="assets/images/dbah-quad-logo.webp" alt="" class="puzzle-shard-img">
+              </div>
+              <div class="puzzle-seam-flash" aria-hidden="true"></div>
+              <div class="puzzle-energy-ring" aria-hidden="true"></div>
+              <picture><source srcset="assets/images/dbah-quad-logo.webp" type="image/webp"><img src="assets/images/dbah-quad-logo.png" alt="Official DBAH Quad Digital Labs Emblem with Kondanayakana Halli Map" class="emblem-image" fetchpriority="high"></picture>
+            </div>
 
             <!-- Floating Highlights -->
             <div class="floating-badge floating-badge-top">
@@ -355,6 +383,71 @@
                 <div class="badge-text-secondary">Hosapete / Hampi Region</div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         CINEMATIC SCROLL-CONTROLLED VIDEO ANIMATION
+         "Four Minds. One Vision. Infinite Innovation in Motion"
+         ====================================================================== -->
+    <section id="experience" class="scroll-video-section" aria-label="DBAH Quad Digital Innovation Showcase">
+      <div class="scroll-video-sticky">
+        <!-- Ambient Cinematic Glows & Dark Vignette -->
+        <div class="scroll-video-ambient-glow" aria-hidden="true"></div>
+        <div class="scroll-video-vignette" aria-hidden="true"></div>
+        <div class="scroll-video-edge-fade-top" aria-hidden="true"></div>
+        <div class="scroll-video-edge-fade-bottom" aria-hidden="true"></div>
+
+        <!-- Centered Cinematic Video Container -->
+        <div class="scroll-video-wrapper">
+          <video
+            id="scroll-video"
+            class="scroll-video-element"
+            src="./326407_medium.mp4"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            aria-hidden="true"
+          ></video>
+          <!-- Subtle Golden Frame Border Accent -->
+          <div class="scroll-video-border-accent" aria-hidden="true"></div>
+        </div>
+
+        <!-- Synchronized Cinematic Text Phases (Revealed smoothly based on scroll progress) -->
+        <div class="scroll-video-text-container" aria-live="polite">
+          <!-- Phase 1: 5% - 30% -->
+          <div class="scroll-text-phase phase-1" data-phase="1">
+            <span class="scroll-phase-eyebrow">✦ DIGITAL ARCHITECTURE ✦</span>
+            <h2 class="scroll-phase-title">Precision Engineered. <span class="text-gold">Visually Captivating.</span></h2>
+            <p class="scroll-phase-desc">Where algorithmic precision harmonizes with bespoke digital aesthetics.</p>
+          </div>
+
+          <!-- Phase 2: 36% - 66% -->
+          <div class="scroll-text-phase phase-2" data-phase="2">
+            <span class="scroll-phase-eyebrow">✦ FOUR MINDS • ONE VISION ✦</span>
+            <h2 class="scroll-phase-title">Every Frame <span class="text-gold">Crafted With Intent.</span></h2>
+            <p class="scroll-phase-desc">Transforming business vision into immersive, high-converting digital realities.</p>
+          </div>
+
+          <!-- Phase 3: 72% - 94% -->
+          <div class="scroll-text-phase phase-3" data-phase="3">
+            <span class="scroll-phase-eyebrow">✦ INFINITE INNOVATION ✦</span>
+            <h2 class="scroll-phase-title">Ready to Elevate <span class="text-gold">Your Online Presence.</span></h2>
+            <p class="scroll-phase-desc">Explore our crafted web &amp; digital services below.</p>
+          </div>
+        </div>
+
+        <!-- Minimalist Luxury Scroll Scrubber Progress Indicator -->
+        <div class="scroll-video-indicator" aria-hidden="true">
+          <div class="scroll-indicator-track">
+            <div class="scroll-indicator-bar" id="scroll-video-bar"></div>
+          </div>
+          <div class="scroll-indicator-labels">
+            <span class="scroll-indicator-tag">SCROLL TO CONTROL TIMELINE</span>
+            <span class="scroll-indicator-pct" id="scroll-video-pct">0%</span>
           </div>
         </div>
       </div>
@@ -520,7 +613,7 @@
           <!-- Project 1: Sri Sai Blossom Kids -->
           <article class="project-card reveal" data-category="education">
             <div class="project-media">
-              <img src="assets/images/projects/sri-sai-blossom.png" alt="Sri Sai Blossom Kids School Exterior" class="project-img" loading="lazy">
+              <picture><source srcset="assets/images/projects/sri-sai-blossom.webp" type="image/webp"><img src="assets/images/projects/sri-sai-blossom.png" alt="Sri Sai Blossom Kids School Exterior" class="project-img" loading="lazy"></picture>
               <span class="project-status-badge badge-live">Live Verified</span>
             </div>
             <div class="project-body">
@@ -570,7 +663,7 @@
           <!-- Project 3: Sri Manjunatha Tours & Travels -->
           <article class="project-card reveal reveal-delay-2" data-category="hospitality">
             <div class="project-media">
-              <img src="assets/images/projects/sri-manjunatha-travels.png" alt="Sri Manjunatha Tours Vehicle Fleet" class="project-img" loading="lazy">
+              <picture><source srcset="assets/images/projects/sri-manjunatha-travels.webp" type="image/webp"><img src="assets/images/projects/sri-manjunatha-travels.png" alt="Sri Manjunatha Tours Vehicle Fleet" class="project-img" loading="lazy"></picture>
               <span class="project-status-badge badge-repo">GitHub Verified</span>
             </div>
             <div class="project-body">
@@ -595,7 +688,7 @@
           <!-- Project 4: Anil Bike Rental Hampi -->
           <article class="project-card reveal reveal-delay-3" data-category="hospitality">
             <div class="project-media">
-              <img src="assets/images/projects/anil-bike-rental.png" alt="Anil Bike Rental Vehicle" class="project-img" loading="lazy">
+              <picture><source srcset="assets/images/projects/anil-bike-rental.webp" type="image/webp"><img src="assets/images/projects/anil-bike-rental.png" alt="Anil Bike Rental Vehicle" class="project-img" loading="lazy"></picture>
               <span class="project-status-badge badge-live">Live Verified</span>
             </div>
             <div class="project-body">
@@ -760,7 +853,7 @@
           <!-- Emblem Showcase Frame in About -->
           <div class="reveal reveal-delay-2" style="display:flex;justify-content:center;">
             <div style="max-width:380px;text-align:center;background:var(--bg-card);border:1px solid var(--gold-border);border-radius:var(--radius-lg);padding:32px;backdrop-filter:blur(16px);">
-              <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" style="width:200px;height:200px;margin:0 auto 20px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 20px rgba(212,175,55,0.4));">
+              <picture><source srcset="assets/images/dbah-quad-logo.webp" type="image/webp"><img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" style="width:200px;height:200px;margin:0 auto 20px;object-fit:contain;border-radius:50%;box-shadow:0 0 25px rgba(197,160,82,0.4);" loading="lazy"></picture>
               <h4 style="font-size:1.25rem;color:var(--text-pure);margin-bottom:8px;">Rooted in KN Halli</h4>
               <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
                 The golden emblem represents the four innovators, our collective infinity loop, and the geographic map of Kondanayakana Halli by the Tungabhadra river.
@@ -1247,7 +1340,7 @@
         <!-- Brand Info -->
         <div class="footer-brand">
           <div class="footer-logo-wrap">
-            <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" class="footer-logo-img">
+            <picture><source srcset="assets/images/dbah-quad-logo.webp" type="image/webp"><img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" class="footer-logo-img" loading="lazy"></picture>
             <div>
               <span class="footer-brand-title">DBAH QUAD</span>
               <div class="footer-tagline">DIGITAL LABS</div>
