@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 11. Hero Background Video
   initHeroVideo();
 
-  // 12. In-Place Hero Logo Cinematic Reveal Animation (3.8s)
-  initHeroLogoAnimation();
+  // 12. Hero Cinematic Logo Animation (Directly inside Homepage Hero)
+  initHeroCinematicLogo();
 
   // 13. Dynamic Copyright Year
   const yearEl = document.getElementById('current-year');
@@ -900,57 +900,94 @@ function initHeroVideo() {
 }
 
 /* ==========================================================================
-   12. IN-PLACE HERO LOGO CINEMATIC REVEAL ANIMATION (3.8s)
-   - Stage 1 (0-0.7s): Subtle ambient light introduction
-   - Stage 2 (0.7-1.7s): Champagne-gold horizontal light sweep
-   - Stage 3 (1.7-2.8s): Smooth precision reveal and scale ease
-   - Stage 4 (2.8-3.8s): Settle into crisp stationary presentation
-   - Play once per browser session; respect prefers-reduced-motion
+   12. HERO CINEMATIC LOGO ANIMATION (HOMEPAGE ONLY)
+   4-Stage Precision Timeline (0–4.0s):
+   - Stage 1: Ambient Introduction (0–0.8s)
+   - Stage 2: Golden Light Sweep (0.8–1.8s)
+   - Stage 3: Precision Reveal (1.8–3.0s)
+   - Stage 4: Tagline "BUILDING DIGITAL EXPERIENCES" Reveal (3.0–4.0s)
+   Session persistence, prefers-reduced-motion support, non-blocking execution.
    ========================================================================== */
-function initHeroLogoAnimation() {
+function initHeroCinematicLogo() {
   const showcase = document.getElementById('hero-logo-showcase');
   if (!showcase) return;
 
-  const ANIM_KEY = 'dbah_hero_logo_animated';
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const replayBtn = document.getElementById('hero-anim-replay');
+  const footerReplayBtn = document.getElementById('footer-replay-intro-btn');
+  const SESSION_KEY = 'dbah_hero_logo_revealed';
 
-  let animTimeout = null;
+  let animTimeouts = [];
 
-  function playInPlaceAnimation() {
-    if (animTimeout) clearTimeout(animTimeout);
+  function clearPendingTimeouts() {
+    animTimeouts.forEach(t => clearTimeout(t));
+    animTimeouts = [];
+  }
 
-    showcase.classList.remove('is-settled');
-    // Force DOM reflow to cleanly re-trigger CSS keyframe animations
-    void showcase.offsetWidth;
+  function playAnimation(force = false) {
+    clearPendingTimeouts();
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion && !force) {
+      showcase.classList.remove('is-animating', 'stage-1', 'stage-2', 'stage-3', 'stage-4');
+      showcase.classList.add('is-finished');
+      return;
+    }
+
+    // Reset classes
+    showcase.classList.remove('is-finished', 'stage-1', 'stage-2', 'stage-3', 'stage-4');
     showcase.classList.add('is-animating');
 
-    animTimeout = setTimeout(() => {
-      showcase.classList.remove('is-animating');
-      showcase.classList.add('is-settled');
-    }, 3800);
+    // Stage 1: Ambient Introduction (0.0s – 0.8s)
+    showcase.classList.add('stage-1');
+
+    // Stage 2: Golden Light Sweep (0.8s – 1.8s)
+    animTimeouts.push(setTimeout(() => {
+      showcase.classList.add('stage-2');
+    }, 800));
+
+    // Stage 3: Precision Reveal (1.8s – 3.0s)
+    animTimeouts.push(setTimeout(() => {
+      showcase.classList.add('stage-3');
+    }, 1800));
+
+    // Stage 4: Final Presentation & Tagline (3.0s – 4.0s)
+    animTimeouts.push(setTimeout(() => {
+      showcase.classList.add('stage-4');
+    }, 3000));
+
+    // Settle into Finished State (4.0s+)
+    animTimeouts.push(setTimeout(() => {
+      showcase.classList.remove('is-animating', 'stage-1', 'stage-2', 'stage-3', 'stage-4');
+      showcase.classList.add('is-finished');
+      sessionStorage.setItem(SESSION_KEY, 'true');
+    }, 4200));
   }
 
-  // Session check: play once per browser session or skip if reduced-motion requested
-  if (sessionStorage.getItem(ANIM_KEY) || prefersReduced) {
-    showcase.classList.add('is-settled');
+  const alreadyPlayed = sessionStorage.getItem(SESSION_KEY) === 'true';
+
+  if (!alreadyPlayed) {
+    playAnimation(false);
   } else {
-    sessionStorage.setItem(ANIM_KEY, 'true');
-    playInPlaceAnimation();
+    showcase.classList.add('is-finished');
   }
 
-  // Footer Replay Button listener (smoothly scrolls to hero and replays in-place animation)
-  const replayBtns = document.querySelectorAll('.footer-replay-btn, #footer-replay-intro-btn, [data-action="replay-hero-logo"]');
-  replayBtns.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
+  if (replayBtn) {
+    replayBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      playAnimation(true);
+    });
+  }
+
+  if (footerReplayBtn) {
+    footerReplayBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const heroSection = document.getElementById('home');
       if (heroSection) {
-        heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        heroSection.scrollIntoView({ behavior: 'smooth' });
       }
-      // Replay after brief smooth scroll delay
       setTimeout(() => {
-        playInPlaceAnimation();
-      }, 350);
+        playAnimation(true);
+      }, 400);
     });
-  });
+  }
 }

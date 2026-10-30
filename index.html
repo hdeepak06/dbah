@@ -35,7 +35,7 @@
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="apple-touch-icon" href="assets/images/favicon.png">
 
-  <!-- Stylesheets -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Preload Official Scalable Vector Wordmark Assets -->
@@ -210,21 +210,36 @@
           </div>
         </div>
 
-        <!-- Right Section: Authentic DBAH Logo Showcase (Dedicated In-Place Reveal Surface) -->
+        <!-- Right Section: Authentic DBAH Logo Showcase with 4-Stage Cinematic Hero Reveal -->
         <div class="hero-visual reveal reveal-delay-1">
-          <div class="hero-logo-showcase" id="hero-logo-showcase" role="img" aria-label="Official DBAH Quad Digital Labs Wordmark">
-            <!-- Subtle ambient golden backlight -->
-            <div class="hero-logo-ambient" aria-hidden="true"></div>
+          <div class="hero-logo-showcase" id="hero-logo-showcase" aria-label="Official DBAH Quad Digital Labs Brand Emblem">
+            <!-- Stage 1: Ambient Introduction (0–0.8s) -->
+            <div class="hero-ambient-glow" aria-hidden="true"></div>
 
-            <!-- Precision engineering corner frame marks -->
-            <div class="hero-logo-frame-corner top-left" aria-hidden="true"></div>
-            <div class="hero-logo-frame-corner bottom-right" aria-hidden="true"></div>
+            <!-- Stage 2: Golden Light Sweep Beam (0.8–1.8s) -->
+            <div class="hero-beam-sweep" aria-hidden="true"></div>
 
-            <!-- In-Place Stage: Authentic Logo & Champagne-Gold Light Sweep -->
-            <div class="hero-logo-stage" id="hero-logo-stage">
+            <!-- Stage 3 & 4: Precision Reveal of Unmodified DBAH Wordmark (1.8–4.0s) -->
+            <div class="hero-wordmark-wrap">
               <img src="assets/images/dbah-wordmark.svg" alt="Official DBAH Quad Digital Labs Wordmark" class="hero-wordmark-img" width="380" height="146" fetchpriority="high">
-              <div class="hero-logo-sweep" aria-hidden="true"></div>
+              <!-- Subtle Metallic Reflection / Specular Sheen -->
+              <div class="hero-metallic-sheen" aria-hidden="true"></div>
             </div>
+
+            <!-- Stage 4: Tagline Reveal (3.0–4.0s) -->
+            <div class="hero-tagline-wrap" id="hero-tagline-wrap" aria-hidden="true">
+              <div class="hero-tagline-divider"></div>
+              <span class="hero-tagline-text">BUILDING DIGITAL EXPERIENCES</span>
+              <div class="hero-tagline-divider"></div>
+            </div>
+
+            <!-- Discreet Replay Button -->
+            <button class="hero-anim-replay" id="hero-anim-replay" type="button" aria-label="Replay Logo Animation" title="Replay Cinematic Logo Animation">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>Replay</span>
+            </button>
           </div>
         </div>
       </div>
@@ -758,7 +773,7 @@
           © <span id="current-year">2026</span> DBAH Quad Digital Labs. All rights reserved.
         </div>
         <div class="footer-legal-links">
-          <button class="footer-replay-btn" id="footer-replay-intro-btn" type="button" aria-label="Replay Hero Logo Animation" data-action="replay-hero-logo">↺ Replay Logo Animation</button>
+          <button class="footer-replay-btn" id="footer-replay-intro-btn" type="button" aria-label="Replay Cinematic Intro">🎬 Replay Intro</button>
           <a href="#" class="footer-link" id="open-privacy">Privacy Policy</a>
           <a href="#" class="footer-link" id="open-terms">Terms of Service</a>
         </div>
