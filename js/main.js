@@ -646,13 +646,13 @@ function initContactForm() {
     if (!isValid) return;
 
     validatedPayload = {
-      name: nameInput.value.trim(),
-      business: businessInput.value.trim() || 'N/A',
-      email: emailInput.value.trim(),
-      phone: phoneInput.value.trim(),
-      service: serviceInput.options[serviceInput.selectedIndex].text,
-      budget: budgetInput.options[budgetInput.selectedIndex].text,
-      details: detailsInput.value.trim()
+      name: nameInput ? nameInput.value.trim() : '',
+      business: (businessInput && businessInput.value.trim()) ? businessInput.value.trim() : 'N/A',
+      email: emailInput ? emailInput.value.trim() : '',
+      phone: phoneInput ? phoneInput.value.trim() : '',
+      service: (serviceInput && serviceInput.selectedIndex >= 0) ? serviceInput.options[serviceInput.selectedIndex].text : 'General Enquiry',
+      budget: (budgetInput && budgetInput.selectedIndex >= 0) ? budgetInput.options[budgetInput.selectedIndex].text : 'Flexible',
+      details: detailsInput ? detailsInput.value.trim() : ''
     };
 
     if (dispatchModal) {
