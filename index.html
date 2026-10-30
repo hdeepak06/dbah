@@ -23,13 +23,13 @@
   <meta property="og:url" content="https://dbah.vercel.app/">
   <meta property="og:title" content="DBAH Quad Digital Labs — Digital Agency &amp; Web Engineering">
   <meta property="og:description" content="Four Minds. One Vision. Infinite Innovation. Custom websites, hospitality portals, and web applications built with precision engineering.">
-  <meta property="og:image" content="assets/images/dbah-quad-logo.png">
+  <meta property="og:image" content="assets/images/dbah-wordmark-transparent.png">
 
   <!-- Twitter Meta -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:title" content="DBAH Quad Digital Labs">
   <meta property="twitter:description" content="Four Minds. One Vision. Infinite Innovation. Premium Web Development &amp; Digital Solutions.">
-  <meta property="twitter:image" content="assets/images/dbah-quad-logo.png">
+  <meta property="twitter:image" content="assets/images/dbah-wordmark-transparent.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -37,6 +37,11 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cinematic-intro.css">
+
+  <!-- Preload Official Scalable Vector Wordmark Assets -->
+  <link rel="preload" href="assets/images/dbah-wordmark.svg" as="image">
+  <link rel="preload" href="assets/images/dbah-wordmark-transparent.png" as="image">
 
   <!-- JSON-LD Structured Data for Professional Service -->
   <script type="application/ld+json">
@@ -44,7 +49,7 @@
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "DBAH Quad Digital Labs",
-    "image": "assets/images/dbah-quad-logo.png",
+    "image": "assets/images/dbah-wordmark-transparent.png",
     "description": "DBAH Quad Digital Labs delivers high-performance digital experiences, bespoke websites, and web software for businesses and institutions.",
     "telephone": "+91-8088381775",
     "email": "hdeepak.ise.rymec@gmail.com",
@@ -66,6 +71,58 @@
 </head>
 <body class="dark-theme">
 
+  <!-- ========================================================================
+       PREMIUM CINEMATIC LOGO INTRO (DBAH QUAD DIGITAL LABS)
+       Zero-Gravity 3D Motion Graphics, Metallic Geometry & Magnetic Assembly
+       ======================================================================== -->
+  <aside id="cinematic-intro" class="cinematic-intro" role="dialog" aria-modal="true" aria-label="DBAH Quad Digital Labs Cinematic Brand Reveal">
+    <!-- Zero Gravity Deep Space Ambient Canvas (Scanning Ray & Floating Dust) -->
+    <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
+
+    <!-- UI Overlay: Skip Intro Button -->
+    <div class="intro-controls">
+      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip brand intro">
+        <span class="skip-text">Skip Intro</span>
+        <span class="skip-key-hint">ESC</span>
+        <svg class="skip-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 3D Cinematic Floating Stage -->
+    <div class="intro-stage-wrapper">
+      <div id="intro-stage" class="intro-stage">
+        <!-- Ambient Golden Backlight Glow behind Infinity Core -->
+        <div class="intro-ambient-glow" aria-hidden="true"></div>
+
+        <!-- 3D Geometric Fragments Layer (Phases 1-4) -->
+        <div id="intro-fragments-container" class="intro-fragments-container" aria-hidden="true">
+          <!-- 16 geometrically clipped metallic pieces dynamically rendered -->
+        </div>
+
+        <!-- Assembled Official Master Wordmark (Phases 4-6) -->
+        <div id="intro-assembled-wrap" class="intro-assembled-wrap">
+          <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs Official Typographic Wordmark" class="intro-wordmark-img">
+          <!-- Radiant Silver Light Sweep across Assembled Logo -->
+          <div class="intro-light-sweep" aria-hidden="true"></div>
+        </div>
+
+        <!-- Tagline: BUILDING DIGITAL EXPERIENCES (Phase 5) -->
+        <div id="intro-tagline-wrap" class="intro-tagline-wrap">
+          <div class="intro-tagline-line" aria-hidden="true"></div>
+          <span class="intro-tagline-text">BUILDING DIGITAL EXPERIENCES</span>
+          <div class="intro-tagline-line" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimal Subtle Silver Timeline Progress Track -->
+    <div class="intro-progress-track" aria-hidden="true">
+      <div id="intro-progress-fill" class="intro-progress-fill"></div>
+    </div>
+  </aside>
+
   <!-- Background Ambient Canvas -->
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
@@ -74,16 +131,9 @@
        ======================================================================== -->
   <header class="site-header" id="site-header">
     <div class="header-inner container">
-      <!-- Brand Logo -->
+      <!-- Brand Scalable Typographic Wordmark -->
       <a href="#home" class="brand-link" aria-label="DBAH Quad Digital Labs Home">
-        <picture>
-          <source srcset="assets/images/dbah-quad-logo.webp" type="image/webp">
-          <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Logo" class="brand-logo-img" width="38" height="38">
-        </picture>
-        <div class="brand-text">
-          <span class="brand-title">DBAH QUAD</span>
-          <span class="brand-subtitle">DIGITAL LABS</span>
-        </div>
+        <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs" class="brand-wordmark-img" width="168" height="65">
       </a>
 
       <!-- Desktop Navigation Menu -->
@@ -173,11 +223,7 @@
   <aside class="mobile-nav" id="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
     <div class="mobile-nav-header">
       <div class="mobile-nav-brand">
-        <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Logo" class="mobile-nav-logo" width="34" height="34">
-        <div class="mobile-nav-brand-text">
-          <span class="brand-title">DBAH QUAD</span>
-          <span class="brand-subtitle">DIGITAL LABS</span>
-        </div>
+        <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs" class="mobile-nav-wordmark" width="140" height="54">
       </div>
       <button class="mobile-nav-close-btn" id="mobile-nav-close-btn" aria-label="Close Menu" type="button">✕</button>
     </div>
@@ -289,10 +335,7 @@
           <div class="emblem-card" id="emblem-card">
             <div class="emblem-glow-orbit"></div>
             <div class="emblem-display-wrap">
-              <picture>
-                <source srcset="assets/images/dbah-quad-logo.webp" type="image/webp">
-                <img src="assets/images/dbah-quad-logo.png" alt="Official DBAH Quad Digital Labs Emblem" class="emblem-image" width="220" height="220" fetchpriority="high">
-              </picture>
+              <img src="assets/images/dbah-wordmark.svg" alt="Official DBAH Quad Digital Labs Wordmark" class="emblem-image emblem-wordmark-img" width="280" height="108" fetchpriority="high">
             </div>
 
             <div class="floating-badge floating-badge-top">
@@ -723,7 +766,7 @@
               </div>
               <div class="team-showcase-caption">
                 <div class="team-caption-header">
-                  <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" class="team-caption-logo" width="38" height="38" loading="lazy">
+                  <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Emblem" class="team-caption-wordmark" width="100" height="38" loading="lazy">
                   <div>
                     <h4 class="team-caption-title">United by Vision &amp; Discipline</h4>
                     <p class="team-caption-subtitle">Kondanayakana Halli • Hosapete &amp; Hampi, Karnataka</p>
@@ -1216,14 +1259,7 @@
         <!-- Brand Info -->
         <div class="footer-brand">
           <div class="footer-logo-wrap">
-            <picture>
-              <source srcset="assets/images/dbah-quad-logo.webp" type="image/webp">
-              <img src="assets/images/dbah-quad-logo.png" alt="DBAH Quad Emblem" class="footer-logo-img" width="40" height="40" loading="lazy">
-            </picture>
-            <div>
-              <span class="footer-brand-title">DBAH QUAD</span>
-              <div class="footer-tagline">DIGITAL LABS</div>
-            </div>
+            <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs" class="footer-wordmark-img" width="170" height="65" loading="lazy">
           </div>
           <p class="footer-desc">
             Four Minds. One Vision. Infinite Innovation.<br>
@@ -1279,6 +1315,7 @@
           © <span id="current-year">2026</span> DBAH Quad Digital Labs. All rights reserved.
         </div>
         <div class="footer-legal-links">
+          <button class="footer-replay-btn" id="footer-replay-intro-btn" type="button" aria-label="Replay Cinematic Intro">🎬 Replay Intro</button>
           <a href="#" class="footer-link" id="open-privacy">Privacy Policy</a>
           <a href="#" class="footer-link" id="open-terms">Terms of Service</a>
         </div>
@@ -1426,6 +1463,9 @@
       });
     }
   </script>
+
+  <!-- Cinematic Intro Controller -->
+  <script src="js/cinematic-intro.js"></script>
 
   <!-- Main JavaScript File -->
   <script src="js/main.js" defer></script>

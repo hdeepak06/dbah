@@ -359,6 +359,64 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  text-decoration: none;
+}
+
+/* Scalable Vector Typographic Brand Wordmark */
+.brand-wordmark-img {
+  height: 42px;
+  width: auto;
+  max-width: 175px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+.brand-link:hover .brand-wordmark-img {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35));
+}
+
+.mobile-nav-wordmark {
+  height: 38px;
+  width: auto;
+  max-width: 155px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+}
+
+.emblem-wordmark-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+  transition: transform var(--transition-normal);
+}
+
+.emblem-card:hover .emblem-wordmark-img {
+  transform: scale(1.04);
+}
+
+.footer-wordmark-img {
+  height: 48px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.1));
+}
+
+.team-caption-wordmark {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
 }
 
 .brand-logo-img {
@@ -2329,6 +2387,11 @@ body.modal-open .floating-contact-widget {
     height: 38px;
   }
 
+  .brand-wordmark-img {
+    height: 35px;
+    max-width: 140px;
+  }
+
   .brand-logo-img {
     width: 34px;
     height: 34px;
@@ -2477,6 +2540,11 @@ body.modal-open .floating-contact-widget {
   .container {
     padding-left: 14px;
     padding-right: 14px;
+  }
+
+  .brand-wordmark-img {
+    height: 30px;
+    max-width: 120px;
   }
 
   .brand-logo-img {

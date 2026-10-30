@@ -1,0 +1,537 @@
+/**
+ * DBAH QUAD DIGITAL LABS — PREMIUM CINEMATIC TYPOGRAPHIC LOGO INTRO
+ * High-End 3D Zero-Gravity Motion Graphics & Vector Wordmark Reveal
+ * Visual Identity: DBAH QUAD DIGITAL LABS
+ * Featuring: Distinctive Infinity-Style Ribbon B & Geometric Typography
+ * Tagline: BUILDING DIGITAL EXPERIENCES
+ */
+
+/* ==========================================================================
+   1. CINEMATIC OVERLAY CONTAINER
+   ========================================================================== */
+.cinematic-intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #000000;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.0s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 1.0s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  pointer-events: all;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cinematic-intro.intro-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.cinematic-intro.intro-fade-fast {
+  transition: opacity 0.35s ease-out, visibility 0.35s ease-out !important;
+}
+
+/* ==========================================================================
+   2. CANVAS (SILVER LIGHT SWEEPS & ZERO-G PARTICLES)
+   ========================================================================== */
+.intro-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   3. CONTROLS (SKIP INTRO & PROGRESS BAR)
+   ========================================================================== */
+.intro-controls {
+  position: absolute;
+  top: max(24px, env(safe-area-inset-top, 24px));
+  right: max(28px, env(safe-area-inset-right, 28px));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.intro-skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(203, 213, 225, 0.3);
+  color: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.intro-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.intro-skip-btn:focus-visible {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.skip-key-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: color 0.25s ease;
+}
+
+.intro-skip-btn:hover .skip-key-hint {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.skip-arrow {
+  transition: transform 0.25s ease;
+  color: #cbd5e1;
+}
+
+.intro-skip-btn:hover .skip-arrow {
+  transform: translateX(2px);
+  color: #ffffff;
+}
+
+/* Minimal Subtle Silver Progress Bar Track */
+.intro-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 20;
+}
+
+.intro-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #64748b, #cbd5e1, #ffffff);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  transition: width 0.1s linear;
+}
+
+/* ==========================================================================
+   4. 3D CINEMATIC STAGE & PERSPECTIVE
+   ========================================================================== */
+.intro-stage-wrapper {
+  position: relative;
+  z-index: 10;
+  width: min(90vw, 680px);
+  aspect-ratio: 610 / 235;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+.intro-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ambient Backlight Glow */
+.intro-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  transform: translate(-50%, -50%) translateZ(-40px);
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.18) 0%, rgba(203, 213, 225, 0.08) 40%, transparent 75%);
+  filter: blur(28px);
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
+  pointer-events: none;
+}
+
+.intro-ambient-glow.active {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. 3D FRAGMENTS CONTAINER & FRAGMENT GEOMETRY (TRANSPARENT WORDMARK)
+   ========================================================================== */
+.intro-fragments-container {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.intro-fragment {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/dbah-wordmark-transparent.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, filter, opacity;
+  transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+  transition: transform 0.08s linear;
+}
+
+/* Dynamic Silver Metallic Specular Highlight Overlay */
+.intro-fragment::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(203, 213, 225, 0.2) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.intro-fragment.shimmer::after {
+  opacity: 1;
+}
+
+/* Geometric Polygon Clip-Paths for Authentic DBAH Typographic Wordmark */
+/* 1. Letter D Vertical Spine */
+.frag-d-spine {
+  clip-path: polygon(0% 3%, 8% 3%, 8% 77%, 0% 77%);
+  -webkit-clip-path: polygon(0% 3%, 8% 3%, 8% 77%, 0% 77%);
+}
+
+/* 2. Letter D Upper Arch */
+.frag-d-arch-top {
+  clip-path: polygon(8% 3%, 22.8% 3%, 22.8% 40%, 8% 40%);
+  -webkit-clip-path: polygon(8% 3%, 22.8% 3%, 22.8% 40%, 8% 40%);
+}
+
+/* 3. Letter D Lower Arch */
+.frag-d-arch-bot {
+  clip-path: polygon(8% 40%, 22.8% 40%, 22.8% 77%, 8% 77%);
+  -webkit-clip-path: polygon(8% 40%, 22.8% 40%, 22.8% 77%, 8% 77%);
+}
+
+/* 4. Distinctive Infinity B Upper Ribbon Loop */
+.frag-b-top-loop {
+  clip-path: polygon(22.8% 3%, 46.5% 3%, 46.5% 42%, 22.8% 42%);
+  -webkit-clip-path: polygon(22.8% 3%, 46.5% 3%, 46.5% 42%, 22.8% 42%);
+}
+
+/* 5. Distinctive Infinity B Lower Ribbon Loop */
+.frag-b-bot-loop {
+  clip-path: polygon(22.8% 42%, 46.5% 42%, 46.5% 77%, 22.8% 77%);
+  -webkit-clip-path: polygon(22.8% 42%, 46.5% 42%, 46.5% 77%, 22.8% 77%);
+}
+
+/* 6. Distinctive Infinity B Central Twist Crossing Node */
+.frag-b-twist-core {
+  clip-path: polygon(28.5% 33%, 41.5% 33%, 41.5% 49%, 28.5% 49%);
+  -webkit-clip-path: polygon(28.5% 33%, 41.5% 33%, 41.5% 49%, 28.5% 49%);
+}
+
+/* 7. Lambda A Left Diagonal Beam */
+.frag-a-left-beam {
+  clip-path: polygon(46.5% 3%, 60.5% 3%, 55% 77%, 46.5% 77%);
+  -webkit-clip-path: polygon(46.5% 3%, 60.5% 3%, 55% 77%, 46.5% 77%);
+}
+
+/* 8. Lambda A Right Diagonal Beam */
+.frag-a-right-beam {
+  clip-path: polygon(60.5% 3%, 73.8% 3%, 73.8% 77%, 62.5% 77%);
+  -webkit-clip-path: polygon(60.5% 3%, 73.8% 3%, 73.8% 77%, 62.5% 77%);
+}
+
+/* 9. Lambda A Apex Peak */
+.frag-a-apex {
+  clip-path: polygon(56% 3%, 64.5% 3%, 63% 26%, 57.5% 26%);
+  -webkit-clip-path: polygon(56% 3%, 64.5% 3%, 63% 26%, 57.5% 26%);
+}
+
+/* 10. Letter H Left Vertical Stem */
+.frag-h-left-stem {
+  clip-path: polygon(74.5% 3%, 81.5% 3%, 81.5% 77%, 74.5% 77%);
+  -webkit-clip-path: polygon(74.5% 3%, 81.5% 3%, 81.5% 77%, 74.5% 77%);
+}
+
+/* 11. Letter H Horizontal Crossbar */
+.frag-h-crossbar {
+  clip-path: polygon(81.5% 36%, 92.5% 36%, 92.5% 46%, 81.5% 46%);
+  -webkit-clip-path: polygon(81.5% 36%, 92.5% 36%, 92.5% 46%, 81.5% 46%);
+}
+
+/* 12. Letter H Right Vertical Stem */
+.frag-h-right-stem {
+  clip-path: polygon(92.5% 3%, 99.8% 3%, 99.8% 77%, 92.5% 77%);
+  -webkit-clip-path: polygon(92.5% 3%, 99.8% 3%, 99.8% 77%, 92.5% 77%);
+}
+
+/* 13. Metallic Silver Shard Alpha */
+.frag-shard-silver-1 {
+  clip-path: polygon(4% 8%, 16% 8%, 10% 28%);
+  -webkit-clip-path: polygon(4% 8%, 16% 8%, 10% 28%);
+}
+
+/* 14. Metallic Silver Shard Beta */
+.frag-shard-silver-2 {
+  clip-path: polygon(32% 10%, 44% 10%, 38% 28%);
+  -webkit-clip-path: polygon(32% 10%, 44% 10%, 38% 28%);
+}
+
+/* ==========================================================================
+   6. ASSEMBLED REVEAL & SILVER LIGHT SWEEP (PHASES 4-6)
+   ========================================================================== */
+.intro-assembled-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+  transform: translateZ(0);
+}
+
+.intro-assembled-wrap.visible {
+  opacity: 1;
+}
+
+.intro-wordmark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.22));
+}
+
+/* Radiant Silver Light Sweep Across Master Wordmark */
+.intro-light-sweep {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.8) 48%,
+    #ffffff 50%,
+    rgba(255, 255, 255, 0.8) 52%,
+    rgba(255, 255, 255, 0.08) 75%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.intro-light-sweep.sweeping {
+  opacity: 1;
+  animation: introSilverSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes introSilverSweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   7. BRAND TAGLINE: BUILDING DIGITAL EXPERIENCES (PHASE 5)
+   ========================================================================== */
+.intro-tagline-wrap {
+  position: absolute;
+  bottom: -48px;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 15;
+}
+
+.intro-tagline-wrap.revealed {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.intro-tagline-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(203, 213, 225, 0.6), transparent);
+}
+
+.intro-tagline-text {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-size: clamp(0.72rem, 1.8vw, 0.94rem);
+  font-weight: 700;
+  letter-spacing: clamp(0.2em, 1.2vw, 0.38em);
+  text-transform: uppercase;
+  color: #f8fafc;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+
+/* Footer Replay Intro Button Link */
+.footer-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--border-elevated, #334155);
+  color: var(--text-secondary, #94a3b8);
+  font-family: var(--font-heading, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 6px;
+}
+
+.footer-replay-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   8. MOBILE RESPONSIVENESS (320px, 360px, 390px, 430px, 768px, 1024px+)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .intro-stage-wrapper {
+    width: 92vw;
+  }
+
+  .intro-controls {
+    top: max(16px, env(safe-area-inset-top, 16px));
+    right: max(16px, env(safe-area-inset-right, 16px));
+  }
+
+  .intro-skip-btn {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+  }
+
+  .skip-key-hint {
+    display: none;
+  }
+
+  .intro-tagline-wrap {
+    bottom: -36px;
+    gap: 8px;
+    width: 95%;
+  }
+
+  .intro-tagline-text {
+    letter-spacing: 0.22em;
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-stage-wrapper {
+    width: 95vw;
+  }
+
+  .intro-tagline-wrap {
+    bottom: -32px;
+  }
+
+  .intro-tagline-text {
+    letter-spacing: 0.16em;
+    font-size: 0.64rem;
+  }
+}
+
+/* ==========================================================================
+   9. ACCESSIBILITY: REDUCED MOTION PREFERENCE
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-intro {
+    transition: opacity 0.4s ease, visibility 0.4s ease !important;
+  }
+
+  .intro-fragment {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .intro-stage {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .intro-light-sweep {
+    animation: none !important;
+  }
+}
