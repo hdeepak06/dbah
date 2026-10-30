@@ -108,8 +108,293 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-body.modal-open {
+body.modal-open,
+body.intro-active {
   overflow: hidden;
+}
+
+/* ==========================================================================
+   CINEMATIC DBAH LOGO INTRO (7–8s Timeline Scenes 1–6)
+   ========================================================================== */
+.cinematic-intro {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+}
+
+.cinematic-intro.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cinematic-intro.hidden {
+  display: none !important;
+}
+
+/* Zero Gravity Canvas (Light Trails, Energy Spores & Particles) */
+.intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* UI Overlay: Skip Intro Button */
+.intro-controls {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 20;
+}
+
+.intro-skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 20, 27, 0.85);
+  border: 1px solid rgba(198, 164, 91, 0.45);
+  color: #F5F5F2;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  transition: all var(--transition-fast);
+}
+
+.intro-skip-btn:hover {
+  background: rgba(198, 164, 91, 0.15);
+  border-color: var(--gold-accent);
+  color: var(--gold-accent);
+  transform: translateY(-1px);
+}
+
+.skip-key-hint {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  color: #969DA8;
+}
+
+/* Central Cinematic Stage */
+.intro-stage-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 620px;
+  padding: 24px;
+}
+
+.intro-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Scene 1: Initial Central Gold Spark (0–1s) */
+.intro-center-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFF5D9;
+  box-shadow: 0 0 20px 8px rgba(198, 164, 91, 0.9), 0 0 50px 24px rgba(198, 164, 91, 0.5);
+  transform: translate(-50%, -50%) scale(0.2);
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cinematic-intro.scene-1 .intro-center-spark {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Ambient Backlight Glow */
+.intro-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 240px;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: radial-gradient(circle, rgba(198, 164, 91, 0.35) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%);
+  filter: blur(40px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.cinematic-intro.scene-2 .intro-ambient-glow,
+.cinematic-intro.scene-3 .intro-ambient-glow {
+  opacity: 0.65;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.cinematic-intro.scene-4 .intro-ambient-glow,
+.cinematic-intro.scene-5 .intro-ambient-glow {
+  opacity: 0.8;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+/* Scene 4: Wordmark Reveal with Directional Mask & Sweep (4–5.5s) */
+.intro-wordmark-wrap {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.96);
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.85));
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.cinematic-intro.scene-4 .intro-wordmark-wrap,
+.cinematic-intro.scene-5 .intro-wordmark-wrap,
+.cinematic-intro.scene-6 .intro-wordmark-wrap {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.intro-wordmark-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 168 / 65;
+  object-fit: contain;
+  display: block;
+}
+
+.intro-light-sweep {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 130px;
+  left: -160px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(198, 164, 91, 0.35) 25%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(198, 164, 91, 0.45) 75%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.cinematic-intro.scene-4 .intro-light-sweep {
+  animation: introSweepAnim 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes introSweepAnim {
+  0% {
+    left: -160px;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 160px);
+    opacity: 0;
+  }
+}
+
+/* Scene 5: Subtitle & Tagline Reveal (5.5–6.8s) */
+.intro-brand-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  opacity: 0;
+  transform: translateY(14px);
+  z-index: 6;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cinematic-intro.scene-5 .intro-brand-reveal,
+.cinematic-intro.scene-6 .intro-brand-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro-brand-name {
+  font-family: var(--font-heading);
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #F5F5F2;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.intro-brand-divider {
+  width: 32px;
+  height: 1px;
+  background: var(--gold-accent);
+  opacity: 0.7;
+}
+
+.intro-tagline {
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+}
+
+/* Timeline Progress Track */
+.intro-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 30;
+}
+
+.intro-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #C6A45B, #FFF5D9);
+  transition: width 0.05s linear;
 }
 
 img, picture, svg, video {
@@ -231,23 +516,25 @@ p {
   line-height: 1.65;
 }
 
-/* --- 4. BUTTON SYSTEM (Primary Muted Gold & Secondary Surface) --- */
+/* --- 4. BUTTON SYSTEM (Premium Black-and-Gold Engineering Precision) --- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-heading);
   font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 12px 24px;
+  letter-spacing: 0.02em;
+  padding: 12px 26px;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   white-space: nowrap;
   text-align: center;
   cursor: pointer;
   outline: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:focus-visible {
@@ -255,49 +542,73 @@ p {
 }
 
 .btn-sm {
-  padding: 8px 16px;
+  padding: 8px 18px;
   font-size: 0.82rem;
 }
 
 .btn-lg {
-  padding: 14px 28px;
+  padding: 14px 30px;
   font-size: 0.98rem;
 }
 
-/* Primary Button: Muted Gold with Dark Readable Text */
+/* Primary Button: Luxurious Champagne Gold with Obsidian Typography */
 .btn-gold,
 .btn-primary {
-  background: var(--gold-accent);
+  background: linear-gradient(135deg, #C6A45B 0%, #D4B66E 50%, #B89243 100%);
   color: #090B0F;
-  border: 1px solid var(--gold-accent);
+  border: 1px solid #D4B66E;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(198, 164, 91, 0.28);
 }
 
 .btn-gold:hover,
 .btn-primary:hover {
-  background: var(--gold-hover);
-  border-color: var(--gold-hover);
+  background: linear-gradient(135deg, #D4B66E 0%, #E2C988 50%, #C6A45B 100%);
+  border-color: #E2C988;
   color: #090B0F;
   transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(198, 164, 91, 0.42);
 }
 
-/* Secondary Button: Graphite/Surface with Subtle Border & Light Text */
+/* Secondary & Outline: Obsidian Black with Fine Metallic Gold Frame */
 .btn-secondary,
+.btn-black-gold,
 .btn-gold-outline {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  background: #090B0F;
+  color: #F5F5F2;
+  border: 1px solid rgba(198, 164, 91, 0.55);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn-secondary:hover,
+.btn-black-gold:hover,
 .btn-gold-outline:hover {
-  background: var(--bg-surface-elevated);
-  border-color: var(--gold-accent);
-  color: var(--text-primary);
+  background: #151B24;
+  border-color: #C6A45B;
+  color: #FFFFFF;
   transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(198, 164, 91, 0.25);
+}
+
+.btn-secondary .btn-arrow,
+.btn-black-gold .btn-arrow {
+  color: var(--gold-accent);
+  transition: transform var(--transition-fast);
+}
+
+.btn-secondary:hover .btn-arrow,
+.btn-black-gold:hover .btn-arrow {
+  transform: translateX(2px);
 }
 
 .btn-arrow {
   display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
   transition: transform var(--transition-fast);
 }
 
@@ -713,7 +1024,7 @@ body.light-theme .mobile-nav-brand {
   border-top: 1px solid var(--border-color);
 }
 
-/* --- 8. HOMEPAGE HERO SECTION (EDITORIAL ASYMMETRIC REDESIGN) --- */
+/* --- 8. HOMEPAGE HERO SECTION (BACKGROUND VIDEO & EDITORIAL ASYMMETRIC REDESIGN) --- */
 .hero-section {
   position: relative;
   padding-top: 64px;
@@ -722,8 +1033,55 @@ body.light-theme .mobile-nav-brand {
   overflow: hidden;
 }
 
+/* Homepage Background Video (326407_medium.mp4) */
+.hero-video-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  opacity: 0.58;
+  display: block;
+  transform: scale(1.02);
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 11, 15, 0.70) 0%,
+    rgba(9, 11, 15, 0.84) 60%,
+    var(--bg-main) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .hero-video-overlay,
+body.light-theme .hero-video-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(245, 246, 248, 0.76) 0%,
+    rgba(245, 246, 248, 0.90) 60%,
+    var(--bg-main) 100%
+  );
+}
+
 /* Asymmetric Editorial Hero Grid */
 .hero-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.25fr 0.95fr;
   gap: 56px;

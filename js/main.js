@@ -5,6 +5,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. Cinematic DBAH Logo Intro (7–8s Master Brand Reveal)
+  initCinematicIntro();
+
   // 1. Notice / Disclaimer Rotator
   initNavDisclaimerRotator();
 
@@ -989,5 +992,299 @@ function initHeroCinematicLogo() {
         playAnimation(true);
       }, 400);
     });
+  }
+}
+
+/* ==========================================================================
+   14. CINEMATIC DBAH LOGO INTRO (7–8s Timeline Scenes 1–6)
+   Scene 1: Darkness & Central Gold Spark (0–1s)
+   Scene 2: Golden Energy Trails & Particles (1–2.5s)
+   Scene 3: Geometric Formation & Convergence (2.5–4s)
+   Scene 4: DBAH Logo Reveal & Metallic Sweep (4–5.5s)
+   Scene 5: Brand Reveal (DBAH QUAD DIGITAL LABS / Tagline) (5.5–6.8s)
+   Scene 6: Smooth Dissolve into Homepage (6.8–8s)
+   ========================================================================== */
+function initCinematicIntro() {
+  const introEl = document.getElementById('cinematic-intro');
+  if (!introEl) return;
+
+  const canvas = document.getElementById('intro-canvas');
+  const skipBtn = document.getElementById('intro-skip-btn');
+  const progressFill = document.getElementById('intro-progress-fill');
+  const footerReplayBtn = document.getElementById('footer-replay-intro-btn');
+  const SESSION_KEY = 'dbah_cinematic_intro_seen';
+
+  let ctx = null;
+  let animFrameId = null;
+  let startTime = null;
+  let isRunning = false;
+  let timeouts = [];
+
+  const TOTAL_DURATION = 7800; // ~7.8s full cinematic arc
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const alreadySeen = sessionStorage.getItem(SESSION_KEY) === 'true';
+
+  if (canvas) {
+    ctx = canvas.getContext('2d');
+  }
+
+  let width = 0;
+  let height = 0;
+  let particles = [];
+  const PARTICLE_COUNT = 45;
+
+  function resizeCanvas() {
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    if (ctx) {
+      ctx.scale(dpr, dpr);
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const angle = (Math.PI * 2 * i) / PARTICLE_COUNT + (Math.random() - 0.5) * 0.4;
+      const speed = 0.8 + Math.random() * 1.6;
+      particles.push({
+        x: width / 2,
+        y: height / 2,
+        originAngle: angle,
+        speed: speed,
+        radius: 1 + Math.random() * 1.8,
+        color: Math.random() > 0.3 ? '#C6A45B' : '#FFF5D9',
+        alpha: 0.2 + Math.random() * 0.7,
+        phase: Math.random() * Math.PI * 2,
+        spiralFactor: 0.005 + Math.random() * 0.015
+      });
+    }
+  }
+
+  function drawCanvasScene(elapsed) {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+
+    const cx = width / 2;
+    const cy = height / 2;
+
+    // Scene 1: Central Golden Light Point & Radial Ambient Glow (0 - 1000ms)
+    if (elapsed < 1000) {
+      const p = elapsed / 1000;
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120 * p);
+      glowGrad.addColorStop(0, 'rgba(255, 245, 217, ' + (0.8 * p) + ')');
+      glowGrad.addColorStop(0.3, 'rgba(198, 164, 91, ' + (0.5 * p) + ')');
+      glowGrad.addColorStop(1, 'rgba(198, 164, 91, 0)');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 120 * p, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Scene 2: Golden Energy Formation & Light Trails (1000 - 2500ms)
+    else if (elapsed < 2500) {
+      const p = (elapsed - 1000) / 1500;
+      const trailCount = 8;
+      
+      ctx.lineWidth = 1.6;
+      for (let t = 0; t < trailCount; t++) {
+        const offsetAngle = (Math.PI * 2 * t) / trailCount;
+        ctx.beginPath();
+        const maxDist = Math.min(width, height) * 0.35 * p;
+        
+        ctx.strokeStyle = t % 2 === 0 ? 'rgba(198, 164, 91, ' + (0.6 * (1 - p * 0.2)) + ')' : 'rgba(255, 255, 255, ' + (0.4 * (1 - p * 0.2)) + ')';
+        for (let step = 0; step <= 40; step++) {
+          const u = (step / 40) * Math.PI * 2;
+          const r = maxDist * Math.sin(u * 2 + p * 3);
+          const px = cx + r * Math.cos(u + offsetAngle);
+          const py = cy + r * Math.sin(u + offsetAngle) * 0.6;
+          if (step === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      }
+
+      particles.forEach((pt) => {
+        const dist = pt.speed * (elapsed - 1000) * 0.22;
+        const curAngle = pt.originAngle + (elapsed - 1000) * pt.spiralFactor;
+        const px = cx + Math.cos(curAngle) * dist;
+        const py = cy + Math.sin(curAngle) * dist * 0.65;
+        
+        ctx.fillStyle = pt.color;
+        ctx.globalAlpha = pt.alpha * (1 - p * 0.2);
+        ctx.beginPath();
+        ctx.arc(px, py, pt.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      });
+    }
+    // Scene 3: Geometric Formation Converging Inward (2500 - 4000ms)
+    else if (elapsed < 4000) {
+      const p = (elapsed - 2500) / 1500;
+      const converge = 1 - p * 0.75;
+      
+      ctx.lineWidth = 1.5;
+      const trailCount = 6;
+      for (let t = 0; t < trailCount; t++) {
+        const offsetAngle = (Math.PI * 2 * t) / trailCount + p * Math.PI;
+        ctx.beginPath();
+        const maxDist = Math.min(width, height) * 0.32 * converge;
+        ctx.strokeStyle = 'rgba(198, 164, 91, ' + (0.7 * (1 - p * 0.3)) + ')';
+        
+        for (let step = 0; step <= 50; step++) {
+          const u = (step / 50) * Math.PI * 2;
+          const r = maxDist * (0.8 + 0.2 * Math.cos(u * 3));
+          const px = cx + r * Math.cos(u + offsetAngle);
+          const py = cy + r * Math.sin(u + offsetAngle) * 0.55;
+          if (step === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      }
+
+      particles.forEach((pt) => {
+        const dist = Math.min(width, height) * 0.3 * (1 - p * 0.8);
+        const curAngle = pt.originAngle + p * 4;
+        const px = cx + Math.cos(curAngle) * dist;
+        const py = cy + Math.sin(curAngle) * dist * 0.6;
+        
+        ctx.fillStyle = pt.color;
+        ctx.globalAlpha = pt.alpha * (1 - p);
+        ctx.beginPath();
+        ctx.arc(px, py, pt.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      });
+    }
+    // Scene 4, 5, 6: Gentle Ambient Background Glow
+    else if (elapsed < TOTAL_DURATION) {
+      const p = (elapsed - 4000) / (TOTAL_DURATION - 4000);
+      const alpha = Math.max(0, 0.4 * (1 - p));
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 260);
+      glowGrad.addColorStop(0, 'rgba(198, 164, 91, ' + (alpha * 0.5) + ')');
+      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 260, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function setSceneClasses(elapsed) {
+    if (elapsed < 1000) {
+      introEl.classList.add('scene-1');
+      introEl.classList.remove('scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
+    } else if (elapsed < 2500) {
+      introEl.classList.add('scene-2');
+      introEl.classList.remove('scene-1', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
+    } else if (elapsed < 4000) {
+      introEl.classList.add('scene-3');
+      introEl.classList.remove('scene-1', 'scene-2', 'scene-4', 'scene-5', 'scene-6');
+    } else if (elapsed < 5500) {
+      introEl.classList.add('scene-4');
+      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-5', 'scene-6');
+    } else if (elapsed < 6800) {
+      introEl.classList.add('scene-5');
+      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-6');
+    } else {
+      introEl.classList.add('scene-6');
+      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5');
+    }
+  }
+
+  function finishIntro(instant = false) {
+    if (!isRunning && !introEl.classList.contains('scene-1')) return;
+    isRunning = false;
+
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+    timeouts.forEach((t) => clearTimeout(t));
+    timeouts = [];
+
+    sessionStorage.setItem(SESSION_KEY, 'true');
+    document.body.classList.remove('intro-active');
+
+    if (instant) {
+      introEl.classList.add('hidden');
+      introEl.classList.remove('fade-out', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
+    } else {
+      introEl.classList.add('fade-out');
+      setTimeout(() => {
+        introEl.classList.add('hidden');
+        introEl.classList.remove('fade-out', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
+      }, 800);
+    }
+
+    // Ensure hero video playback starts immediately
+    const heroVideo = document.getElementById('hero-bg-video');
+    if (heroVideo && heroVideo.paused) {
+      heroVideo.play().catch(() => {});
+    }
+  }
+
+  function loop(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+
+    if (progressFill) {
+      const pct = Math.min(100, (elapsed / TOTAL_DURATION) * 100);
+      progressFill.style.width = pct + '%';
+    }
+
+    setSceneClasses(elapsed);
+    drawCanvasScene(elapsed);
+
+    if (elapsed < TOTAL_DURATION) {
+      animFrameId = requestAnimationFrame(loop);
+    } else {
+      finishIntro(false);
+    }
+  }
+
+  function playIntro() {
+    isRunning = true;
+    startTime = null;
+    document.body.classList.add('intro-active');
+    introEl.classList.remove('hidden', 'fade-out');
+    resizeCanvas();
+    initParticles();
+    animFrameId = requestAnimationFrame(loop);
+  }
+
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      finishIntro(false);
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isRunning) {
+      finishIntro(false);
+    }
+  });
+
+  if (footerReplayBtn) {
+    footerReplayBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem(SESSION_KEY);
+      playIntro();
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    if (isRunning) resizeCanvas();
+  });
+
+  if (prefersReducedMotion || alreadySeen) {
+    finishIntro(true);
+  } else {
+    playIntro();
   }
 }

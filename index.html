@@ -70,6 +70,60 @@
 </head>
 <body class="dark-theme">
 
+  <!-- ========================================================================
+       CINEMATIC DBAH LOGO INTRO (7–8s Master Brand Reveal)
+       Scene 1: Darkness & Central Gold Spark (0–1s)
+       Scene 2: Golden Energy Trails & Particles (1–2.5s)
+       Scene 3: Geometric Formation & Convergence (2.5–4s)
+       Scene 4: DBAH Logo Reveal & Metallic Sheen (4–5.5s)
+       Scene 5: Brand Reveal (DBAH QUAD DIGITAL LABS / Tagline) (5.5–6.8s)
+       Scene 6: Smooth Dissolve into Homepage (6.8–8s)
+       ======================================================================== -->
+  <aside id="cinematic-intro" class="cinematic-intro" role="dialog" aria-modal="true" aria-label="DBAH Quad Digital Labs Cinematic Brand Reveal">
+    <!-- Zero Gravity Energy & Particle Canvas -->
+    <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
+
+    <!-- UI Overlay: Skip Intro Button -->
+    <div class="intro-controls">
+      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip brand intro">
+        <span class="skip-text">Skip Intro</span>
+        <span class="skip-key-hint">ESC</span>
+        <svg class="skip-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Central Cinematic Stage -->
+    <div class="intro-stage-wrapper">
+      <div id="intro-stage" class="intro-stage">
+        <!-- Scene 1: Initial Central Gold Light Spark -->
+        <div class="intro-center-spark" id="intro-center-spark" aria-hidden="true"></div>
+
+        <!-- Ambient Glow behind Wordmark -->
+        <div class="intro-ambient-glow" id="intro-ambient-glow" aria-hidden="true"></div>
+
+        <!-- Scene 4: Wordmark Reveal with Directional Mask & Metallic Sweep -->
+        <div id="intro-wordmark-wrap" class="intro-wordmark-wrap">
+          <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs Official Master Wordmark" class="intro-wordmark-img" width="380" height="146">
+          <div class="intro-light-sweep" aria-hidden="true"></div>
+        </div>
+
+        <!-- Scene 5: Subtitle & Tagline Reveal -->
+        <div id="intro-brand-reveal" class="intro-brand-reveal">
+          <span class="intro-brand-name">DBAH QUAD DIGITAL LABS</span>
+          <div class="intro-brand-divider" aria-hidden="true"></div>
+          <span class="intro-tagline">BUILDING DIGITAL EXPERIENCES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Progress Indicator (Subtle Muted Bar) -->
+    <div class="intro-progress-track" aria-hidden="true">
+      <div id="intro-progress-fill" class="intro-progress-fill"></div>
+    </div>
+  </aside>
+
   <!-- Background Ambient Canvas -->
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
@@ -183,9 +237,18 @@
   <main id="main-content">
 
     <!-- ======================================================================
-         SECTION 1: HOMEPAGE HERO (EDITORIAL ASYMMETRIC REDESIGN)
+         SECTION 1: HOMEPAGE HERO (BACKGROUND VIDEO & EDITORIAL ASYMMETRIC GRID)
          ====================================================================== -->
     <section id="home" class="hero-section">
+      <!-- Full-Width Background Video Asset (326407_medium.mp4) -->
+      <div class="hero-video-wrapper" aria-hidden="true">
+        <video id="hero-bg-video" class="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/images/hero-poster.webp">
+          <source src="326407_medium.mp4" type="video/mp4">
+        </video>
+        <!-- Dark Readability Overlay: Restrained charcoal gradient for supreme legibility -->
+        <div class="hero-video-overlay"></div>
+      </div>
+
       <div class="container hero-grid">
         <!-- Left Section: Editorial Content -->
         <div class="hero-content reveal">
