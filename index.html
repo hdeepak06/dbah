@@ -37,7 +37,6 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/cinematic-intro.css">
 
   <!-- Preload Official Scalable Vector Wordmark Assets -->
   <link rel="preload" href="assets/images/dbah-wordmark.svg" as="image">
@@ -70,58 +69,6 @@
   </script>
 </head>
 <body class="dark-theme">
-
-  <!-- ========================================================================
-       PREMIUM CINEMATIC TYPOGRAPHIC INTRO (DBAH QUAD DIGITAL LABS)
-       Zero-Gravity 3D Motion Graphics, Metallic Geometry & Magnetic Assembly
-       ======================================================================== -->
-  <aside id="cinematic-intro" class="cinematic-intro" role="dialog" aria-modal="true" aria-label="DBAH Quad Digital Labs Cinematic Brand Reveal">
-    <!-- Zero Gravity Deep Space Ambient Canvas (Silver Scanning Ray & Muted Particles) -->
-    <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
-
-    <!-- UI Overlay: Skip Intro Button -->
-    <div class="intro-controls">
-      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip brand intro">
-        <span class="skip-text">Skip Intro</span>
-        <span class="skip-key-hint">ESC</span>
-        <svg class="skip-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
-    </div>
-
-    <!-- 3D Cinematic Floating Stage -->
-    <div class="intro-stage-wrapper">
-      <div id="intro-stage" class="intro-stage">
-        <!-- Ambient Backlight Glow behind Wordmark -->
-        <div class="intro-ambient-glow" aria-hidden="true"></div>
-
-        <!-- 3D Geometric Fragments Layer (Phases 1-4) -->
-        <div id="intro-fragments-container" class="intro-fragments-container" aria-hidden="true">
-          <!-- 14 geometrically clipped metallic pieces dynamically rendered -->
-        </div>
-
-        <!-- Assembled Official Master Wordmark (Phases 4-6) -->
-        <div id="intro-assembled-wrap" class="intro-assembled-wrap">
-          <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs Official Typographic Wordmark" class="intro-wordmark-img">
-          <!-- Radiant Silver Light Sweep across Assembled Wordmark -->
-          <div class="intro-light-sweep" aria-hidden="true"></div>
-        </div>
-
-        <!-- Tagline: BUILDING DIGITAL EXPERIENCES (Phase 5) -->
-        <div id="intro-tagline-wrap" class="intro-tagline-wrap">
-          <div class="intro-tagline-line" aria-hidden="true"></div>
-          <span class="intro-tagline-text">BUILDING DIGITAL EXPERIENCES</span>
-          <div class="intro-tagline-line" aria-hidden="true"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Minimal Subtle Silver Timeline Progress Track -->
-    <div class="intro-progress-track" aria-hidden="true">
-      <div id="intro-progress-fill" class="intro-progress-fill"></div>
-    </div>
-  </aside>
 
   <!-- Background Ambient Canvas -->
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
@@ -263,10 +210,21 @@
           </div>
         </div>
 
-        <!-- Right Section: Authentic DBAH Logo Showcase -->
+        <!-- Right Section: Authentic DBAH Logo Showcase (Dedicated In-Place Reveal Surface) -->
         <div class="hero-visual reveal reveal-delay-1">
-          <div class="hero-logo-showcase" id="hero-logo-showcase">
-            <img src="assets/images/dbah-wordmark.svg" alt="Official DBAH Quad Digital Labs Wordmark" class="hero-wordmark-img" width="380" height="146" fetchpriority="high">
+          <div class="hero-logo-showcase" id="hero-logo-showcase" role="img" aria-label="Official DBAH Quad Digital Labs Wordmark">
+            <!-- Subtle ambient golden backlight -->
+            <div class="hero-logo-ambient" aria-hidden="true"></div>
+
+            <!-- Precision engineering corner frame marks -->
+            <div class="hero-logo-frame-corner top-left" aria-hidden="true"></div>
+            <div class="hero-logo-frame-corner bottom-right" aria-hidden="true"></div>
+
+            <!-- In-Place Stage: Authentic Logo & Champagne-Gold Light Sweep -->
+            <div class="hero-logo-stage" id="hero-logo-stage">
+              <img src="assets/images/dbah-wordmark.svg" alt="Official DBAH Quad Digital Labs Wordmark" class="hero-wordmark-img" width="380" height="146" fetchpriority="high">
+              <div class="hero-logo-sweep" aria-hidden="true"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -800,7 +758,7 @@
           © <span id="current-year">2026</span> DBAH Quad Digital Labs. All rights reserved.
         </div>
         <div class="footer-legal-links">
-          <button class="footer-replay-btn" id="footer-replay-intro-btn" type="button" aria-label="Replay Cinematic Intro">🎬 Replay Intro</button>
+          <button class="footer-replay-btn" id="footer-replay-intro-btn" type="button" aria-label="Replay Hero Logo Animation" data-action="replay-hero-logo">↺ Replay Logo Animation</button>
           <a href="#" class="footer-link" id="open-privacy">Privacy Policy</a>
           <a href="#" class="footer-link" id="open-terms">Terms of Service</a>
         </div>
@@ -934,9 +892,6 @@
       });
     }
   </script>
-
-  <!-- Cinematic Intro Controller -->
-  <script src="js/cinematic-intro.js"></script>
 
   <!-- Main JavaScript File -->
   <script src="js/main.js" defer></script>

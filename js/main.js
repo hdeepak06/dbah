@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 11. Hero Background Video
   initHeroVideo();
 
-  // 12. Dynamic Copyright Year
+  // 12. In-Place Hero Logo Cinematic Reveal Animation (3.8s)
+  initHeroLogoAnimation();
+
+  // 13. Dynamic Copyright Year
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -893,5 +896,61 @@ function initHeroVideo() {
     } else {
       playVideo();
     }
+  });
+}
+
+/* ==========================================================================
+   12. IN-PLACE HERO LOGO CINEMATIC REVEAL ANIMATION (3.8s)
+   - Stage 1 (0-0.7s): Subtle ambient light introduction
+   - Stage 2 (0.7-1.7s): Champagne-gold horizontal light sweep
+   - Stage 3 (1.7-2.8s): Smooth precision reveal and scale ease
+   - Stage 4 (2.8-3.8s): Settle into crisp stationary presentation
+   - Play once per browser session; respect prefers-reduced-motion
+   ========================================================================== */
+function initHeroLogoAnimation() {
+  const showcase = document.getElementById('hero-logo-showcase');
+  if (!showcase) return;
+
+  const ANIM_KEY = 'dbah_hero_logo_animated';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let animTimeout = null;
+
+  function playInPlaceAnimation() {
+    if (animTimeout) clearTimeout(animTimeout);
+
+    showcase.classList.remove('is-settled');
+    // Force DOM reflow to cleanly re-trigger CSS keyframe animations
+    void showcase.offsetWidth;
+    showcase.classList.add('is-animating');
+
+    animTimeout = setTimeout(() => {
+      showcase.classList.remove('is-animating');
+      showcase.classList.add('is-settled');
+    }, 3800);
+  }
+
+  // Session check: play once per browser session or skip if reduced-motion requested
+  if (sessionStorage.getItem(ANIM_KEY) || prefersReduced) {
+    showcase.classList.add('is-settled');
+  } else {
+    sessionStorage.setItem(ANIM_KEY, 'true');
+    playInPlaceAnimation();
+  }
+
+  // Footer Replay Button listener (smoothly scrolls to hero and replays in-place animation)
+  const replayBtns = document.querySelectorAll('.footer-replay-btn, #footer-replay-intro-btn, [data-action="replay-hero-logo"]');
+  replayBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const heroSection = document.getElementById('home');
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      // Replay after brief smooth scroll delay
+      setTimeout(() => {
+        playInPlaceAnimation();
+      }, 350);
+    });
   });
 }

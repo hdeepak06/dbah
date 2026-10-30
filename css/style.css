@@ -747,30 +747,227 @@ body.light-theme .theme-icon-moon {
   align-items: center;
 }
 
+/* --- HERO LOGO SHOWCASE & IN-PLACE CINEMATIC ANIMATION --- */
 .hero-logo-showcase {
   width: 100%;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
+  max-width: 520px;
+  background: #11151B; /* Always deep charcoal to ensure silver/white logo contrast */
+  border: 1px solid #29313B;
   border-radius: var(--radius-md);
   padding: 48px 36px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: border-color var(--transition-normal);
+  overflow: hidden; /* Clips all light sweeps strictly inside container */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .hero-logo-showcase:hover {
   border-color: var(--gold-border);
 }
 
+/* Light Theme: Dedicated Dark Charcoal Surface For Strong Logo Visibility */
+[data-theme="light"] .hero-logo-showcase,
+body.light-theme .hero-logo-showcase {
+  background: #11151B !important; /* Preserves deep charcoal background in light mode */
+  border: 1px solid #242B35;
+  box-shadow: 0 16px 36px rgba(17, 21, 27, 0.16), 0 4px 12px rgba(17, 21, 27, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Ambient Backlight (Stage 1 & 4) */
+.hero-logo-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(198, 164, 91, 0.14), rgba(255, 255, 255, 0.02) 45%, transparent 72%);
+  opacity: 0.25;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* Precision Engineering Corner Marks */
+.hero-logo-frame-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  border-color: rgba(198, 164, 91, 0.35);
+  border-style: solid;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.hero-logo-frame-corner.top-left {
+  top: 14px;
+  left: 14px;
+  border-width: 1px 0 0 1px;
+}
+
+.hero-logo-frame-corner.bottom-right {
+  bottom: 14px;
+  right: 14px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Stage Wrapper */
+.hero-logo-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  z-index: 3;
+}
+
+/* Wordmark Asset: Original Artwork Preserved Without Distortion */
 .hero-wordmark-img {
   width: 100%;
   max-width: 380px;
   height: auto;
   object-fit: contain;
   display: block;
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+  /* Default static state: 100% visible immediately if JS fails or already settled */
+  opacity: 1;
+  transform: none;
+}
+
+/* Golden Light Sweep Overlay (Stage 2) */
+.hero-logo-sweep {
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 80px;
+  height: 150%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  /* Sophisticated champagne-gold light beam with smooth metallic falloff */
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 22%,
+    rgba(198, 164, 91, 0.42) 42%,
+    rgba(255, 250, 230, 0.95) 50%,
+    rgba(198, 164, 91, 0.42) 58%,
+    rgba(255, 255, 255, 0.04) 78%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 14px rgba(198, 164, 91, 0.5));
+  mix-blend-mode: screen;
+  transform: translateX(-160%) skewX(-20deg);
+}
+
+/* --- ANIMATION KEYFRAMES (3.8s In-Place Sequence) --- */
+.hero-logo-showcase.is-animating .hero-logo-ambient {
+  animation: heroAmbientReveal 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-logo-showcase.is-animating .hero-logo-sweep {
+  animation: heroGoldSweep 3.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-logo-showcase.is-animating .hero-wordmark-img {
+  animation: heroWordmarkInPlace 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stage 1 (0-0.7s) to Stage 4 (2.8-3.8s) Ambient */
+@keyframes heroAmbientReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  18% { /* ~0.7s */
+    opacity: 0.48;
+    transform: scale(1);
+  }
+  44% { /* ~1.7s */
+    opacity: 0.55;
+  }
+  74% { /* ~2.8s */
+    opacity: 0.35;
+  }
+  100% { /* 3.8s */
+    opacity: 0.25;
+    transform: scale(1);
+  }
+}
+
+/* Stage 2 (0.7-1.7s) Golden Light Sweep */
+@keyframes heroGoldSweep {
+  0%, 18% { /* 0s - 0.7s */
+    opacity: 0;
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  20% { /* 0.76s: Light sweep enters */
+    opacity: 0.85;
+  }
+  44% { /* 1.67s: Light sweep glides over DBAH letters */
+    opacity: 1;
+    transform: translateX(400px) skewX(-20deg);
+  }
+  48% { /* 1.82s: Exit fade */
+    opacity: 0;
+    transform: translateX(450px) skewX(-20deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(450px) skewX(-20deg);
+  }
+}
+
+/* Stage 1-4 Wordmark Reveal & In-Place Settle */
+@keyframes heroWordmarkInPlace {
+  0% {
+    /* Stage 1: Subtle light introduction */
+    opacity: 0.32;
+    transform: scale(0.975);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  18% { /* 0.7s */
+    opacity: 0.38;
+    transform: scale(0.98);
+  }
+  32% { /* ~1.2s: Glint begins */
+    opacity: 0.78;
+    transform: scale(0.99);
+    filter: drop-shadow(0 0 8px rgba(198, 164, 91, 0.3));
+  }
+  46% { /* ~1.75s: Sweep finishes, precision reveal begins */
+    opacity: 0.94;
+    transform: scale(0.996);
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.22));
+  }
+  74% { /* 2.8s: Precision reveal complete, crisp 100% readable */
+    opacity: 1;
+    transform: scale(1.0);
+    filter: drop-shadow(0 0 6px rgba(198, 164, 91, 0.14));
+  }
+  100% { /* 3.8s: Reflection fades naturally, completely stationary */
+    opacity: 1;
+    transform: scale(1.0);
+    filter: none;
+  }
+}
+
+/* Static Settled State */
+.hero-logo-showcase.is-settled .hero-wordmark-img,
+.hero-logo-showcase:not(.is-animating) .hero-wordmark-img {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.hero-logo-showcase.is-settled .hero-logo-sweep,
+.hero-logo-showcase:not(.is-animating) .hero-logo-sweep {
+  display: none;
+  opacity: 0;
 }
 
 /* --- 9. BRAND INFORMATION BANNER (EDITORIAL TWO-COLUMN LAYOUT) --- */
@@ -1765,6 +1962,12 @@ body.light-theme .theme-icon-moon {
 
   .hero-logo-showcase {
     padding: 32px 20px;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .hero-wordmark-img {
+    max-width: 310px;
   }
 
   .brand-info-grid {
@@ -1811,6 +2014,11 @@ body.light-theme .theme-icon-moon {
 
   .hero-logo-showcase {
     padding: 24px 16px;
+    max-width: 340px;
+  }
+
+  .hero-wordmark-img {
+    max-width: 240px;
   }
 
   .contact-form-wrap {
