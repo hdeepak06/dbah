@@ -1,51 +1,44 @@
 /**
- * DBAH QUAD DIGITAL LABS — INTERACTIVE MOTION & CLIENT CONTROLLER
- * High-Performance Editorial Edition
+ * DBAH QUAD DIGITAL LABS — INTERACTIVE CONTROLLER
+ * High-Performance Vanilla JavaScript
  * "Four Minds. One Vision. Infinite Innovation."
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Intro Logo Reveal Animation & "Why Choose Us?" Badge
-  initIntroOverlay();
-  initWhyChooseUsTickers();
+  // 1. Notice / Disclaimer Rotator
   initNavDisclaimerRotator();
 
-  // 2. High-Performance Ambient Gold Particle Canvas & Parallax
+  // 2. Ambient Canvas Particles
   initParticlesCanvas();
-  initParallaxEffects();
 
-  // 3. Navigation & Header Controller
+  // 3. Navigation & Mobile Drawer
   initNavigation();
 
-  // 4. Logo Interaction (Tilt, Popover Info, Escape Dismissal)
-  initLogoInteraction();
-  initPuzzleAssembly();
-
-  // 5. Scroll Reveal Animations (IntersectionObserver)
+  // 4. Scroll Reveal Animations (IntersectionObserver)
   initScrollReveal();
 
-  // 6. Portfolio Filtering & Project Modals
+  // 5. Portfolio Filtering & Project Details Modal
   initPortfolio();
 
-  // 7. Pricing Plan Form Auto-fill
+  // 6. Pricing Package Auto-Fill
   initPricing();
 
-  // 8. FAQ Accordion
+  // 7. FAQ Accordion
   initFaqAccordion();
 
-  // 9. Contact & Enquiry Form Validation & Dispatcher
+  // 8. Contact & Enquiry Form Validation & Dispatch
   initContactForm();
 
-  // 10. Back to Top Button
-  initBackToTop();
+  // 9. Compact Floating Contact FAB & Back-to-Top
+  initFloatingContactWidget();
 
-  // 11. Dark / Light Mode Theme Toggle
+  // 10. Dark / Light Theme Mode
   initThemeToggle();
 
-  // 12. Cinematic Hero Background Video
+  // 11. Hero Background Video
   initHeroVideo();
 
-  // 13. Dynamic Current Year
+  // 12. Dynamic Copyright Year
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -53,114 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. INTRO LOGO REVEAL & "WHY CHOOSE US?" ROTATING BADGE
+   1. NOTICE & DISCLAIMER ROTATOR
    ========================================================================== */
-function initIntroOverlay() {
-  const overlay = document.getElementById('intro-overlay');
-  const skipBtn = document.getElementById('intro-skip-btn');
-  const enterBtn = document.getElementById('intro-enter-btn');
-
-  if (!overlay) return;
-
-  function hideIntro() {
-    overlay.classList.add('hidden');
-    sessionStorage.setItem('dbah_intro_seen', 'true');
-    document.body.style.overflow = '';
-  }
-
-  if (skipBtn) {
-    skipBtn.addEventListener('click', hideIntro);
-  }
-
-  if (enterBtn) {
-    enterBtn.addEventListener('click', hideIntro);
-  }
-
-  // Dismiss on Escape key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
-      hideIntro();
-    }
-  });
-
-  // Auto-hide after intro period
-  setTimeout(() => {
-    if (!overlay.classList.contains('hidden')) {
-      hideIntro();
-    }
-  }, 7500);
-}
-
-function initWhyChooseUsTickers() {
-  const tickerContainers = document.querySelectorAll('.why-ticker-container');
-  if (!tickerContainers.length) return;
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  tickerContainers.forEach((container) => {
-    const items = container.querySelectorAll('.why-ticker-item');
-    if (items.length <= 1) return;
-
-    const parentBadge = container.closest('.intro-why-badge');
-    const dots = parentBadge ? parentBadge.querySelectorAll('.why-dot') : [];
-
-    let currentIndex = 0;
-    let timer = null;
-
-    function showItem(index) {
-      items.forEach((item, i) => {
-        if (i === index) {
-          item.classList.add('active');
-          item.setAttribute('aria-hidden', 'false');
-        } else {
-          item.classList.remove('active');
-          item.setAttribute('aria-hidden', 'true');
-        }
-      });
-
-      if (dots.length) {
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
-        });
-      }
-
-      currentIndex = index;
-    }
-
-    function nextItem() {
-      const next = (currentIndex + 1) % items.length;
-      showItem(next);
-    }
-
-    if (!prefersReducedMotion) {
-      function startRotation() {
-        if (timer) clearInterval(timer);
-        timer = setInterval(nextItem, 2400);
-      }
-
-      function stopRotation() {
-        if (timer) clearInterval(timer);
-      }
-
-      startRotation();
-
-      container.addEventListener('mouseenter', stopRotation);
-      container.addEventListener('mouseleave', startRotation);
-      container.addEventListener('focusin', stopRotation);
-      container.addEventListener('focusout', startRotation);
-    }
-
-    if (dots.length) {
-      dots.forEach((dot, idx) => {
-        dot.style.cursor = 'pointer';
-        dot.addEventListener('click', () => {
-          showItem(idx);
-        });
-      });
-    }
-  });
-}
-
 function initNavDisclaimerRotator() {
   const rotator = document.getElementById('nav-ticker-rotator');
   if (!rotator) return;
@@ -201,7 +88,7 @@ function initNavDisclaimerRotator() {
   if (!prefersReducedMotion) {
     function start() {
       if (rotateInterval) clearInterval(rotateInterval);
-      rotateInterval = setInterval(nextDisclaimer, 3500);
+      rotateInterval = setInterval(nextDisclaimer, 4000);
     }
 
     function stop() {
@@ -230,7 +117,7 @@ function initNavDisclaimerRotator() {
 }
 
 /* ==========================================================================
-   2. HIGH-PERFORMANCE AMBIENT GOLD PARTICLES CANVAS
+   2. AMBIENT GOLD PARTICLES CANVAS
    Optimized: Low CPU, paused when scrolled past hero or hidden tab
    ========================================================================== */
 function initParticlesCanvas() {
@@ -254,7 +141,7 @@ function initParticlesCanvas() {
     height = canvas.height = window.innerHeight;
   }, { passive: true });
 
-  // Pause when tab is inactive or user scrolled past hero to save battery
+  // Pause when tab is inactive or user scrolled past hero to conserve energy
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stop();
@@ -275,19 +162,19 @@ function initParticlesCanvas() {
   const particles = [];
 
   const goldColors = [
-    'rgba(223, 196, 131, 0.65)',
-    'rgba(197, 160, 82, 0.55)',
-    'rgba(248, 246, 237, 0.45)'
+    'rgba(223, 196, 131, 0.45)',
+    'rgba(197, 160, 89, 0.35)',
+    'rgba(255, 255, 255, 0.25)'
   ];
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.8,
+      radius: Math.random() * 1.2 + 0.6,
       color: goldColors[Math.floor(Math.random() * goldColors.length)],
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25 - 0.05
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2 - 0.04
     });
   }
 
@@ -331,56 +218,18 @@ function initParticlesCanvas() {
 }
 
 /* ==========================================================================
-   2B. GENTLE BACKGROUND PARALLAX
-   ========================================================================== */
-function initParallaxEffects() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 1024) {
-    return;
-  }
-
-  const emblem = document.querySelector('.emblem-image');
-  if (!emblem) return;
-
-  let mouseX = 0, mouseY = 0;
-  let currentX = 0, currentY = 0;
-  let isListening = false;
-
-  window.addEventListener('mousemove', (e) => {
-    if (window.scrollY > window.innerHeight) return;
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    if (!isListening) {
-      isListening = true;
-      requestAnimationFrame(update);
-    }
-  }, { passive: true });
-
-  function update() {
-    currentX += (mouseX - currentX) * 0.05;
-    currentY += (mouseY - currentY) * 0.05;
-
-    emblem.style.transform = `translate(${currentX * 6}px, ${currentY * 6}px)`;
-
-    if (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001) {
-      requestAnimationFrame(update);
-    } else {
-      isListening = false;
-    }
-  }
-}
-
-/* ==========================================================================
-   3. NAVIGATION & HEADER
+   3. NAVIGATION & MOBILE DRAWER
    ========================================================================== */
 function initNavigation() {
   const header = document.querySelector('.site-header');
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
   const mobileBackdrop = document.querySelector('.mobile-nav-backdrop');
-  const mobileLinks = document.querySelectorAll('.mobile-menu-link');
+  const closeBtn = document.getElementById('mobile-nav-close-btn');
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
+  // Header scroll shadow & Active nav link tracking
   window.addEventListener('scroll', () => {
     if (window.scrollY > 30) {
       header.classList.add('scrolled');
@@ -408,16 +257,32 @@ function initNavigation() {
   }, { passive: true });
 
   function toggleMobileMenu() {
-    menuToggle.classList.toggle('open');
-    mobileNav.classList.toggle('open');
-    mobileBackdrop.classList.toggle('open');
-    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    if (!mobileNav) return;
+    const isOpen = mobileNav.classList.toggle('open');
+    if (menuToggle) {
+      menuToggle.classList.toggle('open', isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close Mobile Menu' : 'Open Mobile Menu');
+    }
+    if (mobileBackdrop) {
+      mobileBackdrop.classList.toggle('open', isOpen);
+    }
+    document.body.classList.toggle('modal-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
   function closeMobileMenu() {
-    menuToggle.classList.remove('open');
+    if (!mobileNav || !mobileNav.classList.contains('open')) return;
+    if (menuToggle) {
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open Mobile Menu');
+    }
     mobileNav.classList.remove('open');
-    mobileBackdrop.classList.remove('open');
+    if (mobileBackdrop) {
+      mobileBackdrop.classList.remove('open');
+    }
+    document.body.classList.remove('modal-open');
     document.body.style.overflow = '';
   }
 
@@ -425,92 +290,39 @@ function initNavigation() {
     menuToggle.addEventListener('click', toggleMobileMenu);
   }
 
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMobileMenu);
+  }
+
   if (mobileBackdrop) {
     mobileBackdrop.addEventListener('click', closeMobileMenu);
   }
 
-  mobileLinks.forEach((link) => {
-    link.addEventListener('click', closeMobileMenu);
-  });
-}
-
-/* ==========================================================================
-   4. LOGO INTERACTION (TILT, INFO POPOVER, ESCAPE DISMISSAL)
-   ========================================================================== */
-function initLogoInteraction() {
-  const brandLink = document.querySelector('.brand-link');
-  if (!brandLink) return;
-
-  // Create subtle brand information popover card dynamically
-  const popover = document.createElement('div');
-  popover.className = 'brand-info-popover';
-  popover.setAttribute('role', 'dialog');
-  popover.setAttribute('aria-label', 'Brand Details');
-  popover.innerHTML = `
-    <div class="popover-badge">✦ OFFICIAL DIGITAL LABS</div>
-    <div class="popover-heading">DBAH Quad Digital Labs</div>
-    <p class="popover-text">Four Minds. One Vision. Infinite Innovation.</p>
-    <div class="popover-meta">📍 Kondanayakana Halli (KN Halli) • Hosapete & Hampi, Karnataka</div>
-  `;
-  brandLink.appendChild(popover);
-
-  let isPopoverOpen = false;
-
-  function openPopover() {
-    popover.classList.add('open');
-    isPopoverOpen = true;
-  }
-
-  function closePopover() {
-    popover.classList.remove('open');
-    isPopoverOpen = false;
-  }
-
-  // Right-click or long-press or logo image touch triggers info popup
-  const logoImg = brandLink.querySelector('.brand-logo-img');
-  if (logoImg) {
-    logoImg.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      if (isPopoverOpen) {
-        closePopover();
-      } else {
-        openPopover();
-      }
+  // Close when ANY link inside drawer is clicked
+  if (mobileNav) {
+    const allDrawerLinks = mobileNav.querySelectorAll('a');
+    allDrawerLinks.forEach((link) => {
+      link.addEventListener('click', closeMobileMenu);
     });
   }
 
   // Dismiss on Escape key
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isPopoverOpen) {
-      closePopover();
+    if (e.key === 'Escape' && mobileNav && mobileNav.classList.contains('open')) {
+      closeMobileMenu();
     }
   });
 
-  // Dismiss when clicking outside
-  document.addEventListener('click', (e) => {
-    if (isPopoverOpen && !brandLink.contains(e.target)) {
-      closePopover();
+  // Auto-close on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('open')) {
+      closeMobileMenu();
     }
-  });
+  }, { passive: true });
 }
 
 /* ==========================================================================
-   4B. LOGO PUZZLE ASSEMBLY INTERACTIVE CONTROLLER
-   ========================================================================== */
-function initPuzzleAssembly() {
-  const emblemCard = document.getElementById('emblem-card');
-  const puzzleStage = document.getElementById('emblem-puzzle-stage');
-  if (!emblemCard || !puzzleStage) return;
-
-  emblemCard.addEventListener('click', () => {
-    puzzleStage.classList.remove('replay');
-    void puzzleStage.offsetWidth; // Force CSS reflow to re-trigger puzzle lock animation
-    puzzleStage.classList.add('replay');
-  });
-}
-
-/* ==========================================================================
-   5. SCROLL REVEAL (INTERSECTION OBSERVER)
+   4. SCROLL REVEAL (INTERSECTION OBSERVER)
    ========================================================================== */
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
@@ -526,8 +338,8 @@ function initScrollReveal() {
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: '0px 0px -30px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -20px 0px'
       }
     );
 
@@ -538,24 +350,24 @@ function initScrollReveal() {
 }
 
 /* ==========================================================================
-   6. PORTFOLIO FILTERING & MODAL CONTROLLER
+   5. PORTFOLIO FILTERING & MODAL CONTROLLER
    ========================================================================== */
 const projectData = {
   'sri-sai-blossom': {
     title: 'Sri Sai Blossom Kids Kindergarten & School',
     category: 'Education & Institution',
     badge: 'Live Website Verified',
-    desc: 'Official website for Sri Sai Blossom Kids kindergarten and educational institution. Features rich event showcases, admission enquiries, gallery albums, and interactive contact points.',
+    desc: 'Official website for Sri Sai Blossom Kids kindergarten and educational institution. Features event showcases, admissions enquiries, curriculum gallery albums, and responsive mobile architecture.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Grid', 'Vercel CDN'],
     github: 'https://github.com/hdeepak06/sri-sai-blossom-kids',
     live: 'https://sri-sai-blossom-kids.vercel.app',
-    image: 'assets/images/projects/sri-sai-blossom.webp'
+    image: 'assets/images/projects/sri-sai-blossom.png'
   },
   'maya-valley': {
     title: 'Maya Valley Resort Hampi',
     category: 'Hotel & Hospitality',
     badge: 'Live Website Verified',
-    desc: 'A luxury resort and hospitality website in the world-heritage destination of Hampi, Karnataka. Showcases premium stay cottages, dining options, regional tour booking, and direct reservation enquiries.',
+    desc: 'A luxury resort and hospitality website in the world-heritage destination of Hampi, Karnataka. Showcases accommodation suites, on-site dining, regional tour booking, and direct reservation enquiries via WhatsApp.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'Photo Gallery', 'Vercel CDN'],
     github: 'https://github.com/hdeepak06/maya-valley-resort-hampi',
     live: 'https://maya-valley-resort-hampi-sxdc.vercel.app',
@@ -563,33 +375,33 @@ const projectData = {
   },
   'sri-manjunatha': {
     title: 'Sri Manjunatha Tours & Travels',
-    category: 'Travel & Logistics',
+    category: 'Travel & Fleet Booking',
     badge: 'GitHub Verified',
-    desc: 'Premium travel and fleet rental portal for Hampi & Hosapete region. Features comprehensive vehicle fleet showcase (buses, travelers, sedans), tour package listings, and direct WhatsApp booking.',
-    tech: ['React', 'Vite', 'TypeScript', 'Tailwind/CSS', 'WhatsApp API'],
+    desc: 'Travel and vehicle fleet rental portal for Hampi & Hosapete region. Features comprehensive vehicle fleet showcase (buses, tempo travelers, sedans), tour package listings, and direct WhatsApp booking.',
+    tech: ['React', 'Vite', 'TypeScript', 'WhatsApp API'],
     github: 'https://github.com/hdeepak06/sri-manjunatha-travels',
     live: null,
-    image: 'assets/images/projects/sri-manjunatha-travels.webp'
+    image: 'assets/images/projects/sri-manjunatha-travels.png'
   },
   'anil-bike': {
     title: 'Anil Bike Rental Hampi',
-    category: 'Rental & Tourism',
+    category: 'Vehicle Rental & Tourism',
     badge: 'Live Website Verified',
     desc: 'Online scooter and motorcycle rental booking platform serving tourists visiting Hampi. Includes transparent hourly/daily pricing, vehicle fleet showcase, safety guidelines, and quick booking integration.',
     tech: ['HTML5', 'CSS3', 'JavaScript', 'WhatsApp Booking Flow'],
     github: 'https://github.com/hdeepak06/anil-bike-rental-hampi',
     live: 'https://anil-bike-rental-hampi.vercel.app',
-    image: 'assets/images/projects/anil-bike-rental.webp'
+    image: 'assets/images/projects/anil-bike-rental.png'
   },
   'finalmealmate': {
     title: 'FinalMealmate Food Delivery & Surplus Donation',
     category: 'Full-Stack Web App',
     badge: 'Live Web App Verified',
-    desc: 'A Django-based dual-purpose web platform combining commercial food delivery ordering with a dedicated surplus food donation module to prevent food wastage across communities.',
+    desc: 'A Django-based dual-purpose web platform combining commercial food delivery ordering with a dedicated surplus food donation module to prevent commercial food wastage across communities.',
     tech: ['Python', 'Django', 'MySQL', 'HTML5', 'CSS3', 'JavaScript'],
     github: 'https://github.com/hdeepak06/finalmealmate-food-delivery-app',
     live: 'https://finalmealmate-food-delivery-app.vercel.app',
-    image: null
+    image: 'assets/images/projects/finalmealmate.jpg'
   },
   'medico': {
     title: 'Medico: Healthcare & Pharmacy Management',
@@ -599,7 +411,7 @@ const projectData = {
     tech: ['Python', 'Django', 'MySQL', 'JavaScript', 'Bootstrap'],
     github: 'https://github.com/hdeepak06/medico',
     live: 'https://medico-six-sigma.vercel.app',
-    image: null
+    image: 'assets/images/projects/medico-clinic.jpg'
   },
   'ballotbridge': {
     title: 'BallotBridge Secure E-Voting Platform',
@@ -609,7 +421,7 @@ const projectData = {
     tech: ['Python', 'Django', 'MySQL', 'Cryptographic Hashing', 'JavaScript'],
     github: 'https://github.com/hdeepak06/BALLOT-BRIDGE',
     live: 'https://ballot-bridge-lovat.vercel.app',
-    image: null
+    image: 'assets/images/projects/ballotbridge.jpg'
   },
   'course-registration': {
     title: 'Academic Course Registration Portal',
@@ -619,7 +431,7 @@ const projectData = {
     tech: ['Python', 'Django', 'MySQL', 'HTML5', 'CSS3', 'JavaScript'],
     github: 'https://github.com/hdeepak06/course-registration',
     live: null,
-    image: null
+    image: 'assets/images/projects/course-registration.jpg'
   }
 };
 
@@ -689,12 +501,14 @@ function initPortfolio() {
     }
 
     modalOverlay.classList.add('open');
+    document.body.classList.add('modal-open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     if (modalOverlay) {
       modalOverlay.classList.remove('open');
+      document.body.classList.remove('modal-open');
       document.body.style.overflow = '';
     }
   }
@@ -718,12 +532,14 @@ function initPortfolio() {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
+      closeModal();
+    }
   });
 }
 
 /* ==========================================================================
-   7. PRICING AUTO-FILL INTO CONTACT FORM
+   6. PRICING AUTO-FILL INTO CONTACT FORM
    ========================================================================== */
 function initPricing() {
   const quoteBtns = document.querySelectorAll('[data-plan-name]');
@@ -750,14 +566,14 @@ function initPricing() {
       }
 
       if (detailsText) {
-        detailsText.value = `Hello DBAH Quad Digital Labs team, I would like to request a quote for the ${plan} package. Looking forward to discussing details!`;
+        detailsText.value = `Hello DBAH Quad Digital Labs team, I would like to request a quote for the ${plan} package. Looking forward to discussing specifications!`;
       }
     });
   });
 }
 
 /* ==========================================================================
-   8. FAQ ACCORDION
+   7. FAQ ACCORDION
    ========================================================================== */
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
@@ -779,7 +595,7 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   9. CONTACT FORM VALIDATION & DISPATCH
+   8. CONTACT FORM VALIDATION & DISPATCH
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('project-enquiry-form');
@@ -843,6 +659,7 @@ function initContactForm() {
       document.getElementById('confirm-name').textContent = validatedPayload.name;
       document.getElementById('confirm-service').textContent = validatedPayload.service;
       dispatchModal.classList.add('open');
+      document.body.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
     }
   });
@@ -862,7 +679,7 @@ function initContactForm() {
         `💰 *Estimated Budget:* ${validatedPayload.budget}\n` +
         `📝 *Project Overview:*\n${validatedPayload.details}\n` +
         `-----------------------------------------\n` +
-        `_Sent via dbahquad.com portfolio_`;
+        `_Sent via dbah.vercel.app portfolio_`;
 
       const encodedText = encodeURIComponent(text);
       window.open(`https://wa.me/918088381775?text=${encodedText}`, '_blank');
@@ -900,6 +717,7 @@ function initContactForm() {
   function closeDispatchModal() {
     if (dispatchModal) {
       dispatchModal.classList.remove('open');
+      document.body.classList.remove('modal-open');
       document.body.style.overflow = '';
     }
   }
@@ -907,107 +725,133 @@ function initContactForm() {
   if (dispatchCancelBtn) {
     dispatchCancelBtn.addEventListener('click', closeDispatchModal);
   }
+
+  if (dispatchModal) {
+    dispatchModal.addEventListener('click', (e) => {
+      if (e.target === dispatchModal) closeDispatchModal();
+    });
+  }
 }
 
 /* ==========================================================================
-   10. BACK TO TOP
+   9. COMPACT FLOATING CONTACT FAB & CONTEXTUAL BACK-TO-TOP
    ========================================================================== */
-function initBackToTop() {
-  const btns = document.querySelectorAll('#back-to-top, .btn-top');
-  if (!btns.length) return;
+function initFloatingContactWidget() {
+  const widget = document.getElementById('floating-contact-widget');
+  const launcherToggle = document.getElementById('contact-launcher-toggle');
+  const backToTopBtn = document.getElementById('back-to-top');
 
-  const updateVisibility = () => {
-    const scrollPos = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    const isVisible = scrollPos > 250;
-    btns.forEach(btn => {
-      if (isVisible) {
-        btn.classList.add('visible');
+  if (!widget || !launcherToggle) return;
+
+  // Toggle Contact Menu
+  launcherToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isExpanded = widget.classList.toggle('expanded');
+    launcherToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (widget.classList.contains('expanded') && !widget.contains(e.target)) {
+      widget.classList.remove('expanded');
+      launcherToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && widget.classList.contains('expanded')) {
+      widget.classList.remove('expanded');
+      launcherToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Back to Top button visibility (context-aware: only when scrolled > 350px)
+  if (backToTopBtn) {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop;
+      if (scrollPos > 350) {
+        backToTopBtn.classList.add('visible');
       } else {
-        btn.classList.remove('visible');
+        backToTopBtn.classList.remove('visible');
       }
-    });
-  };
+    };
 
-  window.addEventListener('scroll', updateVisibility, { passive: true });
-  updateVisibility();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    backToTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation();
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
-      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  });
+  }
 }
 
 /* ==========================================================================
-   11. DARK / LIGHT THEME TOGGLE CONTROLLER
+   10. DARK / LIGHT THEME TOGGLE
    ========================================================================== */
 function initThemeToggle() {
-  const toggleBtns = document.querySelectorAll('#theme-toggle-btn, #mobile-theme-toggle-btn, #dock-theme-toggle-btn');
+  const toggleBtns = document.querySelectorAll('#theme-toggle-btn, #mobile-theme-toggle-btn');
   if (!toggleBtns.length) return;
 
   const THEME_KEY = 'dbah_theme_mode';
 
   function applyTheme(isDark) {
     if (isDark) {
+      document.body.classList.remove('light-theme');
       document.body.classList.add('dark-theme');
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
       document.documentElement.setAttribute('data-theme', 'light');
     }
 
     toggleBtns.forEach((btn) => {
       const labelSpan = btn.querySelector('.theme-toggle-label');
-      if (isDark) {
-        btn.setAttribute('aria-label', 'Switch to Light Mode');
-        btn.setAttribute('title', 'Switch to Light Mode');
-        btn.setAttribute('data-tooltip', 'Switch to Light Mode');
-        if (labelSpan) {
-          labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Light Mode' : 'Light';
-        }
-      } else {
-        btn.setAttribute('aria-label', 'Switch to Dark Mode');
-        btn.setAttribute('title', 'Switch to Dark Mode');
-        btn.setAttribute('data-tooltip', 'Switch to Dark Mode');
-        if (labelSpan) {
-          labelSpan.textContent = btn.classList.contains('mobile-theme-btn') ? 'Switch to Dark Mode' : 'Dark';
+      if (labelSpan) {
+        if (btn.classList.contains('mobile-theme-btn')) {
+          labelSpan.textContent = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        } else {
+          labelSpan.textContent = isDark ? 'Light' : 'Dark';
         }
       }
+      btn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     });
   }
 
+  // Check saved preference or default to dark
   const savedTheme = localStorage.getItem(THEME_KEY);
-  if (savedTheme === 'dark') {
-    applyTheme(true);
-  } else {
+  if (savedTheme === 'light') {
     applyTheme(false);
+  } else {
+    applyTheme(true); // Default to Dark mode
   }
 
-  function handleToggleClick() {
-    const willBeDark = !document.body.classList.contains('dark-theme');
-    applyTheme(willBeDark);
-    localStorage.setItem(THEME_KEY, willBeDark ? 'dark' : 'light');
+  function handleToggle() {
+    const isCurrentlyDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nextDark = !isCurrentlyDark;
+    applyTheme(nextDark);
+    localStorage.setItem(THEME_KEY, nextDark ? 'dark' : 'light');
   }
 
   toggleBtns.forEach((btn) => {
-    btn.addEventListener('click', handleToggleClick);
+    btn.addEventListener('click', handleToggle);
   });
 }
 
 /* ==========================================================================
-   12. CINEMATIC HERO BACKGROUND VIDEO CONTROLLER
+   11. CINEMATIC HERO VIDEO CONTROLLER
    ========================================================================== */
 function initHeroVideo() {
   const video = document.getElementById('hero-bg-video');
   if (!video) return;
 
-  // Video properties for GIF-like continuous loop
   video.muted = true;
   video.defaultMuted = true;
   video.loop = true;
@@ -1025,18 +869,12 @@ function initHeroVideo() {
 
   playVideo();
 
-  // Continuous seamless loop continuation
-  video.addEventListener('ended', () => {
-    video.currentTime = 0;
-    playVideo();
-  });
-
-  // IntersectionObserver to pause video playback when scrolled out of view and resume when in view
+  // Pause playback when hero is scrolled out of view to preserve resources
   if ('IntersectionObserver' in window) {
     const heroSection = document.getElementById('home');
     if (heroSection) {
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             playVideo();
           } else {
@@ -1048,21 +886,12 @@ function initHeroVideo() {
     }
   }
 
-  // Pause playback when browser tab is inactive / hidden and resume immediately when active
+  // Pause when tab is hidden
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       video.pause();
     } else {
-      const heroSection = document.getElementById('home');
-      if (heroSection) {
-        const rect = heroSection.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          playVideo();
-        }
-      }
+      playVideo();
     }
   });
 }
-
-
-
