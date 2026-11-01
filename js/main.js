@@ -996,13 +996,13 @@ function initHeroCinematicLogo() {
 }
 
 /* ==========================================================================
-   14. CINEMATIC DBAH LOGO INTRO (7–8s Timeline Scenes 1–6)
-   Scene 1: Darkness & Central Gold Spark (0–1s)
-   Scene 2: Golden Energy Trails & Particles (1–2.5s)
-   Scene 3: Geometric Formation & Convergence (2.5–4s)
-   Scene 4: DBAH Logo Reveal & Metallic Sweep (4–5.5s)
-   Scene 5: Brand Reveal (DBAH QUAD DIGITAL LABS / Tagline) (5.5–6.8s)
-   Scene 6: Smooth Dissolve into Homepage (6.8–8s)
+   14. CINEMATIC FOUNDERS FILM & 3D PUZZLE LOGO ASSEMBLY (7.8s)
+   Scene 01: Darkness & Golden Lens Spark (0.0–1.0s)
+   Scene 02: Four Friends Reveal: Deepak • Bharath • Adarsh • Hari (1.0–3.2s)
+   Scene 03: Golden Puzzle Seams & 3D Piece Separation (3.2–4.5s)
+   Scene 04: Magnetic Puzzle Convergence & Interlocking Snap (4.5–5.8s)
+   Scene 05: Fusion, 3D Inflating Typography & Specular Sweep (5.8–6.6s)
+   Scene 06: QUAD DIGITAL LABS Studio Reveal & Smooth Website Launch (6.6–7.8s)
    ========================================================================== */
 function initCinematicIntro() {
   const introEl = document.getElementById('cinematic-intro');
@@ -1012,15 +1012,137 @@ function initCinematicIntro() {
   const skipBtn = document.getElementById('intro-skip-btn');
   const progressFill = document.getElementById('intro-progress-fill');
   const footerReplayBtn = document.getElementById('footer-replay-intro-btn');
+  const heroReplayBtn = document.getElementById('hero-anim-replay');
+  const audioEl = document.getElementById('intro-audio');
+  const soundBtn = document.getElementById('intro-sound-btn');
   const SESSION_KEY = 'dbah_cinematic_intro_seen';
+
+  let isMuted = false;
+
+  function updateSoundUI() {
+    if (!soundBtn) return;
+    if (isMuted) {
+      soundBtn.classList.add('is-muted');
+      const text = soundBtn.querySelector('.sound-status-text');
+      if (text) text.textContent = 'Muted';
+    } else {
+      soundBtn.classList.remove('is-muted');
+      const text = soundBtn.querySelector('.sound-status-text');
+      if (text) text.textContent = 'Sound';
+    }
+  }
+
+  let audioFadeInterval = null;
+
+  function rampAudioVolume(targetVol = 0.85, step = 0.05, intervalMs = 60) {
+    if (!audioEl) return;
+    if (audioFadeInterval) clearInterval(audioFadeInterval);
+    let vol = audioEl.volume;
+    audioFadeInterval = setInterval(() => {
+      if (!audioEl) {
+        clearInterval(audioFadeInterval);
+        return;
+      }
+      if (vol < targetVol) {
+        vol = Math.min(targetVol, vol + step);
+        audioEl.volume = vol;
+      } else {
+        clearInterval(audioFadeInterval);
+        audioFadeInterval = null;
+      }
+    }, intervalMs);
+  }
+
+  function startAudio() {
+    if (!audioEl) return;
+    if (audioFadeInterval) clearInterval(audioFadeInterval);
+    
+    // Default: unmuted by default when opening the link
+    isMuted = false;
+    audioEl.muted = false;
+    audioEl.currentTime = 0;
+    audioEl.volume = 0.05;
+    updateSoundUI();
+
+    const playPromise = audioEl.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Direct unmuted playback succeeded! Ramp volume smoothly to 85%
+        rampAudioVolume(0.85, 0.04, 70);
+      }).catch((err) => {
+        // Autoplay policy prevented unmuted start without prior user gesture.
+        // Maintain unmuted state intent (isMuted = false) and unlock unmuted on first interaction:
+        audioEl.muted = true;
+        audioEl.play().catch(() => {});
+
+        const unlockAudio = () => {
+          if (audioEl && isRunning && !isMuted) {
+            audioEl.muted = false;
+            if (audioEl.paused) {
+              audioEl.play().catch(() => {});
+            }
+            rampAudioVolume(0.85, 0.08, 40);
+            updateSoundUI();
+          }
+        };
+
+        window.addEventListener('pointerdown', unlockAudio, { once: true, capture: true, passive: true });
+        window.addEventListener('touchstart', unlockAudio, { once: true, capture: true, passive: true });
+        window.addEventListener('click', unlockAudio, { once: true, capture: true, passive: true });
+        window.addEventListener('keydown', unlockAudio, { once: true, capture: true, passive: true });
+      });
+    }
+  }
+
+  function stopAudio(fade = true) {
+    if (!audioEl) return;
+    if (audioFadeInterval) clearInterval(audioFadeInterval);
+    if (fade && !audioEl.paused && audioEl.volume > 0.05) {
+      const step = 0.08;
+      audioFadeInterval = setInterval(() => {
+        if (audioEl.volume > step) {
+          audioEl.volume -= step;
+        } else {
+          clearInterval(audioFadeInterval);
+          audioFadeInterval = null;
+          audioEl.pause();
+          audioEl.currentTime = 0;
+          audioEl.volume = 0.85;
+        }
+      }, 40);
+    } else {
+      audioEl.pause();
+      audioEl.currentTime = 0;
+      audioEl.volume = 0.85;
+    }
+  }
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isMuted = !isMuted;
+      if (audioEl) {
+        audioEl.muted = isMuted;
+        if (!isMuted && isRunning) {
+          if (audioEl.paused) {
+            audioEl.play().catch(() => {});
+          }
+          rampAudioVolume(0.85, 0.08, 40);
+        }
+      }
+      updateSoundUI();
+    });
+  }
 
   let ctx = null;
   let animFrameId = null;
   let startTime = null;
   let isRunning = false;
   let timeouts = [];
+  let sparksTriggered = false;
 
-  const TOTAL_DURATION = 8200; // ~8.2s cinematic fragment assembly & inflating typography arc
+  const TOTAL_DURATION = 16500; // 16.5s Majestic slow-motion cinematic founders & 3D puzzle arc (0.5x speed)
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const alreadySeen = sessionStorage.getItem(SESSION_KEY) === 'true';
@@ -1031,8 +1153,9 @@ function initCinematicIntro() {
 
   let width = 0;
   let height = 0;
-  let particles = [];
-  const PARTICLE_COUNT = 45;
+  let stardust = [];
+  let puzzleSparks = [];
+  const STARDUST_COUNT = 50;
 
   function resizeCanvas() {
     if (!canvas) return;
@@ -1046,21 +1169,40 @@ function initCinematicIntro() {
     }
   }
 
-  function initParticles() {
-    particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const angle = (Math.PI * 2 * i) / PARTICLE_COUNT + (Math.random() - 0.5) * 0.4;
-      const speed = 0.8 + Math.random() * 1.6;
-      particles.push({
-        x: width / 2,
-        y: height / 2,
-        originAngle: angle,
-        speed: speed,
-        radius: 1 + Math.random() * 1.8,
+  function initStardust() {
+    stardust = [];
+    for (let i = 0; i < STARDUST_COUNT; i++) {
+      stardust.push({
+        x: Math.random() * (width || window.innerWidth),
+        y: Math.random() * (height || window.innerHeight),
+        z: 0.3 + Math.random() * 1.4,
+        radius: 0.8 + Math.random() * 1.8,
+        color: Math.random() > 0.35 ? '#C6A45B' : '#FFF5D9',
+        alpha: 0.15 + Math.random() * 0.75,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: (Math.random() - 0.5) * 0.3 - 0.15,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.02 + Math.random() * 0.03
+      });
+    }
+  }
+
+  function triggerPuzzleSparks(cx, cy) {
+    puzzleSparks = [];
+    const count = 75;
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2.0 + Math.random() * 6.5;
+      puzzleSparks.push({
+        x: cx,
+        y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: 1.2 + Math.random() * 2.4,
+        alpha: 1.0,
+        decay: 0.015 + Math.random() * 0.022,
         color: Math.random() > 0.3 ? '#C6A45B' : '#FFF5D9',
-        alpha: 0.2 + Math.random() * 0.7,
-        phase: Math.random() * Math.PI * 2,
-        spiralFactor: 0.005 + Math.random() * 0.015
+        gravity: 0.05
       });
     }
   }
@@ -1072,131 +1214,122 @@ function initCinematicIntro() {
     const cx = width / 2;
     const cy = height / 2;
 
-    // Scene 1: Central Golden Light Point & Radial Ambient Glow (0 - 1200ms)
-    if (elapsed < 1200) {
-      const p = elapsed / 1200;
-      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 140 * p);
-      glowGrad.addColorStop(0, 'rgba(255, 245, 217, ' + (0.85 * p) + ')');
-      glowGrad.addColorStop(0.3, 'rgba(198, 164, 91, ' + (0.55 * p) + ')');
+    // Ambient Stardust
+    stardust.forEach((pt) => {
+      pt.x += pt.speedX * pt.z;
+      pt.y += pt.speedY * pt.z;
+      pt.pulse += pt.pulseSpeed;
+
+      if (pt.x < -20) pt.x = width + 20;
+      if (pt.x > width + 20) pt.x = -20;
+      if (pt.y < -20) pt.y = height + 20;
+      if (pt.y > height + 20) pt.y = -20;
+
+      const alphaPulse = pt.alpha * (0.65 + 0.35 * Math.sin(pt.pulse));
+      ctx.fillStyle = pt.color;
+      ctx.globalAlpha = Math.max(0, Math.min(1, alphaPulse));
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, pt.radius * pt.z, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1.0;
+
+    // Scene 01: Darkness & Golden Flare (0 - 2200ms)
+    if (elapsed < 2200) {
+      const p = elapsed / 2200;
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 160 * p);
+      glowGrad.addColorStop(0, 'rgba(255, 245, 217, ' + (0.9 * p) + ')');
+      glowGrad.addColorStop(0.3, 'rgba(198, 164, 91, ' + (0.6 * p) + ')');
       glowGrad.addColorStop(1, 'rgba(198, 164, 91, 0)');
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 140 * p, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 160 * p, 0, Math.PI * 2);
       ctx.fill();
     }
-    // Scene 2: Golden Energy Formation & Light Trails (1200 - 2800ms)
-    else if (elapsed < 2800) {
-      const p = (elapsed - 1200) / 1600;
-      const trailCount = 8;
-      
-      ctx.lineWidth = 1.6;
-      for (let t = 0; t < trailCount; t++) {
-        const offsetAngle = (Math.PI * 2 * t) / trailCount;
-        ctx.beginPath();
-        const maxDist = Math.min(width, height) * 0.35 * p;
-        
-        ctx.strokeStyle = t % 2 === 0 ? 'rgba(198, 164, 91, ' + (0.6 * (1 - p * 0.2)) + ')' : 'rgba(255, 255, 255, ' + (0.4 * (1 - p * 0.2)) + ')';
-        for (let step = 0; step <= 40; step++) {
-          const u = (step / 40) * Math.PI * 2;
-          const r = maxDist * Math.sin(u * 2 + p * 3);
-          const px = cx + r * Math.cos(u + offsetAngle);
-          const py = cy + r * Math.sin(u + offsetAngle) * 0.6;
-          if (step === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-      }
+    // Scene 03: Puzzle Separation Sparks (6800 - 9600ms)
+    else if (elapsed >= 6800 && elapsed < 9600) {
+      puzzleSparks.forEach((sp) => {
+        sp.x += sp.vx;
+        sp.y += sp.vy;
+        sp.vy += sp.gravity * 0.7; // slower gravity drift
+        sp.vx *= 0.99;
+        sp.vy *= 0.99;
+        sp.alpha -= sp.decay * 0.55; // slower spark decay
 
-      particles.forEach((pt) => {
-        const dist = pt.speed * (elapsed - 1200) * 0.2;
-        const curAngle = pt.originAngle + (elapsed - 1200) * pt.spiralFactor;
-        const px = cx + Math.cos(curAngle) * dist;
-        const py = cy + Math.sin(curAngle) * dist * 0.65;
-        
-        ctx.fillStyle = pt.color;
-        ctx.globalAlpha = pt.alpha * (1 - p * 0.2);
-        ctx.beginPath();
-        ctx.arc(px, py, pt.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
-      });
-    }
-    // Scene 3: Zero Gravity Floating & Geometric Structure (2800 - 4800ms)
-    else if (elapsed < 4800) {
-      const p = (elapsed - 2800) / 2000;
-      const converge = 1 - p * 0.65;
-      
-      ctx.lineWidth = 1.5;
-      const trailCount = 6;
-      for (let t = 0; t < trailCount; t++) {
-        const offsetAngle = (Math.PI * 2 * t) / trailCount + p * Math.PI;
-        ctx.beginPath();
-        const maxDist = Math.min(width, height) * 0.32 * converge;
-        ctx.strokeStyle = 'rgba(198, 164, 91, ' + (0.7 * (1 - p * 0.25)) + ')';
-        
-        for (let step = 0; step <= 50; step++) {
-          const u = (step / 50) * Math.PI * 2;
-          const r = maxDist * (0.8 + 0.2 * Math.cos(u * 3));
-          const px = cx + r * Math.cos(u + offsetAngle);
-          const py = cy + r * Math.sin(u + offsetAngle) * 0.55;
-          if (step === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
+        if (sp.alpha > 0) {
+          ctx.fillStyle = sp.color;
+          ctx.globalAlpha = Math.max(0, sp.alpha);
+          ctx.beginPath();
+          ctx.arc(sp.x, sp.y, sp.radius, 0, Math.PI * 2);
+          ctx.fill();
         }
-        ctx.stroke();
-      }
-
-      particles.forEach((pt) => {
-        const dist = Math.min(width, height) * 0.3 * (1 - p * 0.7);
-        const curAngle = pt.originAngle + p * 3.5;
-        const px = cx + Math.cos(curAngle) * dist;
-        const py = cy + Math.sin(curAngle) * dist * 0.6;
-        
-        ctx.fillStyle = pt.color;
-        ctx.globalAlpha = pt.alpha * (1 - p);
-        ctx.beginPath();
-        ctx.arc(px, py, pt.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
       });
+      ctx.globalAlpha = 1.0;
     }
-    // Scene 4, 5, 6: Gentle Ambient Background Glow (4800 - 8200ms)
-    else if (elapsed < TOTAL_DURATION) {
-      const p = (elapsed - 4800) / (TOTAL_DURATION - 4800);
-      const alpha = Math.max(0, 0.45 * (1 - p));
-      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 280);
-      glowGrad.addColorStop(0, 'rgba(198, 164, 91, ' + (alpha * 0.5) + ')');
-      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    // Scene 04: Interlocking Magnetic Snap Flash (9600 - 12400ms)
+    else if (elapsed >= 9600 && elapsed < 12400) {
+      const snapElapsed = elapsed - 9600;
+      if (snapElapsed < 600) {
+        const flashAlpha = Math.max(0, 0.45 * (1 - snapElapsed / 600));
+        ctx.fillStyle = 'rgba(255, 245, 217, ' + flashAlpha + ')';
+        ctx.fillRect(0, 0, width, height);
+      }
+      // Central ambient gold glow
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 260);
+      glowGrad.addColorStop(0, 'rgba(198, 164, 91, 0.45)');
+      glowGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 280, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 260, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Scene 05 & 06: Settling ambient halo (12400ms+)
+    else if (elapsed >= 12400) {
+      const p = (elapsed - 12400) / (TOTAL_DURATION - 12400);
+      const alpha = Math.max(0, 0.35 * (1 - p));
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 300);
+      glowGrad.addColorStop(0, 'rgba(198, 164, 91, ' + alpha + ')');
+      glowGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 300, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
   function setSceneClasses(elapsed) {
-    if (elapsed < 1200) {
-      introEl.classList.add('scene-1');
-      introEl.classList.remove('scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 2800) {
-      introEl.classList.add('scene-2');
-      introEl.classList.remove('scene-1', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 4800) {
-      introEl.classList.add('scene-3');
-      introEl.classList.remove('scene-1', 'scene-2', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 6000) {
-      introEl.classList.add('scene-4');
-      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-5', 'scene-6');
-    } else if (elapsed < 7200) {
-      introEl.classList.add('scene-5');
-      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-6');
-    } else {
-      introEl.classList.add('scene-6');
-      introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5');
+    // Scene 01: Darkness & Golden Stardust Lens Flare (0 - 2200ms)
+    if (elapsed < 2200) {
+      introEl.className = 'cinematic-intro scene-1';
+    }
+    // Scene 02: The Four Friends Reveal (Deepak • Bharath • Adarsh • Hari) (2200 - 6800ms)
+    else if (elapsed < 6800) {
+      introEl.className = 'cinematic-intro scene-2';
+    }
+    // Scene 03: Golden Puzzle Seams & 3D Piece Separation (6800 - 9600ms)
+    else if (elapsed < 9600) {
+      introEl.className = 'cinematic-intro scene-3';
+      if (!sparksTriggered) {
+        sparksTriggered = true;
+        triggerPuzzleSparks(window.innerWidth / 2, window.innerHeight / 2);
+      }
+    }
+    // Scene 04: Magnetic Puzzle Convergence & Interlocking Snap (9600 - 12400ms)
+    else if (elapsed < 12400) {
+      introEl.className = 'cinematic-intro scene-4';
+    }
+    // Scene 05: Fusion, 3D Inflating Typography & Specular Sweep (12400 - 14400ms)
+    else if (elapsed < 14400) {
+      introEl.className = 'cinematic-intro scene-5';
+    }
+    // Scene 06: QUAD DIGITAL LABS Studio Reveal & Smooth Website Launch (14400 - 16500ms)
+    else {
+      introEl.className = 'cinematic-intro scene-6';
     }
   }
 
   function finishIntro(instant = false) {
-    if (!isRunning && !introEl.classList.contains('scene-1')) return;
+    if (!instant && !isRunning && !introEl.classList.contains('scene-1')) return;
     isRunning = false;
 
     if (animFrameId) {
@@ -1208,16 +1341,17 @@ function initCinematicIntro() {
 
     sessionStorage.setItem(SESSION_KEY, 'true');
     document.body.classList.remove('intro-active');
+    stopAudio(true);
 
     if (instant) {
       introEl.classList.add('hidden');
-      introEl.classList.remove('fade-out', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
+      introEl.className = 'cinematic-intro hidden';
     } else {
       introEl.classList.add('fade-out');
       setTimeout(() => {
         introEl.classList.add('hidden');
-        introEl.classList.remove('fade-out', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
-      }, 800);
+        introEl.className = 'cinematic-intro hidden';
+      }, 750);
     }
 
     // Ensure hero video playback starts immediately
@@ -1236,6 +1370,13 @@ function initCinematicIntro() {
       progressFill.style.width = pct + '%';
     }
 
+    // Smooth soundtrack fade-out during Scene 06 into the live site
+    if (elapsed >= 14400 && audioEl && !audioEl.paused && !isMuted) {
+      const remaining = Math.max(0, TOTAL_DURATION - elapsed);
+      const fadeFraction = Math.max(0, Math.min(1, remaining / 2100));
+      audioEl.volume = 0.85 * fadeFraction;
+    }
+
     setSceneClasses(elapsed);
     drawCanvasScene(elapsed);
 
@@ -1249,10 +1390,12 @@ function initCinematicIntro() {
   function playIntro() {
     isRunning = true;
     startTime = null;
+    sparksTriggered = false;
     document.body.classList.add('intro-active');
     introEl.classList.remove('hidden', 'fade-out');
     resizeCanvas();
-    initParticles();
+    initStardust();
+    startAudio();
     animFrameId = requestAnimationFrame(loop);
   }
 
@@ -1274,6 +1417,22 @@ function initCinematicIntro() {
     footerReplayBtn.addEventListener('click', (e) => {
       e.preventDefault();
       sessionStorage.removeItem(SESSION_KEY);
+      isMuted = false;
+      if (audioEl) audioEl.muted = false;
+      updateSoundUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      playIntro();
+    });
+  }
+
+  if (heroReplayBtn) {
+    heroReplayBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem(SESSION_KEY);
+      isMuted = false;
+      if (audioEl) audioEl.muted = false;
+      updateSoundUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       playIntro();
     });
   }

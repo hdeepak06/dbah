@@ -71,21 +71,45 @@
 <body class="dark-theme">
 
   <!-- ========================================================================
-       CINEMATIC DBAH LOGO INTRO (7–8s Master Brand Reveal)
-       Scene 1: Darkness & Central Gold Spark (0–1s)
-       Scene 2: Golden Energy Trails & Particles (1–2.5s)
-       Scene 3: Geometric Formation & Convergence (2.5–4s)
-       Scene 4: DBAH Logo Reveal & Metallic Sheen (4–5.5s)
-       Scene 5: Brand Reveal (DBAH QUAD DIGITAL LABS / Tagline) (5.5–6.8s)
-       Scene 6: Smooth Dissolve into Homepage (6.8–8s)
+       CINEMATIC FOUNDERS FILM & 3D PUZZLE LOGO ASSEMBLY
+       Scene 01: Darkness & Golden Stardust Lens Flare (0.0–1.0s)
+       Scene 02: The Four Friends Reveal: Deepak • Bharath • Adarsh • Hari (1.0–3.2s)
+       Scene 03: Golden Puzzle Seams & 3D Piece Separation (3.2–4.5s)
+       Scene 04: Magnetic Puzzle Convergence & Interlocking Snap (4.5–5.8s)
+       Scene 05: Fusion, 3D Inflating Typography & Specular Sweep (5.8–6.6s)
+       Scene 06: QUAD DIGITAL LABS Reveal & Smooth Homepage Launch (6.6–7.8s)
        ======================================================================== -->
-  <aside id="cinematic-intro" class="cinematic-intro" role="dialog" aria-modal="true" aria-label="DBAH Quad Digital Labs Cinematic Brand Reveal">
+  <aside id="cinematic-intro" class="cinematic-intro" role="dialog" aria-modal="true" aria-label="DBAH Quad Digital Labs Cinematic Founders & Puzzle Logo Reveal">
     <!-- Zero Gravity Energy & Particle Canvas -->
     <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
 
-    <!-- UI Overlay: Skip Intro Button -->
+    <!-- Cinematic Anamorphic Letterbox Scope Bars (2.35:1 Hollywood Ratio) -->
+    <div class="intro-letterbox-bar intro-letterbox-top" aria-hidden="true"></div>
+    <div class="intro-letterbox-bar intro-letterbox-bottom" aria-hidden="true"></div>
+
+    <!-- Cinematic OM Music Soundtrack (Uploaded Master Asset) -->
+    <audio id="intro-audio" preload="auto">
+      <source src="assets/audio/om-music.aac" type="audio/aac">
+      <source src="assets/audio/om-music.aac" type="audio/mp4">
+      <source src="assets/audio/dbah-cinematic-intro.wav" type="audio/wav">
+    </audio>
+
+    <!-- UI Overlay: Skip & Sound Toggle Controls -->
     <div class="intro-controls">
-      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip brand intro">
+      <button id="intro-sound-btn" class="intro-sound-btn" type="button" aria-label="Toggle Intro Sound" title="Toggle Sound">
+        <svg class="sound-icon-on" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg class="sound-icon-off" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span class="sound-status-text">Sound</span>
+      </button>
+
+      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip cinematic intro">
         <span class="skip-text">Skip Intro</span>
         <span class="skip-key-hint">ESC</span>
         <svg class="skip-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -94,40 +118,84 @@
       </button>
     </div>
 
-    <!-- Central Cinematic Stage -->
+    <!-- ======================================================================
+         SCENE 02: THE FOUR FOUNDERS / FRIENDS REVEAL (1.0–3.2s)
+         Deepak • Bharath • Adarsh • Hari — The minds behind DBAH
+         ====================================================================== -->
+    <div class="intro-friends-reveal" id="intro-friends-reveal" aria-hidden="true">
+      <div class="intro-friends-card" id="intro-friends-card">
+        <div class="intro-friends-glow"></div>
+        <div class="intro-friends-frame">
+          <picture>
+            <source srcset="assets/images/dbah-team.webp" type="image/webp">
+            <img src="assets/images/dbah-team.jpg" alt="DBAH Founders: Deepak, Bharath, Adarsh, Hari" class="intro-friends-img" width="540" height="380" loading="eager">
+          </picture>
+          <div class="intro-friends-scanline"></div>
+          <!-- Puzzle Seam Lines that illuminate with golden laser energy -->
+          <div class="intro-puzzle-seam seam-horizontal"></div>
+          <div class="intro-puzzle-seam seam-vertical"></div>
+        </div>
+        <div class="intro-friends-caption">
+          <span class="intro-friends-badge">THE MINDS BEHIND THE STUDIO</span>
+          <h2 class="intro-friends-names">DEEPAK • BHARATH • ADARSH • HARI</h2>
+          <span class="intro-friends-tagline">Four Minds. One Vision. Infinite Innovation.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SCENE 03 - 06: 3D PUZZLE LOGO ASSEMBLY & BRAND REVEAL (3.2–7.8s)
+         The 4 Friends Puzzle Pieces Interlock into the Master DBAH Wordmark
+         ====================================================================== -->
     <div class="intro-stage-wrapper">
       <div id="intro-stage" class="intro-stage">
-        <!-- Scene 1: Initial Central Gold Light Spark -->
+        <!-- Central Gold Light Spark -->
         <div class="intro-center-spark" id="intro-center-spark" aria-hidden="true"></div>
 
         <!-- Ambient Glow behind Wordmark -->
         <div class="intro-ambient-glow" id="intro-ambient-glow" aria-hidden="true"></div>
 
-        <!-- 3D Geometric Logo Fragments Layer (Scenes 2 & 3: Floating Metallic Pieces; Scene 4: Magnetic Reassembly) -->
+        <!-- 3D Interlocking Puzzle Logo Pieces (Letters D, Infinity B, A, H) -->
         <div id="intro-fragments-container" class="intro-fragments-container" aria-hidden="true">
-          <!-- Letter D Metallic Fragment -->
-          <div class="intro-fragment fragment-d" id="frag-d">
-            <img src="assets/images/dbah-letter-d.png" alt="DBAH D Metallic Fragment" class="frag-img">
-            <div class="frag-sheen"></div>
+          <!-- Puzzle Piece 1: Letter D (Deepak) -->
+          <div class="intro-fragment puzzle-piece piece-d" id="frag-d" data-founder="DEEPAK">
+            <div class="puzzle-piece-inner">
+              <img src="assets/images/dbah-letter-d.png" alt="Letter D - Deepak" class="frag-img">
+              <span class="puzzle-founder-tag">DEEPAK</span>
+              <div class="frag-sheen"></div>
+            </div>
+            <div class="puzzle-lock-flare"></div>
           </div>
-          <!-- Letter B Metallic Fragment (Distinctive Infinity Ribbon) -->
-          <div class="intro-fragment fragment-b" id="frag-b">
-            <img src="assets/images/dbah-letter-b.png" alt="DBAH Infinity B Metallic Fragment" class="frag-img">
-            <div class="frag-sheen"></div>
+          <!-- Puzzle Piece 2: Letter B (Bharath - Distinctive Infinity Ribbon) -->
+          <div class="intro-fragment puzzle-piece piece-b" id="frag-b" data-founder="BHARATH">
+            <div class="puzzle-piece-inner">
+              <img src="assets/images/dbah-letter-b.png" alt="Letter B - Bharath" class="frag-img">
+              <span class="puzzle-founder-tag">BHARATH</span>
+              <div class="frag-sheen"></div>
+            </div>
+            <div class="puzzle-lock-flare"></div>
           </div>
-          <!-- Letter A Metallic Fragment -->
-          <div class="intro-fragment fragment-a" id="frag-a">
-            <img src="assets/images/dbah-letter-a.png" alt="DBAH A Metallic Fragment" class="frag-img">
-            <div class="frag-sheen"></div>
+          <!-- Puzzle Piece 3: Letter A (Adarsh) -->
+          <div class="intro-fragment puzzle-piece piece-a" id="frag-a" data-founder="ADARSH">
+            <div class="puzzle-piece-inner">
+              <img src="assets/images/dbah-letter-a.png" alt="Letter A - Adarsh" class="frag-img">
+              <span class="puzzle-founder-tag">ADARSH</span>
+              <div class="frag-sheen"></div>
+            </div>
+            <div class="puzzle-lock-flare"></div>
           </div>
-          <!-- Letter H Metallic Fragment -->
-          <div class="intro-fragment fragment-h" id="frag-h">
-            <img src="assets/images/dbah-letter-h.png" alt="DBAH H Metallic Fragment" class="frag-img">
-            <div class="frag-sheen"></div>
+          <!-- Puzzle Piece 4: Letter H (Hari) -->
+          <div class="intro-fragment puzzle-piece piece-h" id="frag-h" data-founder="HARI">
+            <div class="puzzle-piece-inner">
+              <img src="assets/images/dbah-letter-h.png" alt="Letter H - Hari" class="frag-img">
+              <span class="puzzle-founder-tag">HARI</span>
+              <div class="frag-sheen"></div>
+            </div>
+            <div class="puzzle-lock-flare"></div>
           </div>
         </div>
 
-        <!-- Scene 4 & 5: Assembled Official Master Wordmark with Inflating Typography Effect -->
+        <!-- Assembled Official Master Wordmark with Inflating Typography Effect -->
         <div id="intro-wordmark-wrap" class="intro-wordmark-wrap">
           <div class="intro-inflating-box" id="intro-inflating-box">
             <img src="assets/images/dbah-wordmark.svg" alt="DBAH Quad Digital Labs Official Master Wordmark" class="intro-wordmark-img" width="380" height="146">
@@ -138,7 +206,7 @@
           </div>
         </div>
 
-        <!-- Scene 5: Subtitle & Tagline Reveal -->
+        <!-- Official Brand Reveal: Title & Tagline -->
         <div id="intro-brand-reveal" class="intro-brand-reveal">
           <span class="intro-brand-name">DBAH QUAD DIGITAL LABS</span>
           <div class="intro-brand-divider" aria-hidden="true"></div>
