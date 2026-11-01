@@ -1020,7 +1020,7 @@ function initCinematicIntro() {
   let isRunning = false;
   let timeouts = [];
 
-  const TOTAL_DURATION = 7800; // ~7.8s full cinematic arc
+  const TOTAL_DURATION = 8200; // ~8.2s cinematic fragment assembly & inflating typography arc
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const alreadySeen = sessionStorage.getItem(SESSION_KEY) === 'true';
@@ -1072,21 +1072,21 @@ function initCinematicIntro() {
     const cx = width / 2;
     const cy = height / 2;
 
-    // Scene 1: Central Golden Light Point & Radial Ambient Glow (0 - 1000ms)
-    if (elapsed < 1000) {
-      const p = elapsed / 1000;
-      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120 * p);
-      glowGrad.addColorStop(0, 'rgba(255, 245, 217, ' + (0.8 * p) + ')');
-      glowGrad.addColorStop(0.3, 'rgba(198, 164, 91, ' + (0.5 * p) + ')');
+    // Scene 1: Central Golden Light Point & Radial Ambient Glow (0 - 1200ms)
+    if (elapsed < 1200) {
+      const p = elapsed / 1200;
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 140 * p);
+      glowGrad.addColorStop(0, 'rgba(255, 245, 217, ' + (0.85 * p) + ')');
+      glowGrad.addColorStop(0.3, 'rgba(198, 164, 91, ' + (0.55 * p) + ')');
       glowGrad.addColorStop(1, 'rgba(198, 164, 91, 0)');
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 120 * p, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 140 * p, 0, Math.PI * 2);
       ctx.fill();
     }
-    // Scene 2: Golden Energy Formation & Light Trails (1000 - 2500ms)
-    else if (elapsed < 2500) {
-      const p = (elapsed - 1000) / 1500;
+    // Scene 2: Golden Energy Formation & Light Trails (1200 - 2800ms)
+    else if (elapsed < 2800) {
+      const p = (elapsed - 1200) / 1600;
       const trailCount = 8;
       
       ctx.lineWidth = 1.6;
@@ -1108,8 +1108,8 @@ function initCinematicIntro() {
       }
 
       particles.forEach((pt) => {
-        const dist = pt.speed * (elapsed - 1000) * 0.22;
-        const curAngle = pt.originAngle + (elapsed - 1000) * pt.spiralFactor;
+        const dist = pt.speed * (elapsed - 1200) * 0.2;
+        const curAngle = pt.originAngle + (elapsed - 1200) * pt.spiralFactor;
         const px = cx + Math.cos(curAngle) * dist;
         const py = cy + Math.sin(curAngle) * dist * 0.65;
         
@@ -1121,10 +1121,10 @@ function initCinematicIntro() {
         ctx.globalAlpha = 1.0;
       });
     }
-    // Scene 3: Geometric Formation Converging Inward (2500 - 4000ms)
-    else if (elapsed < 4000) {
-      const p = (elapsed - 2500) / 1500;
-      const converge = 1 - p * 0.75;
+    // Scene 3: Zero Gravity Floating & Geometric Structure (2800 - 4800ms)
+    else if (elapsed < 4800) {
+      const p = (elapsed - 2800) / 2000;
+      const converge = 1 - p * 0.65;
       
       ctx.lineWidth = 1.5;
       const trailCount = 6;
@@ -1132,7 +1132,7 @@ function initCinematicIntro() {
         const offsetAngle = (Math.PI * 2 * t) / trailCount + p * Math.PI;
         ctx.beginPath();
         const maxDist = Math.min(width, height) * 0.32 * converge;
-        ctx.strokeStyle = 'rgba(198, 164, 91, ' + (0.7 * (1 - p * 0.3)) + ')';
+        ctx.strokeStyle = 'rgba(198, 164, 91, ' + (0.7 * (1 - p * 0.25)) + ')';
         
         for (let step = 0; step <= 50; step++) {
           const u = (step / 50) * Math.PI * 2;
@@ -1146,8 +1146,8 @@ function initCinematicIntro() {
       }
 
       particles.forEach((pt) => {
-        const dist = Math.min(width, height) * 0.3 * (1 - p * 0.8);
-        const curAngle = pt.originAngle + p * 4;
+        const dist = Math.min(width, height) * 0.3 * (1 - p * 0.7);
+        const curAngle = pt.originAngle + p * 3.5;
         const px = cx + Math.cos(curAngle) * dist;
         const py = cy + Math.sin(curAngle) * dist * 0.6;
         
@@ -1159,34 +1159,34 @@ function initCinematicIntro() {
         ctx.globalAlpha = 1.0;
       });
     }
-    // Scene 4, 5, 6: Gentle Ambient Background Glow
+    // Scene 4, 5, 6: Gentle Ambient Background Glow (4800 - 8200ms)
     else if (elapsed < TOTAL_DURATION) {
-      const p = (elapsed - 4000) / (TOTAL_DURATION - 4000);
-      const alpha = Math.max(0, 0.4 * (1 - p));
-      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 260);
+      const p = (elapsed - 4800) / (TOTAL_DURATION - 4800);
+      const alpha = Math.max(0, 0.45 * (1 - p));
+      const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 280);
       glowGrad.addColorStop(0, 'rgba(198, 164, 91, ' + (alpha * 0.5) + ')');
       glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 260, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 280, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
   function setSceneClasses(elapsed) {
-    if (elapsed < 1000) {
+    if (elapsed < 1200) {
       introEl.classList.add('scene-1');
       introEl.classList.remove('scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 2500) {
+    } else if (elapsed < 2800) {
       introEl.classList.add('scene-2');
       introEl.classList.remove('scene-1', 'scene-3', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 4000) {
+    } else if (elapsed < 4800) {
       introEl.classList.add('scene-3');
       introEl.classList.remove('scene-1', 'scene-2', 'scene-4', 'scene-5', 'scene-6');
-    } else if (elapsed < 5500) {
+    } else if (elapsed < 6000) {
       introEl.classList.add('scene-4');
       introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-5', 'scene-6');
-    } else if (elapsed < 6800) {
+    } else if (elapsed < 7200) {
       introEl.classList.add('scene-5');
       introEl.classList.remove('scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-6');
     } else {

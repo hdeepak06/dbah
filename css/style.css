@@ -165,7 +165,9 @@ body.intro-active {
   background: rgba(16, 20, 27, 0.85);
   border: 1px solid rgba(198, 164, 91, 0.45);
   color: #F5F5F2;
-  padding: 8px 18px;
+  padding: 10px 18px;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: var(--radius-full);
   font-size: 0.82rem;
   font-family: var(--font-heading);
@@ -175,6 +177,7 @@ body.intro-active {
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   transition: all var(--transition-fast);
+  touch-action: manipulation;
 }
 
 .intro-skip-btn:hover {
@@ -263,27 +266,200 @@ body.intro-active {
   transform: translate(-50%, -50%) scale(1.25);
 }
 
-/* Scene 4: Wordmark Reveal with Directional Mask & Sweep (4–5.5s) */
-.intro-wordmark-wrap {
+/* --- 3D GEOMETRIC LOGO FRAGMENTS STAGE (Scenes 2 & 3: Floating Metallic Pieces; Scene 4: Magnetic Reassembly) --- */
+.intro-fragments-container {
   position: relative;
-  z-index: 6;
   width: 100%;
   max-width: 440px;
+  aspect-ratio: 610 / 185;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.cinematic-intro.scene-2 .intro-fragments-container,
+.cinematic-intro.scene-3 .intro-fragments-container,
+.cinematic-intro.scene-4 .intro-fragments-container {
+  opacity: 1;
+}
+
+.cinematic-intro.scene-5 .intro-fragments-container,
+.cinematic-intro.scene-6 .intro-fragments-container {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.intro-fragment {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+}
+
+.frag-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.9));
+}
+
+.frag-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.4) 50%, rgba(198, 164, 91, 0.3) 65%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transition: opacity 0.6s ease;
+}
+
+/* Fragment Layout Proportions (Exact 610x185 Letter Grid) */
+.fragment-d {
+  width: 23.3%;
+  left: 0%;
+}
+
+.fragment-b {
+  width: 24.1%;
+  left: 22.6%;
+}
+
+.fragment-a {
+  width: 28.7%;
+  left: 46.7%;
+}
+
+.fragment-h {
+  width: 24.3%;
+  left: 75.4%;
+}
+
+/* Scene 2 & 3: Floating Metallic Silver Pieces Detachment & Zero-Gravity 3D Motion */
+.cinematic-intro.scene-2 .frag-sheen,
+.cinematic-intro.scene-3 .frag-sheen {
+  opacity: 0.85;
+}
+
+.cinematic-intro.scene-2 .fragment-d,
+.cinematic-intro.scene-3 .fragment-d {
+  transform: translate3d(-130px, -55px, 110px) rotateY(32deg) rotateX(-16deg) rotateZ(-12deg);
+  animation: zeroGFloatD 3.2s ease-in-out infinite alternate;
+}
+
+.cinematic-intro.scene-2 .fragment-b,
+.cinematic-intro.scene-3 .fragment-b {
+  transform: translate3d(-35px, 65px, 160px) rotateY(-26deg) rotateX(22deg) rotateZ(14deg);
+  animation: zeroGFloatB 3.0s ease-in-out infinite alternate;
+}
+
+.cinematic-intro.scene-2 .fragment-a,
+.cinematic-intro.scene-3 .fragment-a {
+  transform: translate3d(45px, -70px, 130px) rotateY(30deg) rotateX(15deg) rotateZ(-10deg);
+  animation: zeroGFloatA 3.4s ease-in-out infinite alternate;
+}
+
+.cinematic-intro.scene-2 .fragment-h,
+.cinematic-intro.scene-3 .fragment-h {
+  transform: translate3d(145px, 45px, 85px) rotateY(-32deg) rotateX(-18deg) rotateZ(12deg);
+  animation: zeroGFloatH 3.1s ease-in-out infinite alternate;
+}
+
+/* Zero-G Floating Oscillations */
+@keyframes zeroGFloatD {
+  0% { transform: translate3d(-130px, -55px, 110px) rotateY(32deg) rotateX(-16deg) rotateZ(-12deg); }
+  100% { transform: translate3d(-145px, -45px, 130px) rotateY(38deg) rotateX(-12deg) rotateZ(-8deg); }
+}
+
+@keyframes zeroGFloatB {
+  0% { transform: translate3d(-35px, 65px, 160px) rotateY(-26deg) rotateX(22deg) rotateZ(14deg); }
+  100% { transform: translate3d(-20px, 80px, 185px) rotateY(-32deg) rotateX(28deg) rotateZ(18deg); }
+}
+
+@keyframes zeroGFloatA {
+  0% { transform: translate3d(45px, -70px, 130px) rotateY(30deg) rotateX(15deg) rotateZ(-10deg); }
+  100% { transform: translate3d(60px, -85px, 150px) rotateY(24deg) rotateX(18deg) rotateZ(-14deg); }
+}
+
+@keyframes zeroGFloatH {
+  0% { transform: translate3d(145px, 45px, 85px) rotateY(-32deg) rotateX(-18deg) rotateZ(12deg); }
+  100% { transform: translate3d(165px, 35px, 105px) rotateY(-28deg) rotateX(-22deg) rotateZ(16deg); }
+}
+
+/* Scene 4: Magnetic Reassembly into Defined Exact Final Coordinates */
+.cinematic-intro.scene-4 .intro-fragment {
+  transform: translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) !important;
+  animation: none !important;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+/* Scene 4, 5, 6: Master Wordmark Container */
+.intro-wordmark-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 7;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: scale(0.96);
-  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.85));
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cinematic-intro.scene-4 .intro-wordmark-wrap,
+.cinematic-intro.scene-4 .intro-wordmark-wrap {
+  opacity: 0.85;
+}
+
 .cinematic-intro.scene-5 .intro-wordmark-wrap,
 .cinematic-intro.scene-6 .intro-wordmark-wrap {
   opacity: 1;
-  transform: scale(1);
+}
+
+/* Inflating Typography Effect Box */
+.intro-inflating-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+/* Inflating Typography volumetric expansion in Scene 5 */
+.cinematic-intro.scene-5 .intro-inflating-box {
+  animation: inflateTypography 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes inflateTypography {
+  0% {
+    transform: scale(0.96) translateZ(0);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) brightness(0.92);
+  }
+  42% {
+    transform: scale(1.055) translateZ(28px);
+    filter: drop-shadow(0 8px 32px rgba(198, 164, 91, 0.65))
+            drop-shadow(0 0 24px rgba(255, 255, 255, 0.9))
+            brightness(1.24);
+  }
+  75% {
+    transform: scale(0.995) translateZ(8px);
+    filter: drop-shadow(0 6px 20px rgba(198, 164, 91, 0.45)) brightness(1.06);
+  }
+  100% {
+    transform: scale(1.0) translateZ(0);
+    filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.85)) brightness(1.0);
+  }
 }
 
 .intro-wordmark-img {
@@ -313,8 +489,8 @@ body.intro-active {
   opacity: 0;
 }
 
-.cinematic-intro.scene-4 .intro-light-sweep {
-  animation: introSweepAnim 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.cinematic-intro.scene-5 .intro-light-sweep {
+  animation: introSweepAnim 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes introSweepAnim {
@@ -332,6 +508,20 @@ body.intro-active {
     left: calc(100% + 160px);
     opacity: 0;
   }
+}
+
+.intro-volumetric-highlight {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, transparent 40%, rgba(198, 164, 91, 0.2) 100%);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transition: opacity 0.8s ease;
+}
+
+.cinematic-intro.scene-5 .intro-volumetric-highlight {
+  opacity: 0.7;
 }
 
 /* Scene 5: Subtitle & Tagline Reveal (5.5–6.8s) */
@@ -527,6 +717,8 @@ p {
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 12px 26px;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
   white-space: nowrap;
@@ -535,6 +727,7 @@ p {
   outline: none;
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
 .btn:focus-visible {
@@ -543,11 +736,13 @@ p {
 
 .btn-sm {
   padding: 8px 18px;
+  min-height: 44px;
   font-size: 0.82rem;
 }
 
 .btn-lg {
   padding: 14px 30px;
+  min-height: 48px;
   font-size: 0.98rem;
 }
 
@@ -603,12 +798,6 @@ p {
 
 .btn-arrow {
   display: inline-block;
-  transition: transform var(--transition-fast);
-}
-
-.btn:hover .btn-arrow {
-  transform: translateX(3px);
-}
   transition: transform var(--transition-fast);
 }
 
@@ -758,14 +947,18 @@ body.light-theme .brand-link:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   transition: all var(--transition-fast);
   outline: none;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .theme-toggle-btn:hover {
@@ -804,14 +997,18 @@ body.light-theme .theme-icon-moon {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 8px;
   outline: none;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .menu-toggle:hover {
@@ -973,8 +1170,10 @@ body.light-theme .mobile-nav-brand {
 }
 
 .mobile-nav-close-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -983,6 +1182,8 @@ body.light-theme .mobile-nav-brand {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-size: 1.1rem;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .mobile-menu-list {
@@ -1853,7 +2054,8 @@ body.light-theme .hero-logo-showcase {
   border-radius: var(--radius-sm);
   padding: 12px 16px;
   color: var(--text-primary);
-  font-size: 0.95rem;
+  font-size: 1rem;
+  min-height: 46px;
   transition: border-color var(--transition-fast);
   width: 100%;
 }
@@ -1987,11 +2189,13 @@ body.light-theme .hero-logo-showcase {
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-family: var(--font-heading);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 8px 14px;
+  min-height: 44px;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  touch-action: manipulation;
   transition: all var(--transition-fast);
 }
 
@@ -2043,10 +2247,12 @@ body.light-theme .hero-logo-showcase {
 
 .modal-close-btn {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 32px;
-  height: 32px;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2054,9 +2260,10 @@ body.light-theme .hero-logo-showcase {
   background: var(--bg-main);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: border-color var(--transition-fast), color var(--transition-fast);
+  touch-action: manipulation;
 }
 
 .modal-close-btn:hover {
@@ -2160,8 +2367,10 @@ body.light-theme .hero-logo-showcase {
 }
 
 .btn-main-fab {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: var(--radius-full);
   background: var(--gold-accent);
   color: #090B0F;
@@ -2170,6 +2379,8 @@ body.light-theme .hero-logo-showcase {
   justify-content: center;
   box-shadow: var(--shadow-md);
   border: none;
+  cursor: pointer;
+  touch-action: manipulation;
   transition: transform var(--transition-fast);
 }
 
@@ -2178,8 +2389,10 @@ body.light-theme .hero-logo-showcase {
 }
 
 .btn-top {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: var(--radius-full);
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
@@ -2187,6 +2400,8 @@ body.light-theme .hero-logo-showcase {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
@@ -2255,16 +2470,52 @@ body.light-theme .hero-logo-showcase {
   transition-delay: 0.2s;
 }
 
-/* --- 19. RESPONSIVE MEDIA QUERIES (320px, 360px, 390px, 430px, 768px, 1024px, 1280px, 1440px) --- */
+/* --- 19. RESPONSIVE MEDIA QUERIES (320px, 360px, 375px, 390px, 430px, 768px, 1024px, 1280px, 1440px) --- */
+
+/* 1. Large Displays (1440px and above) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* 2. Laptops & Medium Screens (1280px) */
+@media (max-width: 1280px) {
+  .container {
+    max-width: 1140px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-grid {
+    gap: 44px;
+  }
+
+  .about-grid {
+    gap: 44px;
+  }
+
+  .contact-grid {
+    gap: 44px;
+  }
+}
+
+/* 3. Small Laptops & Landscape Tablets (1024px) */
 @media (max-width: 1024px) {
+  .container {
+    max-width: 960px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .services-grid {
@@ -2273,15 +2524,17 @@ body.light-theme .hero-logo-showcase {
 
   .approach-timeline {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .founders-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
 
   .contact-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .footer-top {
@@ -2290,6 +2543,7 @@ body.light-theme .hero-logo-showcase {
   }
 }
 
+/* 4. Tablets & iPad Portrait (768px) */
 @media (max-width: 768px) {
   :root {
     --header-height: 60px;
@@ -2299,6 +2553,7 @@ body.light-theme .hero-logo-showcase {
   .container {
     padding-left: 18px;
     padding-right: 18px;
+    max-width: 100%;
   }
 
   .desktop-nav,
@@ -2323,55 +2578,99 @@ body.light-theme .hero-logo-showcase {
   .hero-grid {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 24px;
   }
 
   /* Specific Mobile Order Defined by Prompt */
   .hero-content {
-    display: contents; /* Allows child re-ordering */
+    display: contents;
   }
 
   .hero-eyebrow {
     order: 1;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .hero-visual {
     order: 2;
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   .hero-title {
     order: 3;
     margin-bottom: 14px;
-    font-size: clamp(2rem, 8vw, 2.6rem);
+    font-size: clamp(1.85rem, 6.2vw, 2.5rem);
+    line-height: 1.15;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .hero-description {
     order: 4;
     font-size: 0.98rem;
-    margin-bottom: 24px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    max-width: 100%;
   }
 
   .hero-actions {
     order: 5;
     width: 100%;
     flex-direction: column;
+    gap: 12px;
     align-items: stretch;
   }
 
   .hero-actions .btn {
     width: 100%;
+    min-height: 48px;
+  }
+
+  /* Enhanced Mobile Overlay Contrast for Moving Video */
+  .hero-video-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(9, 11, 15, 0.78) 0%,
+      rgba(9, 11, 15, 0.88) 55%,
+      var(--bg-main) 100%
+    );
+  }
+
+  [data-theme="light"] .hero-video-overlay,
+  body.light-theme .hero-video-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(245, 246, 248, 0.82) 0%,
+      rgba(245, 246, 248, 0.92) 55%,
+      var(--bg-main) 100%
+    );
   }
 
   .hero-logo-showcase {
-    padding: 32px 20px;
+    padding: 28px 20px 24px;
+    min-height: 210px;
+  }
+
+  .brand-info-section {
+    padding: 24px 0;
   }
 
   .brand-info-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
+  }
+
+  .about-section,
+  .services-section,
+  .projects-section,
+  .approach-section,
+  .contact-section {
+    padding: 72px 0;
+  }
+
+  .about-team-img {
+    height: clamp(240px, 48vw, 340px);
   }
 
   .services-grid {
@@ -2380,18 +2679,26 @@ body.light-theme .hero-logo-showcase {
 
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .approach-timeline {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .founders-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-form-wrap {
+    padding: 28px 20px;
   }
 
   .footer-top {
@@ -2402,21 +2709,319 @@ body.light-theme .hero-logo-showcase {
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Cinematic Intro Mobile Proportions & 3D Boundaries */
+  .intro-stage-wrapper {
+    padding: 16px;
+    max-width: 92vw;
+  }
+
+  .intro-fragments-container {
+    max-width: 340px;
+  }
+
+  .intro-wordmark-wrap {
+    max-width: 340px;
   }
 }
 
-@media (max-width: 390px) {
-  .brand-wordmark-img {
-    height: 28px;
-    max-width: 115px;
+/* 5. Phablets & Large Phones (640px) */
+@media (max-width: 640px) {
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .about-lead {
+    font-size: 1.15rem;
+  }
+
+  .about-body {
+    font-size: 0.95rem;
+  }
+
+  .modal-dialog {
+    padding: 24px 18px;
+  }
+}
+
+/* 6. Large Mobile Phones: 480px down to 430px (e.g. iPhone 14/15/16 Pro Max, Pixel XL) */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 6.8vw, 2.2rem);
+  }
+
+  .btn {
+    white-space: normal;
+    text-align: center;
   }
 
   .hero-logo-showcase {
-    padding: 24px 16px;
+    padding: 24px 16px 20px;
+    min-height: 200px;
   }
 
   .contact-form-wrap {
+    padding: 24px 16px;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-dialog {
+    padding: 20px 14px;
+    max-height: 90vh;
+    max-height: 90dvh;
+  }
+
+  .modal-close-btn {
+    top: 10px;
+    right: 10px;
+  }
+
+  .floating-contact-widget {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  /* Scale 3D Cinematic Fragments to Prevent Mobile Viewport Clipping */
+  .intro-stage {
+    transform: scale(0.74);
+    transform-origin: center center;
+  }
+
+  .intro-skip-btn {
+    top: 16px;
+    right: 16px;
+    padding: 8px 14px;
+  }
+}
+
+/* 7. Modern Mobile Phones: 390px to 375px (e.g. iPhone 13/14/15, iPhone X/11/12) */
+@media (max-width: 390px) {
+  .brand-wordmark-img {
+    height: 28px;
+    max-width: 118px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.65rem, 7vw, 1.95rem);
+  }
+
+  .hero-logo-showcase {
+    padding: 20px 14px 18px;
+    min-height: 185px;
+  }
+
+  .service-card {
     padding: 24px 18px;
+  }
+
+  .project-body {
+    padding: 18px 16px;
+  }
+
+  .approach-card {
+    padding: 22px 18px;
+  }
+
+  .founder-card {
+    padding: 18px 16px;
+  }
+
+  .contact-form-wrap {
+    padding: 20px 14px;
+  }
+
+  .intro-stage {
+    transform: scale(0.66);
+    transform-origin: center center;
+  }
+}
+
+/* 8. Android Standard Mobile: 360px */
+@media (max-width: 360px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .brand-wordmark-img {
+    height: 26px;
+    max-width: 110px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .menu-toggle,
+  .theme-toggle-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-description {
+    font-size: 0.92rem;
+  }
+
+  .hero-logo-showcase {
+    padding: 18px 12px 16px;
+    min-height: 175px;
+  }
+
+  .hero-tagline-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.10em;
+  }
+
+  .intro-stage {
+    transform: scale(0.60);
+    transform-origin: center center;
+  }
+
+  .contact-form-wrap {
+    padding: 18px 12px;
+  }
+
+  .footer-desc {
+    font-size: 0.86rem;
+  }
+}
+
+/* 9. Small Mobile: 320px (e.g. iPhone SE 1st Gen, Compact Android) */
+@media (max-width: 320px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand-wordmark-img {
+    height: 24px;
+    max-width: 102px;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .menu-toggle,
+  .theme-toggle-btn {
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+  }
+
+  .nav-disclaimer-ticker {
+    font-size: 0.70rem;
+  }
+
+  .ticker-container {
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .ticker-label {
+    font-size: 0.65rem;
+  }
+
+  .nav-ticker-msg {
+    font-size: 0.68rem;
+  }
+
+  .intro-stage {
+    transform: scale(0.52);
+    transform-origin: center center;
+  }
+
+  .intro-skip-btn {
+    top: 10px;
+    right: 10px;
+    font-size: 0.74rem;
+    padding: 8px 12px;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    line-height: 1.18;
+  }
+
+  .hero-description {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+  }
+
+  .hero-logo-showcase {
+    padding: 16px 10px 14px;
+    min-height: 165px;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-tagline-text {
+    font-size: 0.56rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.70rem;
+  }
+
+  .brand-info-item {
+    gap: 10px;
+  }
+
+  .brand-info-title {
+    font-size: 0.84rem;
+  }
+
+  .brand-info-desc {
+    font-size: 0.78rem;
+  }
+
+  .contact-detail-val {
+    font-size: 0.90rem;
+    word-break: break-all;
+  }
+
+  .modal-dialog {
+    padding: 16px 10px;
+  }
+
+  .floating-contact-widget {
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .btn-main-fab {
+    width: 46px;
+    height: 46px;
+  }
+
+  .btn-top {
+    width: 42px;
+    height: 42px;
+  }
+
+  .footer-legal-links {
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
